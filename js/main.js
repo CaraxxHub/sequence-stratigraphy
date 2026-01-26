@@ -16,7 +16,9 @@
             q2: 400,
             q3: 300
         },
-        crossSectionImagePath: 'images/wheeler_exam_crosssection.png'
+        crossSectionImagePath: 'images/wheeler_exam_crosssection.png',
+        // Google Sheets logging endpoint
+        loggingEndpoint: 'https://script.google.com/macros/s/AKfycbyK--ev-159clzxLoAWwWLnREHWBKkzjL2pXM1HZqDknu6ctd-VpTVDVicYn96aPiKy/exec'
     };
 
     // ==================== APPLICATION STATE ====================
@@ -107,6 +109,37 @@
 
         // Shortcuts help
         DOM.shortcutsHelp = document.getElementById('shortcutsHelp');
+    }
+
+    // ==================== LOGGING ====================
+
+    /**
+     * Log an event to Google Sheets
+     * @param {string} action - The action being logged (exam_start, exam_submit, etc.)
+     * @param {Object} extraData - Additional data to log
+     */
+    function logToSheet(action, extraData = {}) {
+        if (!CONFIG.loggingEndpoint) return;
+
+        const logData = {
+            studentId: AppState.studentId || 'Unknown',
+            studentName: AppState.studentName || 'Unknown',
+            action: action,
+            browser: navigator.userAgent,
+            ...extraData
+        };
+
+        // Send log asynchronously - don't block the exam
+        fetch(CONFIG.loggingEndpoint, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Google Apps Script
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(logData)
+        }).catch(err => {
+            console.warn('Logging failed (non-critical):', err);
+        });
     }
 
     // ==================== INITIALIZATION ====================
@@ -353,6 +386,8 @@
         // Initialize canvases and start exam
         initializeCanvases().then(() => {
             startExam();
+            // Log exam start to Google Sheets
+            logToSheet('exam_start');
             showToast('Exam started. Good luck!', 'success');
         });
     }
@@ -566,6 +601,11 @@
 
             // Mark as submitted
             AppState.examSubmitted = true;
+
+            // Log submission to Google Sheets
+            logToSheet('exam_submit', {
+                timeSpent: AppState.timer ? AppState.timer.getTimeSpent() : 0
+            });
 
             // Final save
             const state = getExamState();
