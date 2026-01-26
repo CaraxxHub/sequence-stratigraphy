@@ -126,19 +126,27 @@
             studentName: AppState.studentName || 'Unknown',
             action: action,
             browser: navigator.userAgent,
+            timestamp: new Date().toISOString(),
             ...extraData
         };
 
-        // Send log asynchronously - don't block the exam
+        // Use a form-based approach for better CORS compatibility with Google Apps Script
+        const formData = new FormData();
+        formData.append('data', JSON.stringify(logData));
+
+        // Try fetch first
         fetch(CONFIG.loggingEndpoint, {
             method: 'POST',
-            mode: 'no-cors', // Required for Google Apps Script
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            mode: 'no-cors',
             body: JSON.stringify(logData)
+        }).then(() => {
+            console.log('Log sent successfully:', action);
         }).catch(err => {
-            console.warn('Logging failed (non-critical):', err);
+            console.warn('Fetch logging failed, trying image beacon:', err);
+            // Fallback: Use image beacon (most reliable for cross-origin)
+            const img = new Image();
+            const params = new URLSearchParams(logData).toString();
+            img.src = CONFIG.loggingEndpoint + '?' + params;
         });
     }
 
