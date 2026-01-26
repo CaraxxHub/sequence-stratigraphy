@@ -114,32 +114,28 @@
     // ==================== LOGGING ====================
 
     /**
-     * Log an event to Google Sheets
+     * Log an event to Google Sheets using image beacon (most reliable cross-origin method)
      * @param {string} action - The action being logged (exam_start, exam_submit, etc.)
      * @param {Object} extraData - Additional data to log
      */
     function logToSheet(action, extraData = {}) {
         if (!CONFIG.loggingEndpoint) return;
 
-        const logData = {
-            studentId: AppState.studentId || 'Unknown',
-            studentName: AppState.studentName || 'Unknown',
-            action: action,
-            browser: navigator.userAgent,
-            ...extraData
-        };
+        try {
+            const params = new URLSearchParams({
+                studentId: AppState.studentId || 'Unknown',
+                studentName: AppState.studentName || 'Unknown',
+                action: action,
+                timestamp: new Date().toISOString()
+            });
 
-        // Send log asynchronously - don't block the exam
-        fetch(CONFIG.loggingEndpoint, {
-            method: 'POST',
-            mode: 'no-cors', // Required for Google Apps Script
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(logData)
-        }).catch(err => {
-            console.warn('Logging failed (non-critical):', err);
-        });
+            // Image beacon - most reliable for cross-origin requests
+            const img = new Image();
+            img.src = CONFIG.loggingEndpoint + '?' + params.toString();
+            console.log('Log beacon sent:', action);
+        } catch (err) {
+            console.warn('Logging failed:', err);
+        }
     }
 
     // ==================== INITIALIZATION ====================
