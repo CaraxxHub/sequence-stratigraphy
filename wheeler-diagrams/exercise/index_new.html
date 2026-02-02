@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Stratigraphy Exam - FAU WS 2025/26</title>
+    <link rel="stylesheet" href="css/exam.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <h2>Sequence Stratigraphy Examination</h2>
+            <p class="course-info">Seismo- und Sequenzstratigraphie | FAU Erlangen-Nürnberg | WS 2025/26</p>
+
+            <div class="exam-info">
+                <p><strong>Date:</strong> 26 January 2026</p>
+                <p><strong>Duration:</strong> 2 hours (timed)</p>
+                <p><strong>Total Points:</strong> 100</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="studentId">Student ID (Matrikelnummer)</label>
+                    <input type="text" id="studentId" name="studentId" required
+                           placeholder="e.g., 12345678" pattern="[0-9]{7,8}">
+                </div>
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" name="studentName" required
+                           placeholder="e.g., Max Mustermann">
+                </div>
+                <button type="submit" class="btn-start" id="startBtn">Start Exam</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="exam-header">
+        <h1>Sequence Stratigraphy Examination</h1>
+        <div class="header-info">
+            <span class="course-code">AS-F1 / GT-F1</span>
+            <span class="student-info" id="headerStudentInfo"></span>
+            <span class="timer safe" id="timer">02:00:00</span>
+            <span class="save-status" id="saveStatus">Not started</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="exam-content">
+        <!-- Section 1: Wheeler Diagram -->
+        <section class="exam-section" id="section1">
+            <h2>Section 1: Wheeler Diagram Construction (50 points)</h2>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p><strong>Task:</strong> Interpret the clinoform cross-section below. Identify sequence stratigraphic surfaces on the cross-section, then construct the corresponding Wheeler (chronostratigraphic) diagram below it.</p>
+
+                <details class="tool-instructions">
+                    <summary><strong>📖 How to Use the Drawing Tools (click to expand)</strong></summary>
+                    <div class="tool-guide">
+                        <h4>Drawing Tools</h4>
+                        <ul>
+                            <li><strong>Line Tool (L):</strong> Click to place points along a surface. Double-click to finish the line. Use this for tracing Sequence Boundaries (SB), Maximum Flooding Surfaces (MFS), and Transgressive Surfaces (TS).</li>
+                            <li><strong>Polygon Tool (P):</strong> Click to define vertices of a filled area. Click near the starting point (green dot) to close and fill the polygon. Use this to fill systems tracts (HST, TST, LST) in the Wheeler diagram.</li>
+                            <li><strong>Marker Tool (M):</strong> Single click to place a triangular marker (▼). Use this to mark clinoform rollover positions.</li>
+                            <li><strong>Text Tool (T):</strong> Click to position, then type your label and press Enter. Use this to label systems tracts and surfaces.</li>
+                            <li><strong>Stratal Termination Tool (S):</strong> Requires TWO clicks to define each termination. First click marks the landward termination point, second click marks the basinward point. Both points are labeled with the same number (e.g., "1" and "1" form pair "1-1"). The horizontal distance between the two clicks is automatically projected to the Wheeler diagram as a thick line spanning the same X range. Select the color first to indicate surface type.</li>
+                            <li><strong>Surfaces Dropdown:</strong> Select a surface type (SB, MFS, TS, RSME, CC) and the color is automatically assigned. Draw lines by clicking points, double-click to finish. The line will be labeled with the surface type.</li>
+                            <li><strong>System Tracts Dropdown:</strong> Select a system tract (HST, TST, LST, FSST, RST) and the fill color is automatically assigned. Draw polygons by clicking vertices, click near the start point to close. The polygon will be labeled with the tract type.</li>
+                            <li><strong>Eraser Tool (E):</strong> Click on any drawn element to delete it. Hover shows which element will be deleted (red dashed outline).</li>
+                        </ul>
+
+                        <h4>Workflow for Wheeler Diagram Construction</h4>
+                        <ol>
+                            <li><strong>Step 1 - Identify surfaces on cross-section:</strong> Use the Line tool with appropriate colors (Red=SB, Blue=MFS, Cyan=TS) to trace key stratigraphic surfaces on the upper panel.</li>
+                            <li><strong>Step 2 - Mark rollovers:</strong> Use the Marker tool to place orange triangles at clinoform rollover positions.</li>
+                            <li><strong>Step 3 - Project to Wheeler diagram:</strong> On the lower panel, use the Line tool to project your identified surfaces as horizontal or near-horizontal lines at their corresponding relative time positions.</li>
+                            <li><strong>Step 4 - Fill systems tracts:</strong> Use the Polygon tool with appropriate colors (Cream=HST, Green=TST, Orange=LST) to fill depositional intervals between surfaces.</li>
+                            <li><strong>Step 5 - Label:</strong> Use the Text tool to add systems tract labels (HST, TST, LST) and identify hiatuses/lacunae (white areas = non-deposition).</li>
+                        </ol>
+
+                        <h4>Keyboard Shortcuts</h4>
+                        <p><kbd>L</kbd> Line | <kbd>P</kbd> Polygon | <kbd>M</kbd> Marker | <kbd>T</kbd> Text | <kbd>S</kbd> Termination | <kbd>E</kbd> Eraser | <kbd>Ctrl+Z</kbd> Undo | <kbd>Ctrl+Y</kbd> Redo | <kbd>Esc</kbd> Cancel</p>
+                    </div>
+                </details>
+
+                <div class="legend">
+                    <div class="legend-group">
+                        <h5>Surfaces (Lines)</h5>
+                        <ul>
+                            <li><span class="color-box sb"></span> Sequence Boundary (SB)</li>
+                            <li><span class="color-box mfs"></span> Maximum Flooding Surface (MFS)</li>
+                            <li><span class="color-box ts"></span> Transgressive Surface (TS)</li>
+                        </ul>
+                    </div>
+                    <div class="legend-group">
+                        <h5>Systems Tracts (Fill)</h5>
+                        <ul>
+                            <li><span class="color-box hst"></span> Highstand (HST)</li>
+                            <li><span class="color-box tst"></span> Transgressive (TST)</li>
+                            <li><span class="color-box lst"></span> Lowstand (LST)</li>
+                        </ul>
+                    </div>
+                    <div class="legend-group">
+                        <h5>Markers</h5>
+                        <ul>
+                            <li><span class="color-box rollover"></span> Clinoform Rollover (▼)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar" id="toolbar">
+                <div class="toolbar-group">
+                    <button class="tool-btn active" data-tool="line" title="Draw Line (L)">
+                        <span class="icon">📏</span> Line
+                    </button>
+                    <button class="tool-btn" data-tool="polygon" title="Fill Polygon (P)">
+                        <span class="icon">⬡</span> Polygon
+                    </button>
+                    <button class="tool-btn" data-tool="marker" title="Place Marker (M)">
+                        <span class="icon">▼</span> Marker
+                    </button>
+                    <button class="tool-btn" data-tool="text" title="Add Text (T)">
+                        <span class="icon">T</span> Text
+                    </button>
+                    <button class="tool-btn" data-tool="termination" title="Stratal Termination (S)">
+                        <span class="icon">📍</span> Termination
+                    </button>
+                    <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+                        <span class="icon">🧹</span> Eraser
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <!-- Surfaces Dropdown (auto-color lines) -->
+                    <div class="dropdown-tool">
+                        <label>Surface:</label>
+                        <select id="surfaceSelect" class="surface-select">
+                            <option value="">-- Select --</option>
+                            <option value="SB" style="color:#FF0000;">SB (Red)</option>
+                            <option value="MFS" style="color:#0000FF;">MFS (Blue)</option>
+                            <option value="TS" style="color:#00AA00;">TS (Green)</option>
+                            <option value="RSME" style="color:#FF6600;">RSME (Orange)</option>
+                            <option value="CC" style="color:#990099;">CC (Purple)</option>
+                        </select>
+                    </div>
+
+                    <!-- System Tracts Dropdown (auto-color polygons) -->
+                    <div class="dropdown-tool">
+                        <label>Tract:</label>
+                        <select id="tractSelect" class="tract-select">
+                            <option value="">-- Select --</option>
+                            <option value="HST" style="color:#CCCC00;">HST (Yellow)</option>
+                            <option value="TST" style="color:#00AAAA;">TST (Cyan)</option>
+                            <option value="LST" style="color:#CC8800;">LST (Orange)</option>
+                            <option value="FSST" style="color:#FF69B4;">FSST (Pink)</option>
+                            <option value="RST" style="color:#228B22;">RST (Lt Green)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="toolbar-group">
+                    <div class="color-selector">
+                        <label for="colorSelect">Color:</label>
+                        <select id="colorSelect">
+                            <optgroup label="Surfaces">
+                                <option value="#FF0000">SB (Red)</option>
+                                <option value="#0000FF">MFS (Blue)</option>
+                                <option value="#00FFFF">TS (Cyan)</option>
+                            </optgroup>
+                            <optgroup label="Systems Tracts">
+                                <option value="#FFFACD">HST (Cream)</option>
+                                <option value="#98FB98">TST (Green)</option>
+                                <option value="#FFB347">LST (Orange)</option>
+                            </optgroup>
+                            <optgroup label="Other">
+                                <option value="#FFA500">Rollover (Orange)</option>
+                                <option value="#000000">Black</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="line-width-selector">
+                        <label for="lineWidth">Width:</label>
+                        <input type="range" id="lineWidth" min="1" max="8" value="3">
+                        <span id="lineWidthValue">3px</span>
+                    </div>
+                </div>
+
+                <div class="toolbar-group undo-redo-group">
+                    <button class="tool-btn undo-btn" id="undoBtn" title="Undo last action (Ctrl+Z)">
+                        <span class="icon">↩️</span> Undo
+                    </button>
+                    <button class="tool-btn redo-btn" id="redoBtn" title="Redo (Ctrl+Y)">
+                        <span class="icon">↪️</span> Redo
+                    </button>
+                </div>
+
+                <div class="toolbar-group reset-group">
+                    <button class="tool-btn danger" id="clearCrossSectionBtn" title="Clear Cross-Section drawings">
+                        <span class="icon">🗑️</span> Clear Section
+                    </button>
+                    <button class="tool-btn danger" id="clearWheelerBtn" title="Clear Wheeler diagram drawings">
+                        <span class="icon">🗑️</span> Clear Wheeler
+                    </button>
+                    <button class="tool-btn danger" id="resetAllBtn" title="Reset all drawings on both panels">
+                        <span class="icon">⚠️</span> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cross-Section Canvas -->
+            <div class="canvas-container" id="crossSectionContainer">
+                <h3>Cross-Section (Stratal Terminations) <span class="hint">Click to select, draw on this panel</span></h3>
+                <div class="canvas-wrapper" id="crossSectionWrapper">
+                    <canvas id="crossSectionBg" class="background-canvas"></canvas>
+                    <canvas id="crossSectionCanvas" class="drawing-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Wheeler Diagram Canvas -->
+            <div class="canvas-container" id="wheelerContainer">
+                <h3>Wheeler Diagram (Chronostratigraphic Chart) <span class="hint">Construct time-distance relationships here</span></h3>
+                <div class="canvas-wrapper" id="wheelerWrapper">
+                    <canvas id="wheelerBgCanvas" class="background-canvas"></canvas>
+                    <canvas id="wheelerCanvas" class="drawing-canvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Questions -->
+        <section class="exam-section" id="section2">
+            <h2>Section 2: Interpretation Questions (50 points)</h2>
+
+            <div class="question" id="question1">
+                <h3>Question 1: Geological Evolution (15 points)</h3>
+                <p>Describe the geological evolution of this basin based on your Wheeler diagram interpretation. Include the sequence of depositional events, major transgressive-regressive cycles, and timing relationships between different parts of the basin.</p>
+                <textarea id="q1" maxlength="2000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q1Count">0 / 300 words</span>
+            </div>
+
+            <div class="question" id="question2">
+                <h3>Question 2: Accommodation and Sediment Supply (20 points)</h3>
+                <p>Analyze the changes in accommodation/sediment supply (A/S) ratio throughout the stratigraphic record. Where do you observe A/S > 1 and A/S < 1? What is the evidence? How do these changes relate to the shoreline trajectories you identified?</p>
+                <textarea id="q2" maxlength="3000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q2Count">0 / 400 words</span>
+            </div>
+
+            <div class="question" id="question3">
+                <h3>Question 3: Sequence Stratigraphic Surfaces and Facies Distribution (15 points)</h3>
+                <p>Explain the genetic significance of the key surfaces you identified. What conditions create a Sequence Boundary vs. a Maximum Flooding Surface? Why is this distinction critical for chronostratigraphic correlation? How does the sand/mud ratio vary across the different systems tracts (LST, TST, HST), and what controls this distribution?</p>
+                <textarea id="q3" maxlength="2000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q3Count">0 / 300 words</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="exam-footer">
+        <button class="btn-secondary" id="exportBtn">Export for Review</button>
+        <button class="btn-primary" id="submitBtn">Submit Exam</button>
+    </footer>
+
+    <!-- Submit Confirmation Modal -->
+    <div class="modal" id="submitModal">
+        <div class="modal-content">
+            <h3>Submit Exam?</h3>
+            <p>Are you sure you want to submit your exam? This action cannot be undone. Make sure you have completed all sections and reviewed your answers.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelSubmit">Cancel</button>
+                <button class="btn-primary" id="confirmSubmit">Submit Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Confirmation Modal -->
+    <div class="modal" id="clearModal">
+        <div class="modal-content">
+            <h3>Clear Canvas?</h3>
+            <p>Are you sure you want to clear all drawings from this panel? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelClear">Cancel</button>
+                <button class="btn-primary" id="confirmClear">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Warning Modal -->
+    <div class="modal warning-modal" id="warningModal">
+        <div class="modal-content">
+            <h3>⚠️ Time Warning</h3>
+            <p id="warningMessage">You have 30 minutes remaining. Please review your answers.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" id="dismissWarning">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Expired Modal -->
+    <div class="modal warning-modal" id="expiredModal">
+        <div class="modal-content">
+            <h3>⏰ Time Expired</h3>
+            <p>Your exam time has expired. Your work has been automatically saved and submitted.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" id="acknowledgeExpired">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Keyboard Shortcuts Help -->
+    <div class="shortcuts-help" id="shortcutsHelp">
+        <h4>Keyboard Shortcuts</h4>
+        <ul>
+            <li><kbd>L</kbd> Line tool</li>
+            <li><kbd>P</kbd> Polygon tool</li>
+            <li><kbd>M</kbd> Marker tool</li>
+            <li><kbd>T</kbd> Text tool</li>
+            <li><kbd>E</kbd> Eraser tool</li>
+            <li><kbd>Ctrl+Z</kbd> Undo</li>
+            <li><kbd>Ctrl+Y</kbd> Redo</li>
+            <li><kbd>Esc</kbd> Cancel current operation</li>
+            <li><kbd>?</kbd> Toggle this help</li>
+        </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/timer.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
