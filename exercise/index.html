@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Wheeler Exercise 7 - Sequence Stratigraphy</title>
+    <link rel="stylesheet" href="css/exam.css">
+    <style>
+        /* Touch device compatibility */
+        .canvas-wrapper {
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        canvas {
+            touch-action: none;
+        }
+        /* Larger touch targets for buttons on mobile */
+        @media (pointer: coarse) {
+            .tool-btn {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 12px;
+            }
+            select {
+                min-height: 44px;
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+            input, textarea {
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+        }
+        /* Tablet landscape */
+        @media (max-width: 1200px) {
+            .toolbar {
+                flex-wrap: wrap;
+            }
+            .toolbar-group {
+                margin-bottom: 5px;
+            }
+        }
+        /* Tablet portrait and smaller */
+        @media (max-width: 900px) {
+            .exam-content {
+                padding: 10px;
+            }
+            .canvas-container {
+                flex-direction: column;
+            }
+            .canvas-wrapper {
+                width: 100% !important;
+                max-width: 100%;
+            }
+            .question textarea {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <h2>Wheeler Exercise 7</h2>
+            <p class="course-info">Seismo- und Sequenzstratigraphie | FAU Erlangen-Nürnberg</p>
+
+            <div class="exam-info">
+                <p><strong>Duration:</strong> 2 hours 10 minutes</p>
+                <p><strong>Task:</strong> Interpret the sequence stratigraphic architecture and construct the Wheeler diagram.</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="studentId">Student ID (Matrikelnummer)</label>
+                    <input type="text" id="studentId" name="studentId" required
+                           placeholder="e.g., 12345678" pattern="[0-9]{7,8}">
+                </div>
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" name="studentName" required
+                           placeholder="e.g., Max Mustermann">
+                </div>
+                <button type="submit" class="btn-start" id="startBtn">Start Exam</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="exam-header">
+        <h1>Wheeler Exercise 7</h1>
+        <div class="header-info">
+            <span class="course-code">AS-F1 / GT-F1</span>
+            <span class="student-info" id="headerStudentInfo"></span>
+            <span class="timer safe" id="timer">02:10:00</span>
+            <span class="save-status" id="saveStatus">Not started</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="exam-content">
+        <!-- Section 1: Wheeler Diagram -->
+        <section class="exam-section" id="section1">
+            <h2>Section 1: Wheeler Diagram Construction (50 points)</h2>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p><strong>Task:</strong> Interpret the clinoform cross-section below. Identify sequence stratigraphic surfaces on the cross-section, then construct the corresponding Wheeler (chronostratigraphic) diagram below it.</p>
+
+                <details class="tool-instructions">
+                    <summary><strong>📖 How to Use the Drawing Tools (click to expand)</strong></summary>
+                    <div class="tool-guide">
+                        <h4>Basic Drawing Tools</h4>
+                        <ul>
+                            <li><strong>Line Tool (L):</strong> Click to place points along a surface. Double-click (or double-tap on tablet) to finish. Use for tracing surfaces and drawing connections.</li>
+                            <li><strong>Polygon Tool (P):</strong> Click to define vertices. Click near the starting point (green dot) to close and fill. Use for filling systems tracts in the Wheeler diagram.</li>
+                            <li><strong>Marker Tool (M):</strong> Single click to place a triangular marker (▼). Use to mark <strong>clinoform rollover positions</strong> for shoreline trajectory analysis.</li>
+                            <li><strong>Strata # Tool (N):</strong> Click to place numbered markers (1, 2, 3...) identifying the <strong>succession of depositional events</strong>.</li>
+                            <li><strong>Drilling Site Tool (D):</strong> TWO clicks required. First click = place drilling rig at surface. Second click = target reservoir interval. A connecting line is drawn automatically and projected vertically to the Wheeler diagram.</li>
+                            <li><strong>Text Tool (T):</strong> Click to position, type your label, press Enter. Use for labeling systems tracts, surfaces, and annotations.</li>
+                            <li><strong>Eraser Tool (E):</strong> Click on any element to delete it. Hover shows red outline on element to be deleted.</li>
+                        </ul>
+
+                        <h4>Stratal Analysis Tools</h4>
+                        <ul>
+                            <li><strong>Stratal Termination Tool (S):</strong> TWO clicks required per termination. First click = landward point, second click = basinward point. Both are labeled with the same number. The termination is automatically projected to the Wheeler diagram.</li>
+                            <li><strong>Surfaces Dropdown:</strong> Select surface type and draw with auto-assigned colors:
+                                <br>• <strong>SB</strong> (Black) - Sequence Boundary
+                                <br>• <strong>TS</strong> (Blue) - Transgressive Surface
+                                <br>• <strong>MFS</strong> (Red) - Maximum Flooding Surface
+                                <br>• <strong>BSFR</strong> (Purple) - Basal Surface of Forced Regression
+                                <br>• <strong>CC</strong> (Orange) - Correlative Conformity
+                                <br>• <strong>MRS</strong> (Cyan) - Maximum Regressive Surface
+                            </li>
+                            <li><strong>System Tracts Dropdown:</strong> Select tract type and fill manually with auto-assigned colors (HST, TST, LST, FSST, RST).</li>
+                            <li><strong>Auto Tract Tool (🔷):</strong> Automatically generate system tract polygons on the Wheeler diagram by specifying the <strong>starting and ending termination numbers</strong>. The tool connects the endpoints of the termination lines in that interval to create a filled polygon.</li>
+                        </ul>
+
+                        <h4>Recommended Workflow</h4>
+                        <ol>
+                            <li><strong>Mark strata succession:</strong> Use Strata # tool to number depositional events (1, 2, 3...).</li>
+                            <li><strong>Identify surfaces:</strong> Use Surfaces dropdown to trace SB, TS, MFS, and secondary surfaces (BSFR, CC, MRS).</li>
+                            <li><strong>Mark rollovers:</strong> Use Marker tool (▼) at clinoform rollover positions for shoreline trajectory analysis.</li>
+                            <li><strong>Stratal terminations:</strong> Use Termination tool to mark and project termination pairs to Wheeler diagram.</li>
+                            <li><strong>Construct Wheeler:</strong> Use <strong>Auto Tract</strong> to fill system tracts by specifying termination range, or use Polygon tool manually. Mark areas of non-deposition, bypass, or erosion.</li>
+                            <li><strong>BONUS - Drilling:</strong> Use Drilling tool (D) - first click to place rig, second click on target reservoir. Line is drawn and projected to Wheeler diagram.</li>
+                        </ol>
+
+                        <h4>Keyboard Shortcuts</h4>
+                        <p><kbd>L</kbd> Line | <kbd>P</kbd> Polygon | <kbd>M</kbd> Marker | <kbd>N</kbd> Strata# | <kbd>D</kbd> Drill | <kbd>S</kbd> Termination | <kbd>T</kbd> Text | <kbd>E</kbd> Eraser | <kbd>Ctrl+Z</kbd> Undo | <kbd>Ctrl+Y</kbd> Redo</p>
+
+                        <h4>📱 Tablet/Touch Users</h4>
+                        <p>Tap to place points. <strong>Double-tap</strong> to finish drawing lines. Use toolbar buttons to select tools.</p>
+                    </div>
+                </details>
+
+                <div class="legend">
+                    <div class="legend-group">
+                        <h5>Surfaces</h5>
+                        <ul>
+                            <li><span class="color-box" style="background:#000000;"></span> SB - Sequence Boundary</li>
+                            <li><span class="color-box" style="background:#0000FF;"></span> TS - Transgressive Surface</li>
+                            <li><span class="color-box" style="background:#FF0000;"></span> MFS - Max Flooding Surface</li>
+                            <li><span class="color-box" style="background:#800080;"></span> BSFR - Basal Surf. Forced Regr.</li>
+                            <li><span class="color-box" style="background:#FF6600;"></span> CC - Correlative Conformity</li>
+                            <li><span class="color-box" style="background:#00CED1;"></span> MRS - Max Regressive Surface</li>
+                        </ul>
+                    </div>
+                    <div class="legend-group">
+                        <h5>Systems Tracts</h5>
+                        <ul>
+                            <li><span class="color-box" style="background:#FFFF00;"></span> HST - Highstand</li>
+                            <li><span class="color-box" style="background:#00FFFF;"></span> TST - Transgressive</li>
+                            <li><span class="color-box" style="background:#FFA500;"></span> LST - Lowstand</li>
+                            <li><span class="color-box" style="background:#FF69B4;"></span> FSST - Falling Stage</li>
+                        </ul>
+                    </div>
+                    <div class="legend-group">
+                        <h5>Markers</h5>
+                        <ul>
+                            <li>▼ Rollover (shoreline trajectory)</li>
+                            <li>① Strata number</li>
+                            <li>🛢️ Drilling site</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar" id="toolbar">
+                <div class="toolbar-group">
+                    <button class="tool-btn active" data-tool="line" title="Draw Line (L)">
+                        <span class="icon">📏</span> Line
+                    </button>
+                    <button class="tool-btn" data-tool="polygon" title="Fill Polygon (P)">
+                        <span class="icon">⬡</span> Polygon
+                    </button>
+                    <button class="tool-btn" data-tool="marker" title="Place Marker (M)">
+                        <span class="icon">▼</span> Marker
+                    </button>
+                    <button class="tool-btn" data-tool="text" title="Add Text (T)">
+                        <span class="icon">T</span> Text
+                    </button>
+                    <button class="tool-btn" data-tool="termination" title="Stratal Termination (S)">
+                        <span class="icon">📍</span> Termination
+                    </button>
+                    <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+                        <span class="icon">🧹</span> Eraser
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <!-- Surfaces Dropdown (auto-color lines) -->
+                    <div class="dropdown-tool">
+                        <label>Surface:</label>
+                        <select id="surfaceSelect" class="surface-select">
+                            <option value="">-- Select --</option>
+                            <option value="SB" style="color:#000000;">SB (Black)</option>
+                            <option value="TS" style="color:#0000FF;">TS (Blue)</option>
+                            <option value="MFS" style="color:#FF0000;">MFS (Red)</option>
+                            <option value="BSFR" style="color:#800080;">BSFR (Purple)</option>
+                            <option value="CC" style="color:#FF6600;">CC (Orange)</option>
+                            <option value="MRS" style="color:#00CED1;">MRS (Cyan)</option>
+                        </select>
+                    </div>
+
+                    <!-- System Tracts Dropdown (auto-color polygons) -->
+                    <div class="dropdown-tool">
+                        <label>Tract:</label>
+                        <select id="tractSelect" class="tract-select">
+                            <option value="">-- Select --</option>
+                            <option value="HST" style="color:#CCCC00;">HST (Yellow)</option>
+                            <option value="TST" style="color:#00AAAA;">TST (Cyan)</option>
+                            <option value="LST" style="color:#CC8800;">LST (Orange)</option>
+                            <option value="FSST" style="color:#FF69B4;">FSST (Pink)</option>
+                            <option value="RST" style="color:#228B22;">RST (Lt Green)</option>
+                        </select>
+                    </div>
+
+                    <!-- Strata Numbering Tool -->
+                    <button class="tool-btn" data-tool="strataNumber" title="Number Strata (N)">
+                        🔢 Strata
+                    </button>
+
+                    <!-- Drilling Site Tool -->
+                    <button class="tool-btn" data-tool="drilling" title="Drilling Site (D)">
+                        🛢️ Drill
+                    </button>
+
+                    <!-- Auto System Tract Tool -->
+                    <button class="tool-btn" id="autoTractBtn" title="Auto-generate System Tract from Terminations">
+                        🔷 Auto Tract
+                    </button>
+                </div>
+
+                <div class="toolbar-group">
+                    <div class="color-selector">
+                        <label for="colorSelect">Color:</label>
+                        <select id="colorSelect">
+                            <optgroup label="Surfaces">
+                                <option value="#FF0000">SB (Red)</option>
+                                <option value="#0000FF">MFS (Blue)</option>
+                                <option value="#00FFFF">TS (Cyan)</option>
+                            </optgroup>
+                            <optgroup label="Systems Tracts">
+                                <option value="#FFFACD">HST (Cream)</option>
+                                <option value="#98FB98">TST (Green)</option>
+                                <option value="#FFB347">LST (Orange)</option>
+                            </optgroup>
+                            <optgroup label="Other">
+                                <option value="#FFA500">Rollover (Orange)</option>
+                                <option value="#000000">Black</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="line-width-selector">
+                        <label for="lineWidth">Width:</label>
+                        <input type="range" id="lineWidth" min="1" max="8" value="3">
+                        <span id="lineWidthValue">3px</span>
+                    </div>
+                </div>
+
+                <div class="toolbar-group undo-redo-group">
+                    <button class="tool-btn undo-btn" id="undoBtn" title="Undo last action (Ctrl+Z)">
+                        <span class="icon">↩️</span> Undo
+                    </button>
+                    <button class="tool-btn redo-btn" id="redoBtn" title="Redo (Ctrl+Y)">
+                        <span class="icon">↪️</span> Redo
+                    </button>
+                </div>
+
+                <div class="toolbar-group reset-group">
+                    <button class="tool-btn danger" id="clearCrossSectionBtn" title="Clear Cross-Section drawings">
+                        <span class="icon">🗑️</span> Clear Section
+                    </button>
+                    <button class="tool-btn danger" id="clearWheelerBtn" title="Clear Wheeler diagram drawings">
+                        <span class="icon">🗑️</span> Clear Wheeler
+                    </button>
+                    <button class="tool-btn danger" id="resetAllBtn" title="Reset all drawings on both panels">
+                        <span class="icon">⚠️</span> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cross-Section Canvas -->
+            <div class="canvas-container" id="crossSectionContainer">
+                <h3>Cross-Section (Stratal Terminations) <span class="hint">Click to select, draw on this panel</span></h3>
+                <div class="canvas-wrapper" id="crossSectionWrapper">
+                    <canvas id="crossSectionBg" class="background-canvas"></canvas>
+                    <canvas id="crossSectionCanvas" class="drawing-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Wheeler Diagram Canvas -->
+            <div class="canvas-container" id="wheelerContainer">
+                <h3>Wheeler Diagram (Chronostratigraphic Chart) <span class="hint">Construct time-distance relationships here</span></h3>
+                <div class="canvas-wrapper" id="wheelerWrapper">
+                    <canvas id="wheelerBgCanvas" class="background-canvas"></canvas>
+                    <canvas id="wheelerCanvas" class="drawing-canvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Questions -->
+        <section class="exam-section" id="section2">
+            <h2>Section 2: Interpretation Questions</h2>
+
+            <div class="question" id="question1">
+                <h3>Question 1: Geological Evolution (400 words max)</h3>
+                <p>Describe the geological evolution recorded in this succession. Discuss the interplay of tectonics, climate, and sediment supply. What forcing mechanisms (allocyclic vs. autocyclic) can you identify? Support your interpretation with evidence from the cross-section and your Wheeler diagram.</p>
+                <textarea id="q1" maxlength="3000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q1Count">0 / 400 words</span>
+            </div>
+
+            <div class="question" id="question2">
+                <h3>Question 2: Shoreline Trajectories (400 words max)</h3>
+                <p>Identify and describe the shoreline trajectories present in this succession using the rollover markers you placed. How do these trajectories relate to changes in accommodation and sediment supply (A/S ratio)? Where do you observe A/S > 1 vs A/S < 1, and what is the sedimentological evidence?</p>
+                <textarea id="q2" maxlength="3000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q2Count">0 / 400 words</span>
+            </div>
+
+            <div class="question" id="question3">
+                <h3>Question 3: Surfaces and System Tracts (500 words max)</h3>
+                <p>Identify and explain the significance of the stratigraphic surfaces you marked: SB (Sequence Boundary), TS (Transgressive Surface), MFS (Maximum Flooding Surface), and where applicable: BSFR (Basal Surface of Forced Regression), CC (Correlative Conformity), MRS (Maximum Regressive Surface). Describe the system tracts bounded by these surfaces and explain how facies distributions change across them.</p>
+                <textarea id="q3" maxlength="4000" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q3Count">0 / 500 words</span>
+            </div>
+
+            <div class="question" id="question4">
+                <h3>Question 4 (BONUS): Drilling Site Selection (300 words max)</h3>
+                <p>If you were to propose a drilling site for hydrocarbon exploration, where would you place it and why? Consider reservoir quality, seal potential, and trap geometry based on your sequence stratigraphic interpretation. Use the drilling site marker tool to indicate your proposed location.</p>
+                <textarea id="q4" maxlength="2500" placeholder="Enter your answer here..."></textarea>
+                <span class="word-count" id="q4Count">0 / 300 words</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="exam-footer">
+        <button class="btn-secondary" id="exportBtn">Export for Review</button>
+        <button class="btn-primary" id="submitBtn">Submit Exam</button>
+    </footer>
+
+    <!-- Submit Confirmation Modal -->
+    <div class="modal" id="submitModal">
+        <div class="modal-content">
+            <h3>Submit Exam?</h3>
+            <p>Are you sure you want to submit your exam? This action cannot be undone. Make sure you have completed all sections and reviewed your answers.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelSubmit">Cancel</button>
+                <button class="btn-primary" id="confirmSubmit">Submit Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Confirmation Modal -->
+    <div class="modal" id="clearModal">
+        <div class="modal-content">
+            <h3>Clear Canvas?</h3>
+            <p>Are you sure you want to clear all drawings from this panel? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelClear">Cancel</button>
+                <button class="btn-primary" id="confirmClear">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Warning Modal -->
+    <div class="modal warning-modal" id="warningModal">
+        <div class="modal-content">
+            <h3>⚠️ Time Warning</h3>
+            <p id="warningMessage">You have 30 minutes remaining. Please review your answers.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" id="dismissWarning">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Expired Modal -->
+    <div class="modal warning-modal" id="expiredModal">
+        <div class="modal-content">
+            <h3>⏰ Time Expired</h3>
+            <p>Your exam time has expired. Your work has been automatically saved and submitted.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" id="acknowledgeExpired">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auto System Tract Modal -->
+    <div class="modal" id="autoTractModal">
+        <div class="modal-content">
+            <h3>🔷 Auto-Generate System Tract</h3>
+            <p>Select the termination range and tract type to automatically fill the system tract on the Wheeler diagram.</p>
+
+            <div class="form-group" style="margin: 15px 0;">
+                <label for="tractFromNum" style="display: block; margin-bottom: 5px;">From Termination #:</label>
+                <input type="number" id="tractFromNum" min="1" value="1" style="width: 80px; padding: 5px;">
+            </div>
+
+            <div class="form-group" style="margin: 15px 0;">
+                <label for="tractToNum" style="display: block; margin-bottom: 5px;">To Termination #:</label>
+                <input type="number" id="tractToNum" min="1" value="2" style="width: 80px; padding: 5px;">
+            </div>
+
+            <div class="form-group" style="margin: 15px 0;">
+                <label for="autoTractType" style="display: block; margin-bottom: 5px;">System Tract Type:</label>
+                <select id="autoTractType" style="padding: 5px;">
+                    <option value="HST">HST - Highstand Systems Tract</option>
+                    <option value="TST">TST - Transgressive Systems Tract</option>
+                    <option value="LST">LST - Lowstand Systems Tract</option>
+                    <option value="FSST">FSST - Falling Stage Systems Tract</option>
+                    <option value="RST">RST - Regressive Systems Tract</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelAutoTract">Cancel</button>
+                <button class="btn-primary" id="generateAutoTract">Generate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Keyboard Shortcuts Help -->
+    <div class="shortcuts-help" id="shortcutsHelp">
+        <h4>Keyboard Shortcuts</h4>
+        <ul>
+            <li><kbd>L</kbd> Line tool</li>
+            <li><kbd>P</kbd> Polygon tool</li>
+            <li><kbd>M</kbd> Marker (rollover)</li>
+            <li><kbd>N</kbd> Strata # (numbering)</li>
+            <li><kbd>D</kbd> Drilling site</li>
+            <li><kbd>S</kbd> Stratal Termination</li>
+            <li><kbd>T</kbd> Text tool</li>
+            <li><kbd>E</kbd> Eraser tool</li>
+            <li><kbd>Ctrl+Z</kbd> Undo</li>
+            <li><kbd>Ctrl+Y</kbd> Redo</li>
+            <li><kbd>Esc</kbd> Cancel current operation</li>
+            <li><kbd>?</kbd> Toggle this help</li>
+        </ul>
+    </div>
+
+    <!-- Browser Compatibility -->
+    <script>
+        // Polyfills and compatibility fixes
+        (function() {
+            'use strict';
+
+            // Check for required features
+            var requiredFeatures = ['localStorage', 'canvas', 'Promise'];
+            var missing = [];
+
+            if (!window.localStorage) missing.push('localStorage');
+            if (!document.createElement('canvas').getContext) missing.push('canvas');
+            if (!window.Promise) missing.push('Promise');
+
+            if (missing.length > 0) {
+                alert('Your browser is missing required features: ' + missing.join(', ') +
+                      '. Please use a modern browser like Chrome, Firefox, Safari, or Edge.');
+            }
+
+            // Passive event listener support detection
+            var supportsPassive = false;
+            try {
+                var opts = Object.defineProperty({}, 'passive', {
+                    get: function() { supportsPassive = true; return true; }
+                });
+                window.addEventListener('testPassive', null, opts);
+                window.removeEventListener('testPassive', null, opts);
+            } catch (e) {}
+            window.supportsPassive = supportsPassive;
+
+            // iOS Safari double-tap zoom prevention
+            var lastTouchEnd = 0;
+            document.addEventListener('touchend', function(e) {
+                var now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // Prevent pinch zoom on iOS
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+
+            // Fix for Safari canvas issues
+            if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+                document.documentElement.classList.add('safari');
+            }
+
+            // Touch device detection
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                document.documentElement.classList.add('touch-device');
+            }
+
+            // Console message for debugging
+            console.log('Browser compatibility check complete. Touch:',
+                        'ontouchstart' in window, 'Passive:', supportsPassive);
+        })();
+    </script>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
