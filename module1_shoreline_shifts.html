@@ -156,7 +156,7 @@
 
             <div class="key-concept">
                 <h4>Key concept: forced regression ignores sediment supply</h4>
-                <p>During a relative sea-level fall at the shoreline, the shoreline is forced seaward and downward <em>whatever the sediment supply</em>. More sediment makes the forced regression faster or thicker; it does not change its type. "The coastline is forced to regress, irrespective of sediment supply" (Catuneanu, 2019a, Fig. 25). Conversely, a regression during relative rise is never a forced regression, however fast it progrades.</p>
+                <p>During a relative sea-level fall at the shoreline, the shoreline is forced seaward and downward <em>whatever the sediment supply</em>. More sediment makes the forced regression faster or thicker; it does not change its type. Catuneanu (2006, p. 90) puts it as the shoreline being "forced to regress irrespective of the sedimentation factor"; the same wording, "irrespective of sediment supply", appears in Catuneanu (2019a, Fig. 25). Conversely, a regression during relative rise is never a forced regression, however fast it progrades.</p>
             </div>
 
             <h3>5. Try it: the shoreline balance</h3>
@@ -175,7 +175,7 @@
                             <label for="sE">Rate of eustatic change: <span class="w-val" id="vE">0.0</span> m/kyr</label>
                             <input type="range" id="sE" min="-8" max="8" step="0.5" value="0">
                             <label for="sT">Rate of subsidence (negative = uplift): <span class="w-val" id="vT">+2.0</span> m/kyr</label>
-                            <input type="range" id="sT" min="-4" max="8" step="0.5" value="2">
+                            <input type="range" id="sT" min="-4" max="10" step="0.5" value="2">
                             <p class="w-note">While this panel is open, A = eustatic rate + subsidence rate and the A slider follows it.</p>
                         </details>
                         <p class="w-note">The numbers are illustrative; only the sign of A and the comparison of A with S matter here.</p>
@@ -207,12 +207,12 @@
                 <li>Rate of rise &gt; rate of sedimentation → transgression, <strong>TST</strong>.</li>
                 <li><strong>Late rise</strong>, rate of rise &lt; rate of sedimentation again → highstand normal regression, <strong>HST</strong>, although sea level is still rising.</li>
             </ul>
-            <p>The shoreline changes direction where the two rate curves cross, not at the highest or lowest point of the sea-level curve.</p>
+            <p>The shoreline changes direction where the two rate curves cross, not at the highest or lowest point of the sea-level curve. Catuneanu (2006, p. 92) calls the equation of base-level fall with regression and base-level rise with transgression "a common misconception": the turnaround from fall to rise is offset from the turnaround from regression to transgression by the duration of the early-rise normal regression, and the onset of fall is offset from the onset of regression by the duration of the late-rise normal regression.</p>
 
             <figure class="figure-container">
                 <a class="zoom" href="img/m1/m1_fig3_one_cycle_four_responses.svg" target="_blank" rel="noopener"><img class="wide" src="img/m1/m1_fig3_one_cycle_four_responses.svg" alt="Top: one relative sea-level cycle starting at highstand. Middle: rate of relative sea-level change and constant rate of sedimentation. Bottom: FSST, LST, TST, HST bands." loading="lazy"></a>
                 <span class="fig-hint">Click to open full resolution</span>
-                <figcaption class="figure-caption"><strong>Figure 3.</strong> One relative sea-level cycle and four shoreline responses. Top: relative sea level. Middle: its rate of change (blue) and a constant rate of sedimentation (dashed brown). Bottom: resulting systems tracts. Boundaries fall where the rate becomes zero (start and end of fall) and where the two rates cross (onset and end of transgression). <em>Basis: instructor's figure (Lecture 1, slide 12), regenerated from fig_source/figs.py; concept after Catuneanu (2006, 2019a); constant sedimentation rate assumed.</em></figcaption>
+                <figcaption class="figure-caption"><strong>Figure 3.</strong> One relative sea-level cycle and four shoreline responses. Top: relative sea level. Middle: its rate of change (blue) and a constant rate of sedimentation (dashed brown). Bottom: resulting systems tracts. Boundaries fall where the rate becomes zero (start and end of fall) and where the two rates cross (onset and end of transgression). <em>Basis: instructor's figure (Lecture 1, slide 12), regenerated from fig_source/figs.py; concept after Catuneanu (2006, Fig. 3.19; 2019a); constant sedimentation rate assumed.</em></figcaption>
             </figure>
 
             <div class="research-box">
@@ -317,11 +317,11 @@
             <h3>12. Transgression during a eustatic fall</h3>
             <p>Because relative sea level is the sum of eustasy and subsidence, a eustatic fall does not imply a relative fall. Consider a shoreline where (illustrative numbers):</p>
             <div class="eq">eustasy −5 m/kyr, subsidence +9 m/kyr, sedimentation 3 m/kyr<br>relative sea-level change = −5 + 9 = <strong>+4 m/kyr</strong> (relative rise)<br>+4 m/kyr &gt; 3 m/kyr → <strong>transgression</strong>; water depth increases by 4 − 3 = <strong>1 m/kyr</strong></div>
-            <p>Global sea level falls, yet the shoreline moves landward and the water deepens. The calculation follows "Case 2" of Catuneanu et al. (1998): the rates of eustatic change and tectonic subsidence combine into the rate of relative sea-level change; combined with the rate of sedimentation this gives the rate of water-depth change; if relative rise exceeds sedimentation, water depth increases. What is impossible is a transgression during a <em>relative</em> fall: Catuneanu (2019a, Fig. 24) lists all combinations of lateral and vertical shoreline shift as common in nature "except for transgression during relative sea-level fall".</p>
+            <p>This is the example given by Catuneanu (2006, p. 86): sea level falls at 5 m/1000 years, subsidence is 9 m/1000 years, so relative sea level rises at 4 m/1000 years; with a sedimentation rate of 3 m/1000 years, accommodation is created faster than it is consumed and the water deepens at 1 m/1000 years. He adds the condition that matters: <em>if the location is near the shoreline</em>, the increase in water depth is likely to be associated with a shoreline transgression. Global sea level falls, yet the shoreline moves landward. The same logic is "Case 2" of Catuneanu et al. (1998): the rates of eustatic change and tectonic subsidence combine into the rate of relative sea-level change; combined with the rate of sedimentation this gives the rate of water-depth change; if relative rise exceeds sedimentation, water depth increases. What is impossible is a transgression during a <em>relative</em> fall: Catuneanu (2019a, Fig. 24) lists all combinations of lateral and vertical shoreline shift as common in nature "except for transgression during relative sea-level fall".</p>
             <p>Geological implication: a transgressive succession in a rapidly subsiding basin cannot be correlated with a global sea-level rise just because it is transgressive. Without independent constraints on subsidence and sedimentation, a stacking pattern tells you about the balance, not about eustasy.</p>
 
             <h3>13. Water depth is not a proxy for shoreline shift offshore</h3>
-            <p>It is tempting to read deepening-upward facies as transgression and shallowing-upward facies as regression. Catuneanu et al. (1998) show why this fails away from the shoreline. They distinguish surfaces defined by <strong>stratal stacking patterns</strong> (type A) from surfaces defined by <strong>water-depth and relative sea-level changes</strong> (type B):</p>
+            <p>It is tempting to read deepening-upward facies as transgression and shallowing-upward facies as regression. Catuneanu (2006, p. 90) states that the direct relationship between transgression/regression and water deepening/shallowing "is only safely valid for the shallow areas adjacent to the shoreline"; offshore, deepening and shallowing may be out of phase with the coeval shoreline shifts because subsidence and sedimentation rates vary along dip. His examples: in the Mahakam delta, Indonesia (Verdier et al., 1980, as cited there), shoreline progradation is accompanied by deepening of the water offshore, and submarine fans often prograde in deepening water during rapid regression because of high subsidence in the central parts of many extensional basins. Catuneanu et al. (1998) show the mechanism with a numerical model. They distinguish surfaces defined by <strong>stratal stacking patterns</strong> (type A) from surfaces defined by <strong>water-depth and relative sea-level changes</strong> (type B):</p>
             <ul class="plain">
                 <li>Type A maximum flooding and transgressive surfaces are tied to the turnarounds of the <em>shoreline</em>. Their timing is controlled only by shoreline movement and is not affected by offshore variations in sedimentation and subsidence.</li>
                 <li>Type B surfaces mark where the rate of water-depth change is zero. Offshore, water depth depends on local subsidence and local sedimentation, both of which vary along the profile. In their two-dimensional model (eustatic amplitude 10 m, period 2 Ma; subsidence increasing basinward from 20 to 40 m/Ma; sedimentation decreasing from 15 to 5 m/Ma), the water-depth MFS becomes younger offshore and the water-depth CTS older offshore, and basinward of about 71 km subsidence always exceeds the maximum rate of eustatic fall, so no such surface forms there at all.</li>
@@ -395,8 +395,8 @@
         <section class="reference-list">
             <h4>Key References</h4>
             <p><strong>Lecture 1 references:</strong> Catuneanu, O. (2019a) Model-independent sequence stratigraphy. Earth-Science Reviews 188, 312–388 • Helland-Hansen, W. &amp; Martinsen, O.J. (1996) Shoreline trajectories and sequences: description of variable depositional-dip scenarios. Journal of Sedimentary Research 66, 670–688 • Helland-Hansen, W. &amp; Hampson, G.J. (2009) Trajectory analysis: concepts and applications. Basin Research 21, 454–483 • Jervey, M.T. (1988) Quantitative geological modeling of siliciclastic rock sequences and their seismic expression. In: Wilgus, C.K. et al. (Eds.), Sea-Level Changes: An Integrated Approach. SEPM Special Publication 42, 47–69 • Kendall, C.G.St.C. (2001) Major sequence stratigraphic and chronostratigraphic surfaces (animation, after J. Baum). SEPM Strata, www.sepmstrata.org • Posamentier, H.W., Jervey, M.T. &amp; Vail, P.R. (1988) Eustatic controls on clastic deposition I – conceptual framework. SEPM Special Publication 42, 109–124</p>
-            <p><strong>Going deeper:</strong> Catuneanu, O., Willis, A.J. &amp; Miall, A.D. (1998) Temporal significance of sequence boundaries. Sedimentary Geology 121, 157–178 • Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam, 375 pp. • Catuneanu, O., Galloway, W.E., Kendall, C.G.St.C., Miall, A.D., Posamentier, H.W., Strasser, A. &amp; Tucker, M.E. (2011) Sequence stratigraphy: methodology and nomenclature. Newsletters on Stratigraphy 44(3), 173–245 • Amorosi, A., Maselli, V. &amp; Trincardi, F. (2016) Onshore to offshore anatomy of a late Quaternary source-to-sink system (Po Plain–Adriatic Sea, Italy). Earth-Science Reviews 153, 212–237</p>
-            <p><strong>Cited as reported in the works above (not read directly):</strong> Catuneanu et al. (1997), Martinsen &amp; Helland-Hansen (1995) and Naish &amp; Kamp (1997), as cited in Catuneanu et al. (1998); Muto, T. &amp; Steel, R.J. (2002) Basin Research 14, 303–318, as cited in Catuneanu (2019a).</p>
+            <p><strong>Going deeper:</strong> Catuneanu, O., Willis, A.J. &amp; Miall, A.D. (1998) Temporal significance of sequence boundaries. Sedimentary Geology 121, 157–178 • Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam, 375 pp. (Chapter 3, Accommodation and shoreline shifts) • Catuneanu, O., Galloway, W.E., Kendall, C.G.St.C., Miall, A.D., Posamentier, H.W., Strasser, A. &amp; Tucker, M.E. (2011) Sequence stratigraphy: methodology and nomenclature. Newsletters on Stratigraphy 44(3), 173–245 • Amorosi, A., Maselli, V. &amp; Trincardi, F. (2016) Onshore to offshore anatomy of a late Quaternary source-to-sink system (Po Plain–Adriatic Sea, Italy). Earth-Science Reviews 153, 212–237</p>
+            <p><strong>Cited as reported in the works above (not read directly):</strong> Catuneanu et al. (1997), Martinsen &amp; Helland-Hansen (1995) and Naish &amp; Kamp (1997), as cited in Catuneanu et al. (1998); Verdier et al. (1980), as cited in Catuneanu (2006); Muto, T. &amp; Steel, R.J. (2002) Basin Research 14, 303–318, as cited in Catuneanu (2019a).</p>
             <p><strong>Online:</strong> SEPM Strata, www.sepmstrata.org</p>
         </section>
 
@@ -440,7 +440,7 @@
         function classify(A, S) {
             if (A < 0) return { k: 'FR', name: 'Forced regression',
                 text: 'Relative sea level falls at the shoreline (negative accommodation). The shoreline is forced seaward and downward whatever the sedimentation rate. A higher sedimentation rate makes the forced-regressive wedge larger; it does not turn it into a normal regression.',
-                lat: 'seaward (forestepping)', ver: 'downward (downstepping)', traj: 'descending regressive', st: 'FSST (falling-stage systems tract)', dx: 1, dy: -1 };
+                lat: 'seaward (forestepping)', ver: 'downward (downstepping)', traj: 'descending regressive', st: 'FSST (falling-stage systems tract)', dx: 1, dy: -0.28 };
             if (A === 0 && S === 0) return { k: 'NONE', name: 'No shift',
                 text: 'No accommodation is created or destroyed and no sediment arrives: the shoreline stays where it is.',
                 lat: 'none', ver: 'none', traj: 'none', st: 'none', dx: 0, dy: 0 };
@@ -449,7 +449,7 @@
                 lat: 'seaward (forestepping)', ver: 'none', traj: 'horizontal (limiting case)', st: 'limiting case between normal and forced regression', dx: 1, dy: 0 };
             if (A > S) return { k: 'T', name: 'Transgression',
                 text: 'Relative sea level rises faster than sedimentation can fill the new space. The shoreline moves landward and upward; the deposits step back towards the land.',
-                lat: 'landward (backstepping)', ver: 'upward (upstepping)', traj: 'transgressive', st: 'TST (transgressive systems tract)', dx: -1, dy: 1 };
+                lat: 'landward (backstepping)', ver: 'upward (upstepping)', traj: 'transgressive', st: 'TST (transgressive systems tract)', dx: -1, dy: 0.6 };
             if (A < S) return { k: 'NR', name: 'Normal regression',
                 text: 'Relative sea level rises, but sedimentation outpaces the creation of space. The shoreline moves seaward and upward although sea level is rising. Whether it is a lowstand or a highstand normal regression cannot be read from the rates: it depends on whether it follows a forced regression (LST) or a transgression (HST).',
                 lat: 'seaward (forestepping)', ver: 'upward (upstepping)', traj: 'ascending regressive', st: 'LST or HST (decided by the preceding stacking pattern)', dx: 1, dy: 1 };
@@ -589,7 +589,7 @@
                 "Upward-deepening facies always indicate a forced regression"
             ],
             correct: 1,
-            explanation: "Catuneanu et al. (1998) show that water-depth changes offshore depend on local subsidence and sedimentation rates, so deepening- and shallowing-upward facies must not be equated with transgressive and regressive systems tracts, which are defined by shoreline movement."
+            explanation: "Catuneanu (2006, p. 90) gives the Mahakam delta as an example of regression with offshore deepening. Catuneanu et al. (1998) show that water-depth changes offshore depend on local subsidence and sedimentation rates, so deepening- and shallowing-upward facies must not be equated with transgressive and regressive systems tracts, which are defined by shoreline movement."
         },
         {
             question: "A forestepping and upstepping shoreface unit directly overlies a backstepping transgressive unit of the same hierarchical rank. How should it be classified?",
@@ -644,7 +644,7 @@
                 "Relative sea level rises at 14 m/kyr, so the shoreline is in normal regression"
             ],
             correct: 2,
-            explanation: "Relative change = −5 + 9 = +4 m/kyr, a relative rise; 4 > 3 gives transgression, with the water deepening by 1 m/kyr at the shoreline. A transgression during eustatic fall is possible; a transgression during relative fall is not (Catuneanu, 2019a, Fig. 24)."
+            explanation: "Relative change = −5 + 9 = +4 m/kyr, a relative rise; 4 > 3 gives transgression, with the water deepening by 1 m/kyr at the shoreline. This is the example of Catuneanu (2006, p. 86). A transgression during eustatic fall is possible; a transgression during relative fall is not (Catuneanu, 2019a, Fig. 24)."
         }
     ];
     // Shuffle answer options once per page load
