@@ -7,7 +7,7 @@
   </defs>
   <!-- Upper graph: x 80..620 ; R from -2 (left) to +3 (right); y scale: 0 at y=120, 20 px per m/kyr -->
   <text x="80" y="24" font-weight="700" fill="#04316A">Rate of relative sea-level change along the profile, R = E + T</text>
-  <line x1="80" y1="40" x2="80" y2="190" stroke="#1E293B"/>
+  <line x1="80" y1="50" x2="80" y2="190" stroke="#1E293B"/>
   <line x1="80" y1="120" x2="620" y2="120" stroke="#1E293B"/>
   <text x="72" y="64" text-anchor="end" font-size="11">+3</text>
   <text x="72" y="124" text-anchor="end" font-size="11">0</text>
@@ -38,7 +38,7 @@
     <line x1="510" y1="404" x2="510" y2="444"/>
     <line x1="610" y1="404" x2="610" y2="452"/>
   </g>
-  <text x="104" y="412" text-anchor="end" font-size="11">T = 1</text>
+  <text x="96" y="416" text-anchor="end" font-size="11">T = 1</text>
   <text x="604" y="466" text-anchor="end" font-size="11">T = 6 m/kyr (subsidence)</text>
   <text x="100" y="244" font-size="11" fill="#334155">land</text>
   <text x="560" y="372" font-size="11" fill="#334155">basin</text>
