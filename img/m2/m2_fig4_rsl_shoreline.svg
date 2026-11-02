@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="rt rd" font-family="Inter, Arial, sans-serif">
+<title id="rt">Relative sea level at the shoreline versus direction of shoreline shift</title>
+<desc id="rd">Two-by-two diagram. Vertical axis: relative sea-level rise (positive accommodation) above, fall (negative accommodation) below. Horizontal axis: landward or seaward shoreline shift. Rise and landward: transgression, backstepping and upstepping. Rise and seaward: normal regression, forestepping and upstepping. Fall and seaward: forced regression, forestepping and downstepping. Fall and landward: empty, because the shoreline cannot move landward by deposition while relative sea level falls.</desc>
+<rect width="720" height="520" fill="#fff"/>
+<line x1="360" y1="40" x2="360" y2="470" stroke="#04316A" stroke-width="2.5"/>
+<line x1="70" y1="255" x2="650" y2="255" stroke="#04316A" stroke-width="2.5"/>
+<path d="M360,30 l-8,16 h16 z M360,480 l-8,-16 h16 z" fill="#04316A"/>
+<path d="M60,255 l16,-8 v16 z M660,255 l-16,-8 v16 z" fill="#04316A"/>
+<text x="372" y="40" font-size="16" font-weight="700" fill="#04316A">RSL rise  (+A)</text>
+<text x="372" y="478" font-size="16" font-weight="700" fill="#04316A">RSL fall  (−A)</text>
+<text x="70" y="244" font-size="16" font-weight="700" fill="#04316A" stroke="#fff" stroke-width="5" paint-order="stroke">landward</text>
+<text x="650" y="244" font-size="16" font-weight="700" fill="#04316A" text-anchor="end" stroke="#fff" stroke-width="5" paint-order="stroke">seaward</text>
+<rect x="85" y="75" width="255" height="160" rx="10" fill="#E3F2E3" stroke="#5CB85C" stroke-width="2"/>
+<text x="212" y="108" font-size="19" font-weight="700" fill="#1E7B1E" text-anchor="middle">Transgression</text>
+<text x="212" y="136" font-size="15" fill="#1E293B" text-anchor="middle">rate of accommodation</text>
+<text x="212" y="156" font-size="15" fill="#1E293B" text-anchor="middle">&gt; rate of sedimentation</text>
+<text x="212" y="186" font-size="15" font-style="italic" fill="#1E293B" text-anchor="middle">backstepping + upstepping</text>
+<path d="M300,226 L240,210" stroke="#1E7B1E" stroke-width="3" fill="none" marker-end="url(#ag)"/>
+<rect x="380" y="75" width="255" height="160" rx="10" fill="#E4EEF8" stroke="#4A90C8" stroke-width="2"/>
+<text x="507" y="108" font-size="19" font-weight="700" fill="#1F5F9E" text-anchor="middle">Normal regression</text>
+<text x="507" y="136" font-size="15" fill="#1E293B" text-anchor="middle">rate of sedimentation</text>
+<text x="507" y="156" font-size="15" fill="#1E293B" text-anchor="middle">&gt; rate of accommodation</text>
+<text x="507" y="186" font-size="15" font-style="italic" fill="#1E293B" text-anchor="middle">forestepping + upstepping</text>
+<path d="M420,226 L480,210" stroke="#1F5F9E" stroke-width="3" fill="none" marker-end="url(#ab)"/>
+<rect x="380" y="275" width="255" height="160" rx="10" fill="#F9E1DF" stroke="#D9534F" stroke-width="2"/>
+<text x="507" y="308" font-size="19" font-weight="700" fill="#A93226" text-anchor="middle">Forced regression</text>
+<text x="507" y="336" font-size="15" fill="#1E293B" text-anchor="middle">relative fall at the shoreline,</text>
+<text x="507" y="356" font-size="15" fill="#1E293B" text-anchor="middle">whatever the sediment supply</text>
+<text x="507" y="386" font-size="15" font-style="italic" fill="#1E293B" text-anchor="middle">forestepping + downstepping</text>
+<path d="M420,410 L480,426" stroke="#A93226" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+<rect x="85" y="275" width="255" height="160" rx="10" fill="#F1F5F9" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="212" y="330" font-size="17" font-weight="700" fill="#64748B" text-anchor="middle">no transgression</text>
+<text x="212" y="352" font-size="17" font-weight="700" fill="#64748B" text-anchor="middle">during a fall</text>
+<text x="212" y="386" font-size="14" fill="#64748B" text-anchor="middle">(the shoreline cannot move</text>
+<text x="212" y="404" font-size="14" fill="#64748B" text-anchor="middle">landward by deposition)</text>
+<defs>
+<marker id="ag" markerWidth="6" markerHeight="6" refX="5" refY="5" viewBox="0 0 10 10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1E7B1E"/></marker>
+<marker id="ab" markerWidth="6" markerHeight="6" refX="5" refY="5" viewBox="0 0 10 10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1F5F9E"/></marker>
+<marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="5" viewBox="0 0 10 10" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#A93226"/></marker>
+</defs>
+</svg>
