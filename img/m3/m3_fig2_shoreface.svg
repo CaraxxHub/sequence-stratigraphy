@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 560" font-family="Inter, Arial, sans-serif" font-size="13">
+  <title>Shoreface cases A, B, C: energy flux versus sediment supply (own schematic)</title>
+  <rect width="660" height="560" fill="#ffffff"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7A6A3A"/></marker>
+    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#B03A2E" stroke-width="1.2"/></pattern>
+  </defs>
+  <!-- common: sea level y=40 in each panel; initial profile from (60,30) to (600,130) -->
+  <!-- Panel A -->
+  <g transform="translate(0,10)">
+    <text x="10" y="20" font-weight="700" fill="#04316A">A  Supply = wave energy</text>
+    <rect x="160" y="40" width="460" height="110" fill="#D6E8F7"/>
+    <line x1="160" y1="40" x2="620" y2="40" stroke="#04316A" stroke-width="2"/>
+    <text x="616" y="34" text-anchor="end" fill="#04316A" font-size="11">sea level (constant)</text>
+    <path d="M40,30 L160,40 C260,62 420,95 620,120 L620,160 L40,160 Z" fill="#EBDDB0" stroke="#7A6A3A" stroke-width="1.5"/>
+    <path d="M160,40 C260,62 420,95 620,120" fill="none" stroke="#04316A" stroke-width="2" stroke-dasharray="2 4"/>
+    <path d="M60,22 L150,28" stroke="#7A6A3A" stroke-width="2" marker-end="url(#a)"/>
+    <text x="50" y="16" fill="#7A6A3A" font-size="11">supply</text>
+    <path d="M250,72 C300,80 360,90 420,96" fill="none" stroke="#7A6A3A" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+    <text x="250" y="116" fill="#334155" font-size="12">sediment bypasses; profile unchanged</text>
+    <path d="M330,52 q8,-8 16,0 q8,8 16,0" fill="none" stroke="#04316A" stroke-width="1.5"/>
+    <text x="440" y="60" fill="#04316A" font-size="11">base level = sea floor</text>
+    <text x="40" y="180" fill="#04316A" font-weight="600">Accommodation = 0</text>
+  </g>
+  <!-- Panel B -->
+  <g transform="translate(0,190)">
+    <text x="10" y="20" font-weight="700" fill="#04316A">B  Supply &gt; wave energy</text>
+    <rect x="160" y="40" width="460" height="110" fill="#D6E8F7"/>
+    <line x1="160" y1="40" x2="620" y2="40" stroke="#04316A" stroke-width="2"/>
+    <path d="M40,30 L160,40 C260,62 420,95 620,120 L620,160 L40,160 Z" fill="#EBDDB0" stroke="#7A6A3A" stroke-width="1"/>
+    <path d="M160,40 C230,44 300,52 360,66 C420,88 500,105 620,118 L620,120 C420,95 260,62 160,40 Z" fill="#F3D27A" stroke="#7A6A3A" stroke-width="1.5"/>
+    <path d="M160,40 C230,44 300,52 360,66 C420,88 500,105 620,118" fill="none" stroke="#04316A" stroke-width="2" stroke-dasharray="2 4" transform="translate(0,-6)"/>
+    <path d="M60,22 L150,28" stroke="#7A6A3A" stroke-width="3.5" marker-end="url(#a)"/>
+    <text x="50" y="16" fill="#7A6A3A" font-size="11">high supply</text>
+    <path d="M330,52 q6,-5 12,0 q6,5 12,0" fill="none" stroke="#04316A" stroke-width="1.2"/>
+    <text x="250" y="126" fill="#334155" font-size="12">aggradation and progradation (new wedge, yellow)</text>
+    <text x="440" y="60" fill="#04316A" font-size="11">base level above old sea floor</text>
+    <text x="40" y="180" fill="#04316A" font-weight="600">Accommodation &gt; 0</text>
+  </g>
+  <!-- Panel C -->
+  <g transform="translate(0,370)">
+    <text x="10" y="20" font-weight="700" fill="#04316A">C  Wave energy &gt; supply</text>
+    <rect x="130" y="40" width="490" height="120" fill="#D6E8F7"/>
+    <line x1="130" y1="40" x2="620" y2="40" stroke="#04316A" stroke-width="2"/>
+    <path d="M40,30 L130,36 C230,72 420,110 620,132 L620,170 L40,170 Z" fill="#EBDDB0" stroke="#7A6A3A" stroke-width="1.5"/>
+    <path d="M130,36 L160,40 C260,62 420,95 620,120 L620,132 C420,110 230,72 130,36 Z" fill="url(#hatch)" stroke="#B03A2E" stroke-width="1"/>
+    <path d="M160,40 C260,62 420,95 620,120" fill="none" stroke="#7A6A3A" stroke-width="1" stroke-dasharray="4 3"/>
+    <path d="M130,36 C230,72 420,110 620,132" fill="none" stroke="#04316A" stroke-width="2" stroke-dasharray="2 4" transform="translate(0,6)"/>
+    <path d="M60,22 L120,26" stroke="#7A6A3A" stroke-width="1.2" marker-end="url(#a)"/>
+    <text x="50" y="16" fill="#7A6A3A" font-size="11">low supply</text>
+    <path d="M300,52 q12,-12 24,0 q12,12 24,0 q12,-12 24,0" fill="none" stroke="#04316A" stroke-width="2.2"/>
+    <text x="230" y="146" fill="#334155" font-size="12">coastal and seafloor erosion (hatched); deeper water</text>
+    <text x="440" y="66" fill="#04316A" font-size="11">base level below sea floor</text>
+    <text x="40" y="190" fill="#04316A" font-weight="600">Accommodation &lt; 0, although water depth increased</text>
+  </g>
+</svg>

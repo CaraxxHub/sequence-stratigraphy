@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 968" role="img" aria-labelledby="tlt tld" font-family="Inter, Arial, sans-serif">
+<title id="tlt">Milestones of sequence stratigraphy</title>
+<desc id="tld">Vertical timeline from Hutton (1788) to Catuneanu (2019-2022), grouped in five coloured phases: foundations, unconformity-bounded sequences, seismic stratigraphy and Exxon models, competing models and debate, standardisation. Not to scale.</desc>
+<rect width="640" height="968" fill="#ffffff"/>
+<line x1="150" y1="20" x2="150" y2="954" stroke="#94A3B8" stroke-width="3"/>
+<rect x="168" y="26" width="464" height="26" rx="5" fill="#8B5A2B"/>
+<text x="180" y="44" font-size="16" font-weight="700" fill="#fff">Foundations</text>
+<circle cx="150" cy="76" r="8" fill="#8B5A2B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="82" font-size="18" font-weight="700" fill="#8B5A2B" text-anchor="end">1788</text>
+<text x="174" y="82" font-size="17" fill="#1E293B">Hutton: geological cycles; unconformity at</text>
+<text x="174" y="103" font-size="17" fill="#1E293B">Siccar Point</text>
+<circle cx="150" cy="132" r="8" fill="#8B5A2B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="138" font-size="18" font-weight="700" fill="#8B5A2B" text-anchor="end">1890s</text>
+<text x="174" y="138" font-size="17" fill="#1E293B">Walther: vertical facies record lateral shifts</text>
+<text x="174" y="159" font-size="17" fill="#1E293B">(Walther&#x27;s Law)</text>
+<circle cx="150" cy="188" r="8" fill="#8B5A2B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="194" font-size="18" font-weight="700" fill="#8B5A2B" text-anchor="end">1917</text>
+<text x="174" y="194" font-size="17" fill="#1E293B">Barrell: base-level cycles generate repeated</text>
+<text x="174" y="215" font-size="17" fill="#1E293B">unconformities</text>
+<rect x="168" y="234" width="464" height="26" rx="5" fill="#D9822B"/>
+<text x="180" y="252" font-size="16" font-weight="700" fill="#fff">Unconformity-bounded sequences</text>
+<circle cx="150" cy="284" r="8" fill="#D9822B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="290" font-size="18" font-weight="700" fill="#D9822B" text-anchor="end">1949</text>
+<text x="174" y="290" font-size="17" fill="#1E293B">Sloss, Krumbein &amp; Dapples: the term &#x27;sequence&#x27;</text>
+<circle cx="150" cy="319" r="8" fill="#D9822B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="325" font-size="18" font-weight="700" fill="#D9822B" text-anchor="end">1958</text>
+<text x="174" y="325" font-size="17" fill="#1E293B">Wheeler: time-stratigraphy, area-time</text>
+<text x="174" y="346" font-size="17" fill="#1E293B">(Wheeler) diagram</text>
+<circle cx="150" cy="375" r="8" fill="#D9822B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="381" font-size="18" font-weight="700" fill="#D9822B" text-anchor="end">1963</text>
+<text x="174" y="381" font-size="17" fill="#1E293B">Sloss: six cratonic sequences of North America</text>
+<rect x="168" y="400" width="464" height="26" rx="5" fill="#C0392B"/>
+<text x="180" y="418" font-size="16" font-weight="700" fill="#fff">Seismic stratigraphy and Exxon models</text>
+<circle cx="150" cy="450" r="8" fill="#C0392B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="456" font-size="18" font-weight="700" fill="#C0392B" text-anchor="end">1977</text>
+<text x="174" y="456" font-size="17" fill="#1E293B">AAPG Memoir 26: seismic stratigraphy;</text>
+<text x="174" y="477" font-size="17" fill="#1E293B">correlative conformity (Mitchum)</text>
+<circle cx="150" cy="506" r="8" fill="#C0392B" stroke="#fff" stroke-width="2"/>
+<text x="134" y="512" font-size="18" font-weight="700" fill="#C0392B" text-anchor="end">1988</text>
+<text x="174" y="512" font-size="17" fill="#1E293B">SEPM Sp. Publ. 42: accommodation (Jervey;</text>
+<text x="174" y="533" font-size="17" fill="#1E293B">Posamentier et al.); depositional sequence</text>
+<rect x="168" y="552" width="464" height="26" rx="5" fill="#2E8B57"/>
+<text x="180" y="570" font-size="16" font-weight="700" fill="#fff">Competing models and debate</text>
+<circle cx="150" cy="602" r="8" fill="#2E8B57" stroke="#fff" stroke-width="2"/>
+<text x="134" y="608" font-size="18" font-weight="700" fill="#2E8B57" text-anchor="end">1989</text>
+<text x="174" y="608" font-size="17" fill="#1E293B">Galloway: genetic stratigraphic sequence (MFS-</text>
+<text x="174" y="629" font-size="17" fill="#1E293B">bounded)</text>
+<circle cx="150" cy="658" r="8" fill="#2E8B57" stroke="#fff" stroke-width="2"/>
+<text x="134" y="664" font-size="18" font-weight="700" fill="#2E8B57" text-anchor="end">1992</text>
+<text x="174" y="664" font-size="17" fill="#1E293B">Miall: critique of the global cycle chart;</text>
+<text x="174" y="685" font-size="17" fill="#1E293B">forced regression (Posamentier et al.; Hunt &amp;</text>
+<text x="174" y="706" font-size="17" fill="#1E293B">Tucker); T-R sequence (Embry &amp; Johannessen)</text>
+<circle cx="150" cy="735" r="8" fill="#2E8B57" stroke="#fff" stroke-width="2"/>
+<text x="134" y="741" font-size="18" font-weight="700" fill="#2E8B57" text-anchor="end">2000</text>
+<text x="174" y="741" font-size="17" fill="#1E293B">Plint &amp; Nummedal: falling-stage systems tract</text>
+<rect x="168" y="760" width="464" height="26" rx="5" fill="#1F5F9E"/>
+<text x="180" y="778" font-size="16" font-weight="700" fill="#fff">Standardisation</text>
+<circle cx="150" cy="810" r="8" fill="#1F5F9E" stroke="#fff" stroke-width="2"/>
+<text x="134" y="816" font-size="18" font-weight="700" fill="#1F5F9E" text-anchor="end">2009–2011</text>
+<text x="174" y="816" font-size="17" fill="#1E293B">Catuneanu et al.: model-independent</text>
+<text x="174" y="837" font-size="17" fill="#1E293B">methodology and nomenclature; sequence</text>
+<text x="174" y="858" font-size="17" fill="#1E293B">redefined</text>
+<circle cx="150" cy="887" r="8" fill="#1F5F9E" stroke="#fff" stroke-width="2"/>
+<text x="134" y="893" font-size="18" font-weight="700" fill="#1F5F9E" text-anchor="end">2019–2022</text>
+<text x="174" y="893" font-size="17" fill="#1E293B">Catuneanu: model-independent sequence</text>
+<text x="174" y="914" font-size="17" fill="#1E293B">stratigraphy; scale and basin-specific</text>
+<text x="174" y="935" font-size="17" fill="#1E293B">hierarchy</text>
+</svg>

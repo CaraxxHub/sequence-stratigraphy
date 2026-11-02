@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="assets/access.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Controlling Factors | Sequence Stratigraphy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
+    <style>
+        /* Module 3 page-specific styles */
+        .logout-btn { background: var(--fau-blue); color: #fff; border: 0; border-radius: 6px; padding: 7px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .logout-btn:hover { background: var(--fau-blue-dark); }
+        .nav-links .logout-btn { margin-left: 8px; flex: 0 0 auto; }
+        .brand-mark { width: 38px; height: 38px; border-radius: 8px; background: var(--fau-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .figure-container img.wide { max-width: 100%; height: auto; }
+        details.answer { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+        details.answer summary { cursor: pointer; font-weight: 600; color: var(--fau-blue); }
+        details.answer[open] summary { margin-bottom: 10px; }
+        .lede { font-size: 1.05rem; color: var(--gray-700); }
+        .formula { font-family: "Merriweather", Georgia, serif; background: var(--gray-100); border-radius: 8px; padding: 10px 14px; margin: 12px 0; text-align: center; overflow-x: auto; }
+        /* calculator */
+        .calc { border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; background: #fff; margin: 20px 0; }
+        .calc h4 { color: var(--fau-blue); margin-bottom: 10px; }
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+        .calc label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+        .calc input[type=number] { width: 100%; padding: 8px 10px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 1rem; font-family: inherit; }
+        .calc .hint { font-size: 0.78rem; color: var(--gray-500); }
+        .calc-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+        .calc-btns button { border: 1px solid var(--fau-blue); background: #fff; color: var(--fau-blue); border-radius: 6px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
+        .calc-btns button:hover { background: var(--fau-blue); color: #fff; }
+        .calc-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 14px; }
+        .calc-out div { background: var(--gray-50); border-radius: 8px; padding: 10px 12px; }
+        .calc-out .k { font-size: 0.78rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.03em; }
+        .calc-out .v { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); }
+        .calc-verdict { margin-top: 12px; padding: 12px 14px; border-radius: 8px; border-left: 4px solid var(--fau-blue); background: #EEF4FB; }
+        .calc-verdict.fr { border-left-color: #B03A2E; background: #FBEDEB; }
+        .calc-verdict.nr { border-left-color: #1E7B5A; background: #EAF6F0; }
+        .scen-table td, .scen-table th { text-align: center; }
+        @media (max-width: 640px) {
+            .header-top { font-size: 0.7rem; }
+            .header-main { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 12px; }
+            .site-subtitle { display: none; }
+            .nav-links { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-links a { white-space: nowrap; padding: 6px 10px; flex: 0 0 auto; }
+            .data-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › <a href="index.html">Sequence Stratigraphy</a> › Module 3
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-mark">SS</div>
+                <div class="brand-divider"></div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="module0_course_skeleton.html">Course</a>
+                <a href="module1_shoreline_shifts.html">Shoreline shifts</a>
+                <a href="module2_history_concepts.html">History</a>
+                <a href="module3_controlling_factors.html" class="active">Controls</a>
+                <button class="logout-btn" type="button" onclick="SeqAccess.logout()">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Module 3 · Lecture 2, part 3 (Block 3) · ~90 minutes</div>
+            <h1>Controlling Factors: Tectonics, Eustasy, Climate</h1>
+            <p class="hero-description">What creates and destroys accommodation, what decides how much sediment stays, and why a global sea-level fall can still produce a transgression</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="objectives">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Explain how the three allogenic controls (tectonics, eustasy, climate) interact, and why sediment supply is not a fourth control on the same level</li>
+                <li>Distinguish eustasy, relative sea level and water depth, and calculate relative sea-level change and water-depth change from rates of eustasy, subsidence and sedimentation</li>
+                <li>Predict the shoreline response (transgression, normal regression, forced regression) from those rates, and explain why water depth is a poor guide to relative sea level</li>
+                <li>Explain why sediment supply is not sedimentation, and how energy flux sets base level and can change accommodation without any change in sea level</li>
+                <li>Recognise the stratigraphic fingerprints of tectonic and eustatic control, and the limits of each argument</li>
+                <li>Evaluate claims of orbital (Milankovitch) forcing critically</li>
+                <li>Explain how differential subsidence makes the same eustatic change produce relative fall in one part of a basin and relative rise in another</li>
+            </ul>
+        </div>
+
+        <!-- PART I -->
+        <section class="section">
+            <h2>Part I: The Logic of the Controls</h2>
+            <h3>1. Two things through which everything acts</h3>
+            <p class="lede">In Module 1 the shoreline moved according to a balance: the rate at which accommodation is created or destroyed, against the rate at which sediment fills it. This module opens the left-hand box of that balance and asks what drives it, and how sediment supply depends on the same drivers.</p>
+            <p>Catuneanu (2006, Fig. 3.1) summarises the logic in one diagram, which you should be able to redraw. On the left are the three <strong>allogenic controls</strong>: tectonics (subsidence and uplift), eustasy (global sea-level change) and climate. They are linked to each other: tectonics changes the volume of the ocean basins, climate changes the volume of continental ice, and both therefore drive eustasy. In the middle are the two things through which the controls act: <strong>accommodation</strong>, the space available for sediment to fill, and the <strong>balance between energy flux and sediment supply</strong>, that is, how much sediment arrives and how much energy is available to move it. On the right is the result: sedimentation, read in the rocks as depositional trends (aggradation or erosion, progradation or retrogradation).</p>
+            <div class="key-concept">
+                <h4>Hierarchy to remember</h4>
+                <p>Sediment supply is not a fourth allogenic control on the same level as the other three. It is a product of tectonics and climate, which set relief and weathering in the source area. Three primary controls; two things through which they act. Catuneanu (2017, section 3.1) puts the same point in modern form: whatever the dominant control, the stratigraphic architecture always comes down to two variables, accommodation and sedimentation.</p>
+            </div>
+
+            <h3>2. Relative importance changes across a basin</h3>
+            <p>Not every control matters equally everywhere. Catuneanu (2006, Fig. 3.3, after Shanley &amp; McCabe, 1994) divides a basin into three zones from distal to proximal:</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Zone 1, marine:</strong> accommodation is controlled by subsidence and sea level.</li>
+                <li><strong>Zone 2, downstream fluvial:</strong> rivers are still affected by sea level, because their profile is anchored at the shoreline.</li>
+                <li><strong>Zone 3, upstream fluvial:</strong> sea level no longer matters; only climate and tectonics act.</li>
+            </ul>
+            <p>The diagram is drawn for two basin types. In an <strong>extensional basin</strong> (rift, passive margin) subsidence rates increase basinward. In a <strong>foreland basin</strong> they increase towards the orogen, because the load of the thrust sheets flexes the lithosphere down, and decrease away from it. The vertical axis shows relative contributions, not amounts, and the zone boundaries shift with local conditions: do not read numbers from it.</p>
+            <div class="warning-box">
+                <h4>Consequence you will use all module</h4>
+                <p>Because subsidence varies across a basin, the same eustatic fall can produce a relative fall in one part of the basin and a relative rise in another, at the same time. Differential subsidence is the norm, not the exception (Part VII).</p>
+            </div>
+        </section>
+
+        <!-- PART II -->
+        <section class="section">
+            <h2>Part II: Tectonics</h2>
+            <h3>3. Subsidence</h3>
+            <p>Total subsidence combines several mechanisms (Catuneanu, 2006, pp. 64, 74; basin classification after Ingersoll &amp; Busby, 1995):</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Mechanism</th><th>Where it dominates</th><th>How it works</th></tr></thead>
+                    <tbody>
+                        <tr><td>Lithospheric stretching</td><td>Rifts, passive margins (early)</td><td>Crustal thinning lowers the surface</td></tr>
+                        <tr><td>Thermal subsidence</td><td>Passive margins (later)</td><td>Stretched lithosphere cools and becomes denser</td></tr>
+                        <tr><td>Flexural loading</td><td>Foreland basins</td><td>Weight of thrust sheets bends the lithosphere down</td></tr>
+                        <tr><td>Dynamic subsidence</td><td>Very long wavelengths, any setting</td><td>Flow in the mantle pulls the surface down</td></tr>
+                        <tr><td>Loading by sediment, water and ice</td><td>All basins</td><td>Isostatic response to added load</td></tr>
+                        <tr><td>Compaction; salt withdrawal and dissolution</td><td>All basins; salt basins</td><td>The sediment column itself loses volume; every reference level moves down even if basement does not</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Why this matters: subsidence pattern is arguably the most important control on accommodation at basin scale. Whether a basin fill thickens towards the basin centre or towards the margin reflects how subsidence is distributed. Catuneanu (2019a, Fig. 8 caption) adds that subsidence controls accommodation in all settings of a basin, whereas sea level controls it only downdip of the shoreline.</p>
+
+            <h3>4. Uplift</h3>
+            <p>Mechanisms include orogenic shortening and thrusting, reverse faults within the basin, crustal heating, salt diapirism and <strong>isostatic rebound</strong> after a load is removed (erosion, deglaciation, loss of water load). Glacio-isostasy shows the sequence clearly: an ice sheet grows and loads the crust; the crust subsides; the ice melts and the load is removed; the crust slowly rebounds. Scandinavia is still rising today for this reason. At the same moment the sea rises globally because the ice melted, and the land rises locally for the same reason: relative sea level is the combination of the two.</p>
+            <p>Uplift destroys accommodation and can force a regression without any change in global sea level. In the source area, uplift rejuvenates relief and increases sediment supply. One tectonic event can therefore act on both sides of the balance.</p>
+
+            <h3>5. Recognising tectonic control</h3>
+            <p>Tectonics rarely leaves one obvious signature; the case is built from several independent lines of evidence:</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Wedge-shaped sequences</strong>, thicker on one side: differential subsidence</li>
+                <li><strong>Coarse facies along one basin margin</strong>: rejuvenation of the adjacent source area</li>
+                <li><strong>Changes in syndepositional tilt</strong> and slope gradient through time</li>
+                <li><strong>Lateral variations in maximum burial depth</strong></li>
+                <li><strong>Changes in sediment composition and provenance</strong>: the source itself changed (e.g. Ravidà et al., 2021, for the Permian–Triassic of the SE Germanic Basin)</li>
+            </ul>
+            <div class="case-study">
+                <h4>Case study: accommodation controlled by tectonics alone (Karoo Basin)</h4>
+                <p>The Balfour Formation (late Late Permian to earliest Triassic) is entirely fluvial and accumulated in the foredeep of the Karoo foreland basin with no coeval marine environment in the preserved basin, so eustasy can be ruled out (Catuneanu &amp; Elango, 2001). It consists of six depositional sequences separated by subaerial unconformities, deposited in about 4 Myr (average 0.66 Myr per cycle), under a temperate to humid climate with no recorded climatic fluctuation. The authors relate sediment accumulation to flexural subsidence during orogenic loading (thrusting), and the bounding unconformities to flexural uplift during unloading (erosion and/or extension). Each sequence fines upward and passes from higher- to lower-energy fluvial styles as the topographic gradient decreased during loading. This is the kind of evidence (no marine influence, no climate signal, asymmetric profiles, changes in palaeoflow across boundaries) that tectonic control requires. Module 6 returns to it.</p>
+            </div>
+        </section>
+
+        <!-- PART III -->
+        <section class="section">
+            <h2>Part III: Eustasy</h2>
+            <h3>6. What changes global sea level</h3>
+            <p><strong>Eustasy</strong> is global sea level measured relative to a fixed datum, the centre of the Earth. Two families of processes change it:</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Changes in ocean-water volume:</strong> growth and melting of ice sheets (glacio-eustasy) and thermal expansion of seawater.</li>
+                <li><strong>Changes in ocean-basin volume:</strong> for example large, hot mid-ocean ridges displace water onto the continents and sea level rises (tectono-eustasy), linked to the supercontinent cycle.</li>
+            </ul>
+            <p>Eustasy alone does not create accommodation at any given place. What matters locally is relative sea level: eustasy combined with local subsidence or uplift (Section 13).</p>
+
+            <h3>7. Eustatic cyclicity</h3>
+            <p>Eustatic changes occur over very different time scales. The lecture uses the classification of Miall (2000):</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Order</th><th>Duration</th><th>Cause (Miall, 2000)</th></tr></thead>
+                    <tbody>
+                        <tr><td>First</td><td>200–400 Myr</td><td>Formation and breakup of supercontinents</td></tr>
+                        <tr><td>Second</td><td>10–100 Myr</td><td>Changes in the volume of mid-ocean spreading centres</td></tr>
+                        <tr><td>Third</td><td>1–10 Myr</td><td>Regional plate kinematics</td></tr>
+                        <tr><td>Fourth and fifth</td><td>0.01–1 Myr (10 kyr–1 Myr)</td><td>Orbital forcing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>When Pangaea broke up, new ridges formed, the oceans became shallower on average and water spilled onto the continents; much of the high sea level of the Cretaceous is linked to this kind of process. But assigning an order to a cycle does not tell you its mechanism: the categories describe durations, and the cause has to be demonstrated in each basin (Module 2, hierarchy).</p>
+
+            <h3>8. Signatures and limits</h3>
+            <p>If eustasy dominates a basin, three signatures are expected: <strong>tabular sequences</strong> (accommodation created equally across the basin), <strong>synchronous surfaces</strong> across the basin, and <strong>no rejuvenation of source areas</strong>. The limits are serious:</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li>Published eustatic curves for the Late Cretaceous to present disagree strongly in amplitude and timing because they rest on different methods (seismic onlap, backstripping of wells, flooding of continents, ridge volumes), each with its own assumptions.</li>
+                <li>Separating eustasy from regional tectonics is difficult.</li>
+                <li>Dynamic topography can tilt whole margins and contaminate "eustatic" curves.</li>
+            </ul>
+            <div class="research-box">
+                <h4>Research example: the New Jersey curve and dynamic subsidence</h4>
+                <p>The sea-level curve of Miller and colleagues (2005) is derived from boreholes on the New Jersey margin. Spasojević et al. (2008) made the case that the U.S. east coast has been subsiding dynamically since the Eocene because of mantle flow beneath it. If that is correct, part of what was read as global sea-level change in New Jersey is local vertical motion of the margin. Even the best-studied eustatic curve can contain a tectonic signal.</p>
+            </div>
+        </section>
+
+        <!-- PART IV -->
+        <section class="section">
+            <h2>Part IV: Climate and Orbital Forcing</h2>
+            <h3>9. Climate acts on both sides of the balance</h3>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Accommodation</strong>, mainly via glacio-eustasy: cooling grows ice sheets and lowers sea level; warming melts them and raises it.</li>
+                <li><strong>Energy flux</strong>: storms, river discharge, wind.</li>
+                <li><strong>Sediment supply</strong>: weathering, runoff, vegetation cover. A wetter climate can raise discharge and transport capacity; vegetation can stabilise slopes and reduce erosion.</li>
+            </ul>
+            <p><strong>Icehouse versus greenhouse:</strong> with large ice sheets, glacio-eustatic changes are large and frequent (the last glacial cycle moved the Adriatic shoreline by hundreds of kilometres; Amorosi et al., 2016). Without large ice sheets, high-frequency sea-level changes are smaller and their mechanism is debated. Catuneanu (2019a, Fig. 8 caption) notes that climate's contribution to accommodation is accounted for under subsidence (glacio-isostasy) and sea-level change, while its effect on sedimentation works through supply and energy.</p>
+
+            <h3>10. Milankovitch parameters</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Parameter</th><th>What varies</th><th>Main periods</th></tr></thead>
+                    <tbody>
+                        <tr><td>Eccentricity</td><td>Shape of the orbit, near-circular to slightly elliptical</td><td>~100 kyr and 405 kyr</td></tr>
+                        <tr><td>Obliquity</td><td>Tilt of the rotation axis, 22.1°–24.5°</td><td>~41 kyr</td></tr>
+                        <tr><td>Precession</td><td>Orientation of the axis relative to the orbit</td><td>climatic precession ~19–23 kyr</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The orbital parameters redistribute insolation between seasons and latitudes. Summer insolation at high northern latitudes decides whether snow survives the summer and ice sheets can grow. Through climate and ice volume they pace sea level, sediment supply and energy flux. In 1976 Hays, Imbrie and Shackleton showed from deep-sea sediments that the timing of the ice ages matches these cycles, and called the orbit the pacemaker of the ice ages.</p>
+
+            <h3>11. Caveats for cyclostratigraphy</h3>
+            <p>Rhythmic layering is not automatically proof of orbital forcing (after Hilgen et al., 2015):</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Incomplete record:</strong> non-deposition or erosion removes cycles, especially on shallow platforms and in shallow lakes, where a small fall exposes everything.</li>
+                <li><strong>Distorted signal:</strong> bioturbation, diagenesis and changing sedimentation rate; equal thicknesses do not mean equal times.</li>
+                <li><strong>Weak forcing:</strong> precession is weak when eccentricity is low and may not be recorded.</li>
+                <li><strong>Autogenic look-alikes:</strong> internal processes can produce similar rhythms (Strasser, 1991; Burgess, 2001, who modelled carbonate sequences without relative sea-level oscillations).</li>
+            </ul>
+            <p>The strongest case combines independent age control, statistical analysis of the cycles, and a plausible physical link between forcing and sedimentary process.</p>
+        </section>
+
+        <!-- PART V -->
+        <section class="section">
+            <h2>Part V: Sediment Supply, Energy Flux and Base Level</h2>
+            <h3>12. Supply is not sedimentation</h3>
+            <p><strong>Sediment supply</strong> is the amount (flux) and grain size of sediment delivered from source areas by gravity, water and wind. It is controlled by tectonics (relief, rejuvenation), climate (weathering, runoff), source-rock lithology (a granite yields sand, a shale mud) and vegetation. <strong>Sedimentation</strong> is how much actually stays at a given place, measured as vertical aggradation. The link between the two is the energy of the transport agents: a river can carry a huge load across a high-energy shelf and deliver it to the deep sea, leaving almost nothing behind (Catuneanu, 2006; 2019a, section 3.1.2).</p>
+            <p>The shoreline balance is therefore between the <strong>rate of change of accommodation</strong> and the <strong>rate of sedimentation</strong>, both measured as vertical distances. Catuneanu (2019a) adds that even under constant relative sea-level rise and constant supply, progradation can turn into retrogradation because the sediment is spread over a growing area (autoretreat; Muto &amp; Steel, 2002). Another reason why supply alone does not predict the stacking pattern.</p>
+
+            <h3>13. Energy flux and base level: the shoreface cases</h3>
+            <p>Catuneanu (2006, ch. 3) shows that accommodation can change even when sea level and subsidence do not change at all. Take a shoreface with constant sea level and no subsidence; vary only sediment supply and wave energy.</p>
+            <figure class="figure-container">
+                <img class="wide" src="img/m3/m3_fig2_shoreface.svg" alt="Three shoreface panels. A: supply balanced by waves, sediment bypasses, base level at the sea floor. B: supply exceeds waves, a new wedge aggrades and progrades, base level above the old sea floor. C: waves exceed supply, the shoreface and sea floor are eroded, base level below the sea floor and the water is deeper." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 1.</strong> Energy flux versus sediment supply at a shoreface with constant sea level and no subsidence. A: supply balanced by wave energy, sediment bypasses, base level coincides with the sea floor, accommodation zero. B: supply exceeds wave energy, aggradation and progradation, base level above the old sea floor, accommodation positive. C: wave energy exceeds supply, coastal and seafloor erosion, base level below the sea floor, accommodation negative even though the water is deeper. Dotted blue line: base level. <em>Own schematic drawn for this course; concept after Catuneanu (2006, ch. 3).</em></figcaption>
+            </figure>
+            <div class="key-concept">
+                <h4>Accommodation is measured to base level, not to sea level</h4>
+                <p>In case C the water is deeper, so there is more space for water, but less space for sediment. Water depth is not accommodation. Base level is lower during storms than in fair weather because storm waves rework the sea floor at greater depth, and rivers erode slightly below sea level at their mouths: base level and sea level are close, but not identical.</p>
+            </div>
+            <p>Catuneanu (2006, Fig. 3.4) generalises this: climate acts through discharge and supply on the fluvial side and through waves and currents on the marine side; subsidence acts through total subsidence and tilt; eustasy acts on marine accommodation directly and on rivers through coastal elevation. Differential subsidence can change water velocity in rivers (by changing gradient) and the type of gravity flows in marine and lacustrine basins (by changing slope steepness). All controls end up shifting the balance between supply and energy flux: if energy wins, erosion (negative accommodation); if sediment wins, accumulation (positive accommodation).</p>
+
+            <h3>14. Base level and the graded river profile</h3>
+            <p><strong>Base level</strong> is the reference surface to which continental denudation and marine aggradation tend; above it land is eroded, below it the sea fills up. It is often approximated by sea level. Catuneanu (2017, 2019a) distinguishes the <strong>ultimate base level</strong> (sea level, linked to accommodation) from <strong>temporary base levels</strong> (graded profiles of rivers and sea floors, a descriptor of sedimentation): a temporary base level is a surface of equilibrium between sediment supply, which promotes deposition, and transport energy, which promotes erosion (Barrell, 1917).</p>
+            <p>A <strong>graded (equilibrium) river</strong> transports its load without net deposition or erosion. A river above its graded profile incises; one below it aggrades. The profile is anchored to base level at the river mouth, so when base level rises or falls the lower reaches aggrade or incise. A <strong>lake is a local base level</strong>: upstream the river adjusts to the lake level, downstream to the sea. Drain the lake or build a dam and the upstream river must adjust to a new base level, just as rivers incised into the exposed shelf when sea level fell during the last glaciation in the Po Plain–Adriatic system (Amorosi et al., 2016).</p>
+        </section>
+
+        <!-- PART VI -->
+        <section class="section">
+            <h2>Part VI: Eustasy, Relative Sea Level and Water Depth</h2>
+            <h3>15. Three quantities, three reference surfaces</h3>
+            <p>Catuneanu (2006, Fig. 3.12, after Posamentier et al., 1988) uses three reference surfaces: sea level, sea floor, and a <strong>datum</strong>, a horizon in the subsurface that moves down with subsidence and up with uplift but is indifferent to sedimentation.</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Eustasy (E):</strong> sea level relative to the centre of the Earth.</li>
+                <li><strong>Relative sea level (R):</strong> sea level relative to the datum. Its change records how much accommodation was created or lost, independently of sedimentation.</li>
+                <li><strong>Water depth (W):</strong> sea level relative to the sea floor: how much accommodation is still unfilled after sedimentation has taken its share.</li>
+            </ul>
+            <figure class="figure-container">
+                <img class="wide" src="img/m3/m3_fig1_datums.svg" alt="Two columns at time t1 and t2. Between them sea level falls 5 m, the datum subsides 9 m and 3 m of sediment are deposited. Relative sea level grows from 20 to 24 m and water depth from 10 to 11 m." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 2.</strong> Eustasy (E), relative sea level (R, sea level to datum) and water depth (W, sea level to sea floor) at two moments 1 kyr apart, using the numerical example in the text: eustatic fall 5 m, subsidence 9 m, sedimentation 3 m. R increases by 4 m (accommodation created), W increases by 1 m (deepening). <em>Own schematic drawn for this course; concept after Catuneanu (2006, Fig. 3.12) and Posamentier et al. (1988).</em></figcaption>
+            </figure>
+
+            <h3>16. The numerical example</h3>
+            <p>Sign convention used here and in the calculator: eustatic rise positive, fall negative; subsidence positive, uplift negative (both move sea level up relative to the datum); sedimentation positive. Then:</p>
+            <div class="formula">ΔR = ΔE + ΔT &nbsp;&nbsp;&nbsp;&nbsp; ΔW = ΔR − S</div>
+            <p>Catuneanu's example: sea level falls at 5 m/kyr (ΔE = −5) while the basin subsides at 9 m/kyr (ΔT = +9). Relative sea level <strong>rises at 4 m/kyr</strong>: accommodation is being created although global sea level is falling. With sedimentation of 3 m/kyr, accommodation is created faster than it is consumed, so the water <strong>deepens at 1 m/kyr</strong>. Near the shoreline that means a <strong>transgression</strong>. Global sea level falling, and yet a transgression: this is why eustasy alone is never used to interpret shoreline shifts. Catuneanu et al. (1998, Fig. 4) formalise exactly this bookkeeping (R = E + T, W = R − S in their notation for rates).</p>
+
+            <div class="calc" id="calc">
+                <h4>Interactive calculator: from rates to shoreline response</h4>
+                <p style="font-size:0.9rem;color:var(--gray-600);margin-bottom:12px;">Rates in m/kyr, for a point at the shoreline. Assumes energy flux is constant (base level follows relative sea level) and ignores autoretreat and compaction feedbacks; this is a teaching tool, not a basin model.</p>
+                <div class="calc-grid">
+                    <div><label for="inE">Eustatic rate E</label><input id="inE" type="number" step="0.5" value="-5"><span class="hint">+ rise, − fall</span></div>
+                    <div><label for="inT">Subsidence / uplift T</label><input id="inT" type="number" step="0.5" value="9"><span class="hint">+ subsidence, − uplift</span></div>
+                    <div><label for="inS">Sedimentation rate S</label><input id="inS" type="number" step="0.5" min="0" value="3"><span class="hint">vertical aggradation, ≥ 0</span></div>
+                    <div><label for="inD">Duration (kyr)</label><input id="inD" type="number" step="1" min="0" value="10"><span class="hint">for cumulative values</span></div>
+                </div>
+                <div class="calc-btns">
+                    <button type="button" data-preset="-5,9,3">Catuneanu example</button>
+                    <button type="button" data-preset="0,-2,1">Uplift, no eustatic change</button>
+                    <button type="button" data-preset="2,1,6">High supply, slow rise</button>
+                    <button type="button" data-preset="-4,1,0.5">Eustatic fall &gt; subsidence</button>
+                </div>
+                <div class="calc-out" aria-live="polite">
+                    <div><span class="k">Relative sea-level change</span><br><span class="v" id="oR">–</span></div>
+                    <div><span class="k">Accommodation</span><br><span class="v" id="oA">–</span></div>
+                    <div><span class="k">Water depth change</span><br><span class="v" id="oW">–</span></div>
+                    <div><span class="k">Cumulative over duration</span><br><span class="v" id="oC">–</span></div>
+                </div>
+                <div class="calc-verdict" id="oV">–</div>
+            </div>
+
+            <h3>17. Ten ways to get a relative rise or fall</h3>
+            <p>Catuneanu (2006) lists all combinations of eustasy and tectonics:</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Relative rise (5 ways)</th><th>Relative fall (5 ways)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Subsidence + eustatic rise</td><td>Uplift + eustatic fall</td></tr>
+                        <tr><td>Subsidence faster than eustatic fall</td><td>Uplift faster than eustatic rise</td></tr>
+                        <tr><td>Eustatic rise, no subsidence</td><td>Eustatic fall, no subsidence</td></tr>
+                        <tr><td>Subsidence, no eustatic change</td><td>Uplift, no eustatic change</td></tr>
+                        <tr><td>Eustatic rise faster than uplift</td><td>Eustatic fall faster than subsidence</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Two lessons. First, the same relative change can have completely different causes, so rocks at one location cannot tell you whether eustasy or tectonics was responsible. Second, during a relative rise the new accommodation may be filled at any rate, so the water may deepen or shallow; during a relative fall accommodation is lost and the water almost always shallows. <strong>A shallowing-upward succession does not tell you that sea level fell.</strong> Catuneanu et al. (1998) make the same point: deepening- and shallowing-upward facies must not be confused with transgressive and regressive systems tracts, which are defined by shoreline movement.</p>
+
+            <h3>18. The full flow of controls</h3>
+            <p>Catuneanu (2006, Fig. 3.15) assembles everything for a marine setting. In words, from bottom left:</p>
+            <ol style="margin: 0 0 16px 24px;">
+                <li>Eustasy (sea level to centre of the Earth) and tectonics (moves the datum) together give <strong>relative sea-level change</strong>.</li>
+                <li><strong>Energy flux</strong> (waves, currents) lowers base level below sea level: more energy relative to supply, base level falls and accommodation is lost; less energy, base level rises and accommodation is gained. Relative sea level plus energy flux gives <strong>base-level change</strong>.</li>
+                <li>Base-level change creates or destroys accommodation; <strong>sedimentation</strong> consumes it.</li>
+                <li>The balance between creation and consumption decides the <strong>shoreline shift</strong>: transgression or regression.</li>
+            </ol>
+            <p>Two fine points from the caption: short-term climatic changes (seasonal and shorter) are counted under energy flux, while longer-term changes such as Milankovitch cycles are built into eustasy. And base-level changes depend on sediment supply but are measured independently of sedimentation, whereas relative sea-level changes are independent of both. If you can redraw this diagram and explain each arrow, you have understood this part of the course.</p>
+        </section>
+
+        <!-- PART VII GOING DEEPER -->
+        <section class="section">
+            <h2>Part VII: Going Deeper (not in the lecture)</h2>
+            <h3>19. Differential subsidence: opposite answers on one profile</h3>
+            <p>Section 2 warned that the same eustatic fall can give a relative fall in one place and a relative rise in another. Figure 3 shows the geometry for an extensional margin, with illustrative numbers: a eustatic fall of 3 m/kyr everywhere, and subsidence increasing basinward from 1 to 6 m/kyr. Where subsidence is slower than the fall, relative sea level falls and a forced regression can occur; where it is faster, relative sea level keeps rising. The boundary between the two is the point where T = |E|.</p>
+            <figure class="figure-container">
+                <img class="wide" src="img/m3/m3_fig3_differential.svg" alt="Upper panel: rate of relative sea-level change along a profile, negative landward and positive basinward, crossing zero at a hinge point. Lower panel: cross-section with uniform eustatic fall and subsidence arrows increasing basinward." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 3.</strong> The same eustatic fall (E = −3 m/kyr) on a profile where subsidence increases basinward from 1 to 6 m/kyr. Relative sea level falls landward of the hinge (R &lt; 0) and rises basinward of it (R &gt; 0), at the same time. Numbers are illustrative. In a foreland basin the subsidence gradient is reversed, so the relative rise would be on the orogen side. <em>Own schematic drawn for this course; concept after Catuneanu (2006, ch. 3) and Catuneanu et al. (1998).</em></figcaption>
+            </figure>
+            <p><strong>What Catuneanu et al. (1998) actually modelled.</strong> They used a sinusoidal eustatic curve (amplitude 10 m, period 2 Myr; maximum rate of fall 15.7 m/Myr at the inflexion point) on a 200 km shelf profile where subsidence increases basinward from 20 to 40 m/Myr and sedimentation decreases from 15 to 5 m/Myr. In that profile (their Profile A) subsidence everywhere exceeds the eustatic fall, so relative sea level rises continuously; only the water depth (subsidence minus sedimentation, plus eustasy) changes sign. The point where water depth is stationary migrates through time, so the surfaces defined on water-depth change (their maximum flooding surface and conformable transgressive surface) are diachronous. Beyond 71.3 km along the profile, net subsidence of the depositional surface always outpaced the maximum eustatic fall and the water deepened continuously. In two further profiles the subsidence rates were chosen to overlap partly with the eustatic rates, so that relative fall and relative rise occur at the same time in different parts of the basin; the correlative conformity (end of relative fall) then becomes diachronous too. Their general result: such surfaces can be diachronous by up to a quarter of the period of the highest-frequency control, whichever of eustasy, tectonics or sedimentation that is.</p>
+            <div class="key-concept">
+                <h4>Why this matters</h4>
+                <p>Bounding surfaces form only where the controlling rates are of the same order of magnitude and periodically balance each other (Catuneanu et al., 1998). If subsidence always exceeds eustatic fall, no forced regression and no correlative conformity form there at all. The stratigraphic record of one eustatic event therefore varies across a basin, and the "same" surface need not be the same age everywhere. Catuneanu (2017, 2019a) generalises: the balance of accommodation and sedimentation can change along a shoreline, giving coeval deposition of different systems tracts along strike and diachronous systems-tract boundaries.</p>
+            </div>
+            <h3>20. Downstream- versus upstream-controlled settings</h3>
+            <p>The zones 2 and 3 of Section 2 have a modern equivalent (Catuneanu, 2017, Fig. 5; 2019a). In <strong>downstream-controlled</strong> areas, which include continental, coastal and marine systems responding to relative sea-level change, stacking patterns relate to shoreline trajectories and the conventional systems tracts apply. The downstream-controlled area may extend 10<sup>0</sup>–10<sup>2</sup> km updip of the shoreline, depending on gradients and river size (Catuneanu, 2019a). In <strong>upstream-controlled</strong> areas, beyond the reach of relative sea level, stacking patterns form independently of the shoreline and are described by the degree of channel amalgamation (high- vs low-amalgamation systems tracts). The Balfour Formation (Section 5) is an upstream-controlled, entirely fluvial case. In retroarc foreland basins, out-of-phase flexure of foredeep and forebulge can produce "reciprocal" stratigraphies across the flexural hinge, with proximal sequences coeval with distal unconformities (Catuneanu, 2019a; Catuneanu &amp; Elango, 2001).</p>
+        </section>
+
+        <!-- PART VIII -->
+        <section class="section">
+            <h2>Part VIII: Pitfalls and Questions</h2>
+            <h3>21. Common pitfalls</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Pitfall</th><th>Why it fails</th></tr></thead>
+                    <tbody>
+                        <tr><td>"This boundary is eustatic"</td><td>A sequence boundary records base-level fall; its cause has to be demonstrated.</td></tr>
+                        <tr><td>Synchronous = eustatic</td><td>Regional tectonics and dynamic topography can affect large areas at the same time (remember New Jersey).</td></tr>
+                        <tr><td>Order = mechanism</td><td>A "third-order" cycle has no fixed duration or cause; rank is defined within a basin.</td></tr>
+                        <tr><td>High supply = progradation</td><td>Progradation needs sedimentation to outpace accommodation; high supply in a fast-subsiding basin can still give transgression.</td></tr>
+                        <tr><td>Supply = sedimentation</td><td>Energy flux decides how much of the supply accumulates.</td></tr>
+                        <tr><td>Shallowing upward = sea-level fall</td><td>Water shallows whenever sedimentation outpaces relative rise; only a relative fall forces regression.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>22. Think about it</h3>
+            <p><strong>1.</strong> The same eustatic fall affects a passive margin and a foreland basin. Where is a forced regression least likely to be recorded, and why?</p>
+            <details class="answer"><summary>Model answer</summary>
+                <p>Where subsidence is fastest. In a foreland basin that is close to the orogen. If subsidence there exceeds the eustatic fall, relative sea level keeps rising and no forced regression occurs, while in a slowly subsiding part of the same basin, or on a passive-margin shelf, the same fall produces a forced regression. Answer: in the most rapidly subsiding part of the foreland basin, near the orogen.</p>
+            </details>
+            <p><strong>2.</strong> Two sections 1,000 km apart show an unconformity of the same age. Is this proof of eustasy? What else would you need?</p>
+            <details class="answer"><summary>Model answer</summary>
+                <p>No. You need dating precise enough to show the two surfaces really are the same age, not just within each other's error bars. You need to exclude regional tectonics and dynamic topography, e.g. by showing that source areas were not uplifted and that sequences are tabular. Ideally you want the same surface in other, tectonically unrelated basins.</p>
+            </details>
+            <p><strong>3.</strong> Wave energy increases at a shoreface while sea level and sediment supply stay the same. What happens to accommodation and to the shoreline?</p>
+            <details class="answer"><summary>Model answer</summary>
+                <p>Base level is lowered below the sea floor, so accommodation becomes negative. Waves erode the shoreface and the coast, and the shoreline retreats landward without any change in sea level. This is case C of Figure 1.</p>
+            </details>
+        </section>
+
+        <!-- EXERCISE -->
+        <section class="section">
+            <h2>Worked Exercise: Four Rate Scenarios</h2>
+            <p>For each scenario at a shoreline, calculate the rate of relative sea-level change and of water-depth change, state whether accommodation is created or lost, name the shoreline response, and identify which of the ten eustasy–tectonics combinations (Section 17) applies. Rates in m/kyr. Check yourself with the calculator only after writing your answer.</p>
+            <div class="table-wrapper">
+                <table class="data-table scen-table">
+                    <thead><tr><th>Scenario</th><th>Eustasy E</th><th>Tectonics T</th><th>Sedimentation S</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>+2 (rise)</td><td>+1 (subsidence)</td><td>5</td></tr>
+                        <tr><td>2</td><td>−4 (fall)</td><td>+1 (subsidence)</td><td>2</td></tr>
+                        <tr><td>3</td><td>0</td><td>−2 (uplift)</td><td>0.5</td></tr>
+                        <tr><td>4</td><td>+1 (rise)</td><td>+2 (subsidence)</td><td>3</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <details class="answer"><summary>Solution, scenario 1</summary>
+                <p>R = +2 + 1 = +3 (relative rise, accommodation created at 3 m/kyr). W = 3 − 5 = −2 (shallowing at 2 m/kyr). Sedimentation outpaces the relative rise: <strong>normal regression</strong> (progradation with aggradation). Combination: subsidence + eustatic rise. Note the water shallows during a relative rise: shallowing does not mean sea-level fall.</p>
+            </details>
+            <details class="answer"><summary>Solution, scenario 2</summary>
+                <p>R = −4 + 1 = −3 (relative fall, accommodation lost at 3 m/kyr). W = −3 − 2 = −5 (shallowing). The shoreline is <strong>forced</strong> basinward whatever the sedimentation rate: <strong>forced regression</strong>. Combination: eustatic fall faster than subsidence.</p>
+            </details>
+            <details class="answer"><summary>Solution, scenario 3</summary>
+                <p>R = 0 − 2 = −2 (relative fall, accommodation lost). W = −2 − 0.5 = −2.5 (shallowing). <strong>Forced regression with no change in global sea level</strong>. Combination: uplift, no eustatic change. In the source area the same uplift may increase supply, but supply cannot stop a forced regression; it can only change how far the shoreline moves.</p>
+            </details>
+            <details class="answer"><summary>Solution, scenario 4</summary>
+                <p>R = +1 + 2 = +3 (relative rise, accommodation created). W = 3 − 3 = 0. Sedimentation exactly keeps pace with relative rise: the shoreline is <strong>stationary and the system aggrades</strong>; this is the turnaround condition between normal regression and transgression. Combination: subsidence + eustatic rise. A small increase in S tips it into normal regression; a small decrease into transgression.</p>
+            </details>
+        </section>
+
+        <section class="section key-points">
+            <h2>Key Points Summary</h2>
+            <ul>
+                <li>Three allogenic controls (tectonics, eustasy, climate), not independent of each other, act through accommodation and the energy-flux/sediment-supply balance; sediment supply is a product of tectonics and climate</li>
+                <li>Relative importance of the controls changes across a basin (marine, downstream fluvial, upstream fluvial); subsidence increases basinward in extensional basins and orogenward in foreland basins</li>
+                <li>Subsidence (stretching, cooling, flexure, dynamic, loading, compaction) and uplift (shortening, heating, diapirism, isostatic rebound) both act locally; eustasy acts globally but never alone</li>
+                <li>Relative sea-level change = eustasy + subsidence; water-depth change = relative change − sedimentation. A eustatic fall can coincide with a transgression</li>
+                <li>Only a relative fall forces regression; during a relative rise water may deepen or shallow, so water depth is a poor guide to relative sea level</li>
+                <li>Supply is not sedimentation; energy flux sets base level, and accommodation is measured to base level, not to sea level</li>
+                <li>Tectonic and eustatic control must each be demonstrated with independent evidence; eustatic curves can contain tectonic signals (New Jersey, dynamic subsidence)</li>
+                <li>Rhythmic layering is not proof of orbital forcing</li>
+                <li>Differential subsidence makes accommodation change at different rates, and even in opposite directions, along one profile; surfaces tied to these changes can be diachronous</li>
+            </ul>
+        </section>
+
+        <section class="reference-list">
+            <h4>Key References</h4>
+            <p><strong>Core reading:</strong> Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam, 375 pp. (chapter 3, pp. 73–104) • Catuneanu, O. (2017) Sequence stratigraphy: guidelines for a standard methodology. Stratigraphy &amp; Timescales 2, 1–57 (doi:10.1016/bs.sats.2017.07.003) • Catuneanu, O. (2019a) Model-independent sequence stratigraphy. Earth-Science Reviews 188, 312–388 • Catuneanu, O. (2022) Principles of Sequence Stratigraphy, 2nd ed. Elsevier, 490 pp.</p>
+            <p><strong>Differential subsidence and diachroneity:</strong> Catuneanu, O., Willis, A.J., Miall, A.D. (1998) Temporal significance of sequence boundaries. Sedimentary Geology 121, 157–178 • Catuneanu, O., Elango, H.N. (2001) Tectonic control on fluvial styles: the Balfour Formation of the Karoo Basin, South Africa. Sedimentary Geology 140, 291–313</p>
+            <p><strong>Controls:</strong> Barrell, J. (1917) GSA Bulletin 28, 745–904 • Ingersoll, R.V., Busby, C.J. (1995) In: Busby &amp; Ingersoll (Eds.), Tectonics of Sedimentary Basins. Blackwell, 1–51 • Miall, A.D. (2000) Principles of Sedimentary Basin Analysis, 3rd ed. Springer, 616 pp. • Muto, T., Steel, R.J. (2002) Basin Research 14, 303–318 • Posamentier, H.W., Jervey, M.T., Vail, P.R. (1988) SEPM Special Publication 42, 109–124 • Ravidà, D., Caracciolo, L., Heins, W.A., Stollhofen, H. (2021) Global and Planetary Change 206, 103632 • Shanley, K.W., McCabe, P.J. (1994) AAPG Bulletin 78, 544–568 • Spasojević, S., Liu, L., Gurnis, M., Müller, R.D. (2008) The case for dynamic subsidence of the U.S. east coast since the Eocene. Geophysical Research Letters 35, L08305</p>
+            <p><strong>Cyclostratigraphy:</strong> Burgess, P.M. (2001) Geology 29, 1127–1130 • Hilgen, F.J. et al. (2015) Geological Society, London, Special Publications 404, 157–197 • Strasser, A. (1991) In: Einsele, Ricken &amp; Seilacher (Eds.), Cycles and Events in Stratigraphy. Springer, 709–721</p>
+            <p><strong>Example:</strong> Amorosi, A., Maselli, V., Trincardi, F. (2016) Earth-Science Reviews 153, 212–237</p>
+        </section>
+
+        <section class="section quiz-section">
+            <h2>Self-Assessment Quiz</h2>
+            <p>Each question asks you to reason, not to recall. Options are shuffled every time the page loads.</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz (12 Questions)</button>
+            <div id="quiz-container"></div>
+        </section>
+
+        <div class="module-nav">
+            <a href="module2_history_concepts.html" class="nav-btn">← Previous: History &amp; Basic Concepts</a>
+            <a href="index.html" class="nav-btn">Back to Home →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>GeoZentrum Nordbayern</h4>
+                <p>Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p>Course Instructor: <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Accommodation calculator (rates in m/kyr at the shoreline)
+        (function () {
+            const $ = id => document.getElementById(id);
+            const fmt = x => (x > 0 ? '+' : '') + (Math.round(x * 100) / 100) + ' m/kyr';
+            const fmtM = x => (x > 0 ? '+' : '') + (Math.round(x * 10) / 10) + ' m';
+            function num(id) { const v = parseFloat($(id).value); return isFinite(v) ? v : 0; }
+            function update() {
+                const E = num('inE'), T = num('inT'), S = Math.max(0, num('inS')), D = Math.max(0, num('inD'));
+                const R = E + T, W = R - S, eps = 1e-9;
+                $('oR').textContent = fmt(R) + (R > eps ? ' (rise)' : R < -eps ? ' (fall)' : ' (stillstand)');
+                $('oA').textContent = R > eps ? 'created, ' + fmt(R) : R < -eps ? 'lost, ' + fmt(R) : 'no change';
+                $('oW').textContent = fmt(W) + (W > eps ? ' (deepening)' : W < -eps ? ' (shallowing)' : ' (constant)');
+                $('oC').textContent = 'R ' + fmtM(R * D) + ', W ' + fmtM(W * D);
+                const v = $('oV'); v.className = 'calc-verdict';
+                const eus = E < -eps ? 'eustatic fall' : E > eps ? 'eustatic rise' : 'no eustatic change';
+                const tec = T > eps ? 'subsidence' : T < -eps ? 'uplift' : 'no vertical tectonics';
+                let txt;
+                if (R < -eps) {
+                    v.classList.add('fr');
+                    txt = '<strong>Forced regression.</strong> Relative sea level falls, accommodation is lost and the shoreline is forced basinward whatever the sedimentation rate. Water shallows. Cause here: ' + eus + ' with ' + tec + '.';
+                } else if (R <= eps) {
+                    txt = '<strong>Relative stillstand.</strong> No accommodation is created. Any sediment that stays must build out: progradation without aggradation (or bypass if energy removes it).';
+                    if (S <= eps) txt = '<strong>Relative stillstand, no sedimentation.</strong> Nothing changes at the shoreline.';
+                } else if (W > eps) {
+                    txt = '<strong>Transgression.</strong> Relative sea level rises faster than sediment fills the space; water deepens and the shoreline moves landward (retrogradation). Cause here: ' + eus + ' with ' + tec + '.';
+                    if (E < -eps) txt += ' Note: global sea level is falling, yet the shoreline transgresses.';
+                } else if (W < -eps) {
+                    v.classList.add('nr');
+                    txt = '<strong>Normal regression.</strong> Relative sea level rises, but sedimentation outpaces it; water shallows and the shoreline progrades with aggradation. Shallowing here is not caused by a sea-level fall.';
+                } else {
+                    txt = '<strong>Aggradation, stationary shoreline.</strong> Sedimentation exactly balances relative rise: the turnaround between normal regression and transgression.';
+                }
+                v.innerHTML = txt;
+            }
+            ['inE', 'inT', 'inS', 'inD'].forEach(id => $(id).addEventListener('input', update));
+            document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => {
+                const p = b.getAttribute('data-preset').split(',');
+                $('inE').value = p[0]; $('inT').value = p[1]; $('inS').value = p[2]; update();
+            }));
+            update();
+        })();
+
+        const quizQuestions = [
+            {
+                "question": "At a shoreline, eustatic sea level falls at 2 m/kyr, the basin subsides at 5 m/kyr and sedimentation is 1 m/kyr. What does the shoreline do?",
+                "options": ["Transgresses, because relative sea level rises faster than sediment fills the space", "Undergoes forced regression, because global sea level is falling", "Undergoes normal regression, because the water shallows", "Stays stationary, because the controls cancel out"],
+                "correct": 0,
+                "explanation": "R = −2 + 5 = +3 m/kyr (relative rise); W = 3 − 1 = +2 m/kyr (deepening). A falling eustatic level does not prevent transgression when subsidence is faster (Catuneanu, 2006, numerical example)."
+            },
+            {
+                "question": "A core shows a shallowing-upward shoreface succession. Which conclusion is justified from this observation alone?",
+                "options": ["Relative sea level fell during deposition", "Eustatic sea level fell during deposition", "The basin was uplifted", "Sedimentation outpaced any relative rise, or relative sea level fell; the core alone cannot tell which"],
+                "correct": 3,
+                "explanation": "During a relative rise, water may deepen or shallow depending on sedimentation; during a relative fall it almost always shallows. Shallowing alone does not identify the cause, and the shoreline trajectory (normal vs forced regression) must be read from stacking patterns."
+            },
+            {
+                "question": "Wave energy increases at a shoreface while sea level, subsidence and sediment supply remain constant. What happens?",
+                "options": ["Nothing, because accommodation depends only on sea level and subsidence", "Base level drops below the sea floor, accommodation becomes negative and the shoreface erodes and retreats", "Accommodation increases because the water becomes deeper", "A forced regression occurs because base level falls"],
+                "correct": 1,
+                "explanation": "Case C: energy exceeds supply, base level falls below the sea floor and accommodation becomes negative although water depth increases. The shoreline retreats landward by erosion, not basinward; accommodation is measured to base level, not sea level."
+            },
+            {
+                "question": "A large river delivers a very high sediment load to a narrow, storm-dominated shelf with strong currents. Why might shelf aggradation still be minimal?",
+                "options": ["Because high supply always produces transgression", "Because sediment supply is an allogenic control independent of energy", "Because energy flux decides how much of the supply stays; the load can bypass the shelf to deeper water", "Because the shelf must be uplifting"],
+                "correct": 2,
+                "explanation": "Supply is not sedimentation. The balance between supply and energy flux determines accumulation; a high-energy shelf can be bypassed (Catuneanu, 2006; 2019a)."
+            },
+            {
+                "question": "The same eustatic fall affects an entire foreland basin. In which part is a forced regression least likely to be recorded?",
+                "options": ["Near the orogen, where flexural subsidence is fastest", "On the forebulge, where subsidence is slowest or uplift occurs", "Everywhere equally, because eustasy is global", "In the distal foreland, far from the thrust load"],
+                "correct": 0,
+                "explanation": "Where subsidence exceeds the eustatic fall, relative sea level keeps rising and no forced regression forms. In foreland basins subsidence increases towards the orogen (Catuneanu, 2006, Fig. 3.3)."
+            },
+            {
+                "question": "Two basins on different continents show unconformities dated to the same stage. A colleague concludes they are eustatic. What is the strongest objection?",
+                "options": ["Unconformities can never be eustatic", "Same-stage dating may hide real age differences, and regional tectonics or dynamic topography can act over large areas at once", "Eustatic falls only produce conformable surfaces", "Unconformities are always autogenic"],
+                "correct": 1,
+                "explanation": "Synchroneity within dating uncertainty is not proof of eustasy; dynamic topography can affect whole margins (e.g. Spasojević et al., 2008). Tabular geometry, no source rejuvenation, and tectonically unrelated basins are needed."
+            },
+            {
+                "question": "A succession shows sequences that thicken strongly toward one basin margin, coarse conglomerates along that margin, and a change in sandstone provenance across a sequence boundary. What does this combination indicate?",
+                "options": ["Glacio-eustatic control", "Orbital forcing of climate", "Autogenic delta-lobe switching", "Tectonic control: differential subsidence and source-area rejuvenation"],
+                "correct": 3,
+                "explanation": "Wedge-shaped sequences, coarse marginal facies and provenance change are independent fingerprints of tectonics. Eustatic control would predict tabular sequences and no source rejuvenation."
+            },
+            {
+                "question": "Why does the eustatic curve derived from New Jersey boreholes not necessarily record global sea level?",
+                "options": ["Because boreholes cannot record sea level", "Because the margin may have subsided dynamically since the Eocene, adding a local vertical motion to the signal", "Because New Jersey is in a foreland basin", "Because glacio-eustasy did not operate in the Cenozoic"],
+                "correct": 1,
+                "explanation": "Spasojević et al. (2008) made the case for dynamic subsidence of the U.S. east coast since the Eocene; part of the apparent eustatic signal could be local tectonics."
+            },
+            {
+                "question": "A carbonate platform succession shows regular metre-scale cycles. Which additional evidence would most strengthen an interpretation of orbital forcing?",
+                "options": ["Independent age control showing cycle periods matching orbital periods, with a plausible process link", "Equal cycle thicknesses throughout the section", "The presence of many cycles", "A shallow-water depositional setting"],
+                "correct": 0,
+                "explanation": "Equal thickness does not mean equal time, shallow platforms are prone to missed cycles, and autogenic processes can mimic rhythms (Strasser, 1991; Burgess, 2001). Age control, statistics and a process link are needed (after Hilgen et al., 2015)."
+            },
+            {
+                "question": "A river flows into a lake, which drains to the sea. The lake is suddenly drained. How does the river upstream of the former lake respond?",
+                "options": ["It is unaffected, because sea level did not change", "It aggrades, because base level rose", "It incises, adjusting to a lower local base level", "It becomes upstream-controlled by eustasy"],
+                "correct": 2,
+                "explanation": "The lake was a local base level anchoring the upstream graded profile. Removing it lowers base level and the river incises towards a new graded profile, as rivers incised the exposed shelf during glacial lowstands."
+            },
+            {
+                "question": "Along a single shelf profile subsidence increases basinward from 1 to 6 m/kyr, and eustasy falls at 3 m/kyr. What happens during this interval?",
+                "options": ["Relative sea level falls along the whole profile", "Relative sea level rises along the whole profile", "Relative sea level is unchanged because the average subsidence equals the fall", "Relative sea level falls landward and rises basinward, at the same time"],
+                "correct": 3,
+                "explanation": "R = E + T changes sign where T = 3 m/kyr. Differential subsidence makes accommodation change in opposite directions along one profile (Catuneanu, 2006; Catuneanu et al., 1998)."
+            },
+            {
+                "question": "In Catuneanu's flow of controls (2006, Fig. 3.15), why can base level differ from relative sea level?",
+                "options": ["Because base level ignores tectonics", "Because energy flux (waves, currents) lowers base level relative to sea level, so base-level change = relative sea-level change modified by energy flux", "Because base level is measured from the centre of the Earth", "Because sedimentation directly raises base level"],
+                "correct": 1,
+                "explanation": "Relative sea level plus energy flux gives base-level change. Base level depends on sediment supply but is measured independently of sedimentation; relative sea level is independent of both."
+            }
+        ];
+        quizQuestions.forEach(q => {
+            const right = q.options[q.correct];
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+            q.correct = q.options.indexOf(right);
+        });
+
+        let currentQuestion = 0, score = 0, answered = false;
+        function startQuiz() { document.querySelector('.start-quiz-btn').style.display = 'none'; currentQuestion = 0; score = 0; answered = false; loadQuestion(); }
+        function loadQuestion() { const q = quizQuestions[currentQuestion]; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card"><div class="quiz-progress"><div class="progress-text">Question ${currentQuestion + 1} of ${quizQuestions.length}</div><div class="progress-bar"><div class="progress-fill" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div></div></div><div class="question-text">${q.question}</div><div class="options-container">${q.options.map((opt, i) => `<button class="option-btn" onclick="selectAnswer(${i})" id="option-${i}"><span class="option-letter">${String.fromCharCode(65 + i)}</span><span class="option-text">${opt}</span></button>`).join('')}</div><div id="feedback" class="feedback-box"></div><div class="quiz-navigation"><button onclick="previousQuestion()" class="quiz-nav-btn" ${currentQuestion === 0 ? 'disabled' : ''}>← Previous</button><button onclick="nextQuestion()" class="quiz-nav-btn" id="next-btn" disabled>${currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next →'}</button></div></div>`; }
+        function selectAnswer(index) { if (answered) return; answered = true; const q = quizQuestions[currentQuestion], isCorrect = index === q.correct; if (isCorrect) score++; document.getElementById(`option-${index}`).classList.add(isCorrect ? 'correct' : 'incorrect'); if (!isCorrect) document.getElementById(`option-${q.correct}`).classList.add('correct'); document.querySelectorAll('.option-btn').forEach(b => b.disabled = true); const fb = document.getElementById('feedback'); fb.className = 'feedback-box ' + (isCorrect ? 'correct-feedback' : 'incorrect-feedback'); fb.innerHTML = `<strong>${isCorrect ? 'Correct.' : 'Not quite.'}</strong> ${q.explanation}`; fb.style.display = 'block'; document.getElementById('next-btn').disabled = false; }
+        function nextQuestion() { if (currentQuestion < quizQuestions.length - 1) { currentQuestion++; answered = false; loadQuestion(); } else { showResults(); } }
+        function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; answered = false; loadQuestion(); } }
+        function showResults() { const percentage = Math.round((score / quizQuestions.length) * 100); let message; if (percentage >= 90) message = 'Outstanding.'; else if (percentage >= 75) message = 'Great work.'; else if (percentage >= 60) message = 'Good effort.'; else message = 'Revisit Parts V and VI and try again.'; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card results-card"><h3>${message}</h3><div class="score-display"><span class="score-number">${score}</span> / ${quizQuestions.length}</div><div class="percentage">${percentage}%</div><button onclick="startQuiz()" class="start-quiz-btn" style="margin-top: 20px; display:inline-block;">Retake Quiz</button></div>`; }
+    </script>
+</body>
+</html>

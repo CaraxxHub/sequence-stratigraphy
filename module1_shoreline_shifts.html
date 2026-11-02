@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="assets/access.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Shoreline Shifts | Sequence Stratigraphy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
+    <style>
+        /* Module 1 page-specific styles */
+        .header-btn { padding: 7px 14px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px;
+                      font-size: 0.85rem; font-family: var(--font-sans); color: var(--gray-700); cursor: pointer; white-space: nowrap; }
+        .header-btn:hover { background: var(--gray-200); }
+        .header-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .section ul.plain { margin: 0 0 16px 24px; color: var(--gray-600); }
+        .section ul.plain li { margin-bottom: 6px; }
+        .eq { font-family: var(--font-serif); background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px;
+              padding: 12px 16px; margin: 16px 0; color: var(--fau-blue-dark); text-align: center; overflow-x: auto; }
+        /* shoreline widget */
+        .widget { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; margin: 24px 0; }
+        .widget h4 { color: var(--fau-blue); margin: 0 0 12px; font-size: 1rem; }
+        .w-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+        .w-ctrl label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--gray-700); margin-top: 10px; }
+        .w-ctrl input[type=range] { width: 100%; accent-color: var(--fau-blue); }
+        .w-val { font-variant-numeric: tabular-nums; color: var(--fau-blue); font-weight: 700; }
+        .w-sub { margin-top: 14px; border-top: 1px dashed var(--gray-300); padding-top: 8px; }
+        .w-sub summary { cursor: pointer; font-size: 0.88rem; color: var(--fau-blue); font-weight: 600; }
+        .w-out { background: white; border-radius: 10px; border: 1px solid var(--gray-200); padding: 14px 16px; }
+        .w-badge { display: inline-block; padding: 4px 12px; border-radius: 100px; color: white; font-weight: 700; font-size: 0.9rem; }
+        .w-out p { font-size: 0.92rem; margin: 8px 0 0; text-align: left; }
+        .w-out dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 0.86rem; margin-top: 10px; color: var(--gray-700); }
+        .w-out dt { font-weight: 600; }
+        .w-out dd { margin: 0; }
+        .w-svg { width: 100%; height: auto; display: block; margin-top: 8px; }
+        .w-note { font-size: 0.8rem; color: var(--gray-500); margin-top: 8px; }
+        @media (max-width: 760px) { .w-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .header-right { width: 100%; justify-content: space-between; } }
+        .figure-container img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › <a href="index.html">Sequence Stratigraphy</a> › Module 1
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-logos">
+                    <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+                </div>
+                <div class="brand-divider"></div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="module0_course_skeleton.html">Course</a>
+                    <a href="module1_shoreline_shifts.html" class="active">Shoreline shifts</a>
+                    <a href="module2_history_concepts.html">History &amp; concepts</a>
+                    <a href="module3_controlling_factors.html">Controlling factors</a>
+                </nav>
+                <button class="header-btn" id="logoutBtn" type="button" onclick="SeqAccess.logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Module 1 · Lecture 1 (19.10.2026) · ~75 minutes</div>
+            <h1>Why Do Depositional Systems Move Basinward or Landward?</h1>
+            <p class="hero-description">Accommodation against sedimentation at the shoreline: transgression, normal regression and forced regression, one sea-level cycle with four responses, and why tectonics and sediment supply change the record of the same eustatic signal.</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="objectives">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Define accommodation and relative sea level, and explain how eustasy and subsidence/uplift combine in them</li>
+                <li>Explain the shoreline as the place where the rates of accommodation and sedimentation are in balance</li>
+                <li>Predict the direction of shoreline shift (transgression, normal regression, forced regression) from two rates</li>
+                <li>Describe each shift by its stacking pattern (backstepping/forestepping, upstepping/downstepping) and shoreline trajectory</li>
+                <li>Read a relative sea-level cycle by its rates, not by its shape, and place the four systems tracts in it</li>
+                <li>Explain why the same eustatic curve produces different records under different subsidence and sediment supply</li>
+                <li>Interpret three synthetic wells and explain why one sea-level history gives three different records</li>
+                <li>Explain why the shoreline trajectory, not lithology or water depth, defines a systems tract</li>
+            </ul>
+        </div>
+
+        <!-- PART I -->
+        <section class="section">
+            <h2>Part I: The Shoreline Is a Moving Balance</h2>
+            <h3>1. The question of the course</h3>
+            <p class="lede">Students usually learn the definitions of sequence stratigraphy well. The harder part is explaining <strong>why</strong> a depositional system moves basinward or landward through time. This module deals only with that mechanism. Almost all later terms (surfaces, systems tracts, Wheeler diagrams) follow from it.</p>
+
+            <h3>2. Accommodation and relative sea level</h3>
+            <p><strong>Accommodation</strong> is the space available for sediment to accumulate (Jervey, 1988). It is measured from a datum attached to the substrate, for example the top of the basement. The distance from this datum to the sea surface is the <strong>relative sea level</strong>. Part of that space is already filled with sediment; what is left is the water depth.</p>
+            <p>Relative sea level changes for two reasons. The sea surface itself can rise or fall (<strong>eustasy</strong>), and the substrate can subside or be uplifted (<strong>tectonics</strong>, including compaction). A change in relative sea level is therefore the sum of the two. Catuneanu (2019a) puts it this way: accommodation is <em>created</em> by relative sea-level rise and <em>consumed</em> by sedimentation, and the water depth is the accommodation still available, i.e. the balance between creation and consumption of space.</p>
+            <div class="eq">rate of relative sea-level change = rate of eustatic change + rate of subsidence (− uplift)<br>relative sea level = water depth + sediment thickness</div>
+
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig1_accommodation.svg" target="_blank" rel="noopener"><img class="tall" src="img/m1/m1_fig1_accommodation.svg" alt="Sketch of accommodation: sea surface, sea floor, datum at top of basement at time t0 and now; arrows for relative sea level, water depth, sediment thickness, subsidence and eustasy." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 1.</strong> Accommodation and relative sea level. Relative sea level is measured from a datum fixed to the substrate (top of basement); subsidence lowers the datum, eustasy moves the sea surface. Relative sea level = water depth + sediment thickness. <em>Basis: the instructor's slide figure (Lecture 1, slide 10), regenerated from the course figure code (fig_source/figs.py); concept after Jervey (1988) and Catuneanu (2019a, Fig. 10).</em></figcaption>
+            </figure>
+
+            <h3>3. Two competing rates</h3>
+            <p>At the shoreline two rates compete:</p>
+            <ul class="plain">
+                <li>the <strong>rate of change in accommodation</strong>, i.e. the rate of relative sea-level change (eustasy + subsidence/uplift);</li>
+                <li>the <strong>rate of sedimentation</strong>, i.e. sediment supply and its delivery to the coast.</li>
+            </ul>
+            <p>At the shoreline, accommodation and sedimentation are always in balance. The shoreline shifts to a new equilibrium position whenever relative sea level or sediment supply changes (Catuneanu, 2019a). Landward of the shoreline the basin is overfilled, basinward of it underfilled; the shoreline is the only place where accommodation and sedimentation have to be treated as two separate controls (Catuneanu, 2019a).</p>
+            <div class="key-concept">
+                <h4>Key concept: rise does not mean landward</h4>
+                <p>A rising relative sea level does not guarantee a landward-moving shoreline. The direction depends on the balance between the two rates. A transgression in the rocks therefore does not by itself tell you that sea level rose fast: it may also mean that very little sediment arrived.</p>
+            </div>
+            <div class="warning-box">
+                <h4>Sediment supply is not the same as sedimentation rate</h4>
+                <p>Catuneanu (2019a) separates the two: high sediment supply does not necessarily give high sedimentation rates, because sediment can bypass high-energy areas and accumulate elsewhere. The parameter that controls stacking patterns at the shoreline is the rate of sedimentation. In this module "sedimentation" always means the rate at the shoreline.</p>
+            </div>
+        </section>
+
+        <!-- PART II -->
+        <section class="section">
+            <h2>Part II: Three Ways a Shoreline Can Move</h2>
+            <h3>4. Transgression, normal regression, forced regression</h3>
+            <p>There are only three ways a shoreline can move. Each is defined by a lateral component (backstepping = landward, forestepping = seaward) and a vertical component (upstepping, downstepping). The path of the shoreline through time is the <strong>shoreline trajectory</strong>.</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Shoreline shift</th><th>Condition at the shoreline</th><th>Stacking pattern</th><th>Trajectory</th><th>Systems tract</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Transgression</strong> (landward)</td><td>relative sea level rises faster than sedimentation fills the new space</td><td>retrogradation: backstepping + upstepping</td><td>transgressive</td><td>TST</td></tr>
+                        <tr><td><strong>Normal regression</strong> (seaward, during rise)</td><td>relative sea level rises, but sedimentation outpaces the creation of space</td><td>progradation + aggradation: forestepping + upstepping</td><td>ascending regressive</td><td>LST or HST</td></tr>
+                        <tr><td><strong>Forced regression</strong> (seaward, during fall)</td><td>relative sea level falls (negative accommodation)</td><td>progradation + downstepping: forestepping + downstepping</td><td>descending regressive</td><td>FSST</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The trajectory names (ascending regressive, descending regressive, transgressive) are those used in trajectory analysis (Helland-Hansen &amp; Martinsen, 1996; Helland-Hansen &amp; Hampson, 2009); Catuneanu (2019a) equates them with normal regression, forced regression and transgression. Remember three things: <strong>landward; seaward and up; seaward and down</strong>.</p>
+
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig2_shoreline_shifts.png" target="_blank" rel="noopener"><img class="wide" src="img/m1/m1_fig2_shoreline_shifts.png" alt="Three model cross-sections: transgression with backstepping strata, normal regression with forestepping and upstepping strata, forced regression with forestepping and downstepping strata; violet arrow = shoreline trajectory." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 2.</strong> The three shoreline shifts produced by the same simple geometric model, with only the rates changed. Violet = shoreline trajectory; thin black lines = time lines. Left: rate of relative rise &gt; rate of sedimentation (transgression). Centre: rate of sedimentation &gt; rate of relative rise (normal regression). Right: relative fall (forced regression). <em>Basis: instructor's forward model (fig_source/sm.py, figs.py), regenerated for this page; geometric model in arbitrary units, not a process simulation.</em></figcaption>
+            </figure>
+
+            <div class="key-concept">
+                <h4>Key concept: forced regression ignores sediment supply</h4>
+                <p>During a relative sea-level fall at the shoreline, the shoreline is forced seaward and downward <em>whatever the sediment supply</em>. More sediment makes the forced regression faster or thicker; it does not change its type. "The coastline is forced to regress, irrespective of sediment supply" (Catuneanu, 2019a, Fig. 25). Conversely, a regression during relative rise is never a forced regression, however fast it progrades.</p>
+            </div>
+
+            <h3>5. Try it: the shoreline balance</h3>
+            <p>Set the two rates at the shoreline. The logic is exactly that of the lecture: a relative fall gives forced regression regardless of sedimentation; during a relative rise, the larger of the two rates decides the direction. The extra panel lets you build the rate of relative sea-level change from eustasy and subsidence.</p>
+
+            <div class="widget" id="shoreWidget">
+                <h4>Shoreline balance calculator</h4>
+                <div class="w-grid">
+                    <div class="w-ctrl">
+                        <label for="sA">Rate of relative sea-level change (A): <span class="w-val" id="vA">+2.0</span> m/kyr</label>
+                        <input type="range" id="sA" min="-12" max="16" step="0.5" value="2" aria-describedby="wResult">
+                        <label for="sS">Rate of sedimentation at the shoreline (S): <span class="w-val" id="vS">1.0</span> m/kyr</label>
+                        <input type="range" id="sS" min="0" max="12" step="0.5" value="1" aria-describedby="wResult">
+                        <details class="w-sub" id="compBox">
+                            <summary>Build A from eustasy and subsidence</summary>
+                            <label for="sE">Rate of eustatic change: <span class="w-val" id="vE">0.0</span> m/kyr</label>
+                            <input type="range" id="sE" min="-8" max="8" step="0.5" value="0">
+                            <label for="sT">Rate of subsidence (negative = uplift): <span class="w-val" id="vT">+2.0</span> m/kyr</label>
+                            <input type="range" id="sT" min="-4" max="8" step="0.5" value="2">
+                            <p class="w-note">While this panel is open, A = eustatic rate + subsidence rate and the A slider follows it.</p>
+                        </details>
+                        <p class="w-note">The numbers are illustrative; only the sign of A and the comparison of A with S matter here.</p>
+                    </div>
+                    <div class="w-out" id="wResult" aria-live="polite">
+                        <span class="w-badge" id="wBadge">Transgression</span>
+                        <p id="wText"></p>
+                        <dl>
+                            <dt>Lateral shift</dt><dd id="wLat"></dd>
+                            <dt>Vertical shift</dt><dd id="wVer"></dd>
+                            <dt>Trajectory</dt><dd id="wTraj"></dd>
+                            <dt>Systems tract</dt><dd id="wST"></dd>
+                        </dl>
+                        <svg class="w-svg" id="wSvg" viewBox="0 0 320 150" role="img" aria-label="Schematic shoreline and trajectory arrow"></svg>
+                        <p class="w-note">Schematic: the arrow shows only the direction of the shoreline shift, not its rate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART III -->
+        <section class="section">
+            <h2>Part III: One Sea-Level Cycle, Four Responses</h2>
+            <h3>6. Read the rates, not the curve</h3>
+            <p>Put the three cases into one cycle of relative sea level: fall, lowstand, rise, highstand. Most students read the curve directly: sea level falls, the sea goes away; sea level rises, the sea comes in. That is not correct. What matters is the <strong>rate</strong> of relative sea-level change compared with the rate of sedimentation (here kept constant):</p>
+            <ul class="plain">
+                <li><strong>Fall</strong> (rate negative) → forced regression, <strong>FSST</strong>, whatever the sediment supply.</li>
+                <li><strong>Early rise</strong>, rate of rise &lt; rate of sedimentation → shoreline still moves seaward: lowstand normal regression, <strong>LST</strong>.</li>
+                <li>Rate of rise &gt; rate of sedimentation → transgression, <strong>TST</strong>.</li>
+                <li><strong>Late rise</strong>, rate of rise &lt; rate of sedimentation again → highstand normal regression, <strong>HST</strong>, although sea level is still rising.</li>
+            </ul>
+            <p>The shoreline changes direction where the two rate curves cross, not at the highest or lowest point of the sea-level curve.</p>
+
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig3_one_cycle_four_responses.svg" target="_blank" rel="noopener"><img class="wide" src="img/m1/m1_fig3_one_cycle_four_responses.svg" alt="Top: one relative sea-level cycle starting at highstand. Middle: rate of relative sea-level change and constant rate of sedimentation. Bottom: FSST, LST, TST, HST bands." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 3.</strong> One relative sea-level cycle and four shoreline responses. Top: relative sea level. Middle: its rate of change (blue) and a constant rate of sedimentation (dashed brown). Bottom: resulting systems tracts. Boundaries fall where the rate becomes zero (start and end of fall) and where the two rates cross (onset and end of transgression). <em>Basis: instructor's figure (Lecture 1, slide 12), regenerated from fig_source/figs.py; concept after Catuneanu (2006, 2019a); constant sedimentation rate assumed.</em></figcaption>
+            </figure>
+
+            <div class="research-box">
+                <h4>When and where do the turnarounds form?</h4>
+                <p><strong>End of transgression</strong>: when, at the shoreline, the rate of relative rise drops back below the rate of sedimentation. The shoreline is at its most landward position; the surface formed at this moment is the maximum flooding surface (Block 5). <strong>End of regression</strong>: when the rate of relative rise first exceeds the rate of sedimentation; the shoreline is at its most basinward position (maximum regressive surface). Catuneanu (2019a) describes both surfaces as points of equilibrium between the rates of creation and consumption of space, before the shoreline changes direction. Neither forms at the top or bottom of the sea-level curve. This is the root of the common confusion between the maximum flooding surface and the sequence boundary: the first is tied to a crossing of two rates, the other to the change from rise to fall and vice versa (Lectures 2 and 5).</p>
+            </div>
+
+            <h3>7. Lowstand or highstand?</h3>
+            <p>Normal regression occurs twice in the cycle. The two are told apart by what comes <em>before</em> them: a normal regression that follows a forced regression is a <strong>lowstand</strong> normal regression; one that follows a transgression is a <strong>highstand</strong> normal regression (Catuneanu, 2019a, citing Catuneanu, 2006). Ideally the lowstand trajectory is concave-up (accelerating rise: from mostly progradation to mostly upstepping), the highstand trajectory convex-up (decelerating rise: from mostly upstepping to mostly progradation). Because these ideal shapes are not always visible, the most reliable criterion is the preceding stacking pattern of equal hierarchical rank (Catuneanu, 2019a).</p>
+        </section>
+
+        <!-- PART IV -->
+        <section class="section">
+            <h2>Part IV: Tectonics and Sediment Supply Change the Response</h2>
+            <h3>8. Same eustatic signal, four records</h3>
+            <p>Keep the same eustatic signal and change only tectonics or sediment supply:</p>
+            <ul class="plain">
+                <li><strong>A, reference</strong>: the full cycle with all four responses.</li>
+                <li><strong>B, high subsidence</strong>: the basin subsides faster than sea level can fall. Relative sea level never falls, so there is never a forced regression. The shoreline only alternates between transgression and normal regression.</li>
+                <li><strong>C, high sediment supply</strong>: sedimentation always beats the creation of space. There is no transgression; the shoreline keeps moving seaward, also while sea level rises.</li>
+                <li><strong>D, very low sediment supply</strong>: every rise produces a transgression; there is no normal regression.</li>
+            </ul>
+
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig4_tectonics_supply.svg" target="_blank" rel="noopener"><img class="wide" src="img/m1/m1_fig4_tectonics_supply.svg" alt="Four rate diagrams A to D with eustatic rate, subsidence rate, rate of relative sea-level change and rate of sedimentation, and the resulting systems-tract bands." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 4.</strong> The same eustatic rate (dotted grey) in four cases. Blue = rate of relative sea-level change (eustatic rate + subsidence rate); dashed brown = rate of sedimentation. A: reference, FSST–LST–TST–HST. B: high subsidence, the blue curve never goes below zero, so no FSST. C: high supply, sedimentation always above the rate of rise, so no TST. D: very low supply, no normal regression. <em>Basis: instructor's figure (Lecture 1, slide 13), regenerated from fig_source/figs.py; combinations after Catuneanu (2019a, Fig. 3). Normalised rates, no units.</em></figcaption>
+            </figure>
+            <p>Catuneanu (2019a, Fig. 3) makes the general point: sequences may consist of different combinations of systems tracts, and the composition is basin specific, reflecting local conditions of accommodation and sedimentation. A sequence without an FSST or without a TST is not "incomplete"; it is what the rates allowed.</p>
+
+            <h3>9. Coupling of the controls</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Control</th><th>Acts mainly on</th><th>Effect on the shoreline</th></tr></thead>
+                    <tbody>
+                        <tr><td>Eustasy (glacio-, tectono-eustasy)</td><td>accommodation, basin-wide</td><td>cyclic rise and fall of relative sea level; transgressive–regressive cycles at many scales</td></tr>
+                        <tr><td>Basin tectonics: subsidence / uplift</td><td>accommodation, varies across and along the basin</td><td>subsidence adds to a rise and can cancel a eustatic fall; uplift can force a regression</td></tr>
+                        <tr><td>Hinterland tectonics</td><td>sediment supply</td><td>more supply → regression, even during relative sea-level rise</td></tr>
+                        <tr><td>Climate</td><td>eustasy (ice volume) and sediment supply (weathering, runoff)</td><td>acts on both sides of the balance at the same time</td></tr>
+                        <tr><td>Autogenic processes (avulsion, lobe switching)</td><td>local sediment distribution</td><td>local transgressions and regressions not tied to allogenic forcing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Because subsidence and supply vary in space, the same eustatic cycle can produce transgression in one part of a basin and regression in another. Catuneanu (2019a) stresses that the timing of maximum regressive and maximum flooding surfaces is location-specific along a shoreline, and that coeval progradation and retrogradation may be recorded where the rates vary along strike (e.g. Martinsen &amp; Helland-Hansen, 1995; Catuneanu et al., 1998, as cited there).</p>
+            <div class="warning-box">
+                <h4>Tectonics is not the exception</h4>
+                <p>It is often assumed that eustasy is the high-frequency driver and tectonics only a slow background. Catuneanu et al. (1998) point out that this need not be so: eustasy could keep a uniform rate over several episodes of subsidence and uplift, and tectonics would then drive sequence formation, as they cite for the Late Cretaceous sequences of the western Canada foreland basin (Catuneanu et al., 1997). They also note that if one variable is always much larger than the others (their example: subsidence always greater than eustasy and sedimentation combined), its effect suppresses the others, relative sea level rises continuously and no sequence-bounding surfaces form.</p>
+            </div>
+        </section>
+
+        <!-- PART V -->
+        <section class="section">
+            <h2>Part V: Three Wells and the Animation</h2>
+            <h3>10. Reading the synthetic wells</h3>
+            <p>Three wells were drilled through the same forward model at the end of its run: <strong>W1</strong> close to the land, <strong>W2</strong> in the middle of the shelf, <strong>W3</strong> in deep water at the foot of the slope. Colours are environments: orange = alluvium (fluvial/coastal plain, above sea level), light orange = nearshore sand (shoreface/delta front), green = marine shale (offshore, prodelta, slope foresets), yellow = proximal fan (deep-water sands, toe of slope). Column width is a <em>schematic</em> grain size by environment (M mud, S sand, G gravel), not a measurement. Ticks are time lines 1–30; crowded ticks mean little or no deposition, missing numbers mean time not recorded. Wells are hung from their tops on a common depth scale.</p>
+
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig5_wells.png" target="_blank" rel="noopener"><img class="tall" src="img/m1/m1_fig5_wells.png" alt="Top: model cross-section with wells W1, W2, W3. Bottom: the three well columns with environments and time-line ticks, uninterpreted." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 5.</strong> Synthetic wells W1 (SP 50), W2 (SP 120) and W3 (SP 180) through the final state of the forward model, uninterpreted. <em>Basis: instructor's model (fig_source/model.py, wells.py, fig_wells.py), regenerated for this page; geometric forward model, not a process simulation.</em></figcaption>
+            </figure>
+
+            <p>Before reading on, answer the questions from the lecture:</p>
+            <ul class="plain">
+                <li>W2: describe each package from base to top. Was the shoreline moving seaward or landward?</li>
+                <li>W2: the package repeats three times. What has to happen to put marine mud back on top of alluvium?</li>
+                <li>W1 contains only alluvium. Was the shoreline ever at W1?</li>
+                <li>W3 is always under water. Why does sand reach it only once?</li>
+            </ul>
+            <details class="answer">
+                <summary>Show the interpretation</summary>
+                <p><strong>W2:</strong> each package (marine mud → nearshore sand → alluvium) records the shoreline moving seaward past the well. Marine mud directly on top of alluvium means the shoreline moved landward again, and quickly.</p>
+                <p><strong>W1:</strong> the shoreline never reached W1. The well stayed on land and received sediment only while relative sea level rose; during the falls nothing was deposited there.</p>
+                <p><strong>W3:</strong> always under water and far from the shoreline. Sand arrived only while sea level fell and pushed the shoreline to the shelf edge.</p>
+                <p><strong>One sea-level history, three different records:</strong> what a well shows depends on where it sits relative to the shoreline.</p>
+            </details>
+
+            <h3>11. The systems-tract animation</h3>
+            <p>In the lecture we watched a high-resolution re-creation of the classic animation by Kendall (2001), after a larger-scale version by J. Baum (SEPM Strata). It is a geometric forward model, not a process simulation. The top panel is a cross-section; the bottom panel is a Wheeler diagram, the same section with time instead of depth on the vertical axis; the wells grow on the right as the cycle unfolds. Figure 6 shows its final frame.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m1/m1_fig6_animation_final.png" target="_blank" rel="noopener"><img class="wide" src="img/m1/m1_fig6_animation_final.png" alt="Final frame of the animation: cross-section with numbered shoreline positions and trajectory, wells W1 to W3, Wheeler diagram with sea-level curve and white hiatus areas." loading="lazy"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 6.</strong> Final frame (time step 30) of the systems-tract animation. Numbered circles = shoreline position at each time step; violet line = shoreline trajectory; grey curve in the Wheeler diagram = sea level (high to the left); white areas = no deposition (hiatus). <em>Basis: instructor's HD re-creation after C.G.St.C. Kendall (2001) and J. Baum (fig_source/render.py, model.py), frame rendered for this page.</em></figcaption>
+            </figure>
+            <p>The logic to follow in the animation is the logic of Part III:</p>
+            <ul class="plain">
+                <li>Follow the orange marker (shoreline now) and the numbered circles. Each change in the direction of the circles is a turnaround in the balance of rates.</li>
+                <li>Watch what the shoreline does <strong>while sea level is still rising</strong>: several times it moves seaward. That is normal regression.</li>
+                <li>When sea level falls, the circles step down and seaward, and the alluvial plain stops receiving sediment (white in the Wheeler diagram). The deep-water fan grows only in this stage.</li>
+                <li>In the Wheeler diagram, a seaward-growing coloured belt is a regression; a landward step of the facies belts is a transgression.</li>
+            </ul>
+            <div class="warning-box">
+                <h4>What is model, not nature</h4>
+                <p>In this model, alluvial deposition is switched off during relative fall and the fan receives sand only during the fall. Both are model rules. In nature, forced regression can be accompanied by fluvial aggradation or by degradation; these trends are "non-diagnostic" and do not define the systems tract (Catuneanu, 2019a). Catuneanu (2019a) also notes that sediment transfer to deep water depends on several variables, and that the capacity of shallow-water systems to retain sediment is lowest during forced regression; deviations from the textbook trend are possible. Use the model to understand the mechanism, not as a rule for where sand must be.</p>
+            </div>
+        </section>
+
+        <!-- GOING DEEPER -->
+        <section class="section">
+            <h2>Going Deeper: Beyond the Lecture</h2>
+
+            <h3>12. Transgression during a eustatic fall</h3>
+            <p>Because relative sea level is the sum of eustasy and subsidence, a eustatic fall does not imply a relative fall. Consider a shoreline where (illustrative numbers):</p>
+            <div class="eq">eustasy −5 m/kyr, subsidence +9 m/kyr, sedimentation 3 m/kyr<br>relative sea-level change = −5 + 9 = <strong>+4 m/kyr</strong> (relative rise)<br>+4 m/kyr &gt; 3 m/kyr → <strong>transgression</strong>; water depth increases by 4 − 3 = <strong>1 m/kyr</strong></div>
+            <p>Global sea level falls, yet the shoreline moves landward and the water deepens. The calculation follows "Case 2" of Catuneanu et al. (1998): the rates of eustatic change and tectonic subsidence combine into the rate of relative sea-level change; combined with the rate of sedimentation this gives the rate of water-depth change; if relative rise exceeds sedimentation, water depth increases. What is impossible is a transgression during a <em>relative</em> fall: Catuneanu (2019a, Fig. 24) lists all combinations of lateral and vertical shoreline shift as common in nature "except for transgression during relative sea-level fall".</p>
+            <p>Geological implication: a transgressive succession in a rapidly subsiding basin cannot be correlated with a global sea-level rise just because it is transgressive. Without independent constraints on subsidence and sedimentation, a stacking pattern tells you about the balance, not about eustasy.</p>
+
+            <h3>13. Water depth is not a proxy for shoreline shift offshore</h3>
+            <p>It is tempting to read deepening-upward facies as transgression and shallowing-upward facies as regression. Catuneanu et al. (1998) show why this fails away from the shoreline. They distinguish surfaces defined by <strong>stratal stacking patterns</strong> (type A) from surfaces defined by <strong>water-depth and relative sea-level changes</strong> (type B):</p>
+            <ul class="plain">
+                <li>Type A maximum flooding and transgressive surfaces are tied to the turnarounds of the <em>shoreline</em>. Their timing is controlled only by shoreline movement and is not affected by offshore variations in sedimentation and subsidence.</li>
+                <li>Type B surfaces mark where the rate of water-depth change is zero. Offshore, water depth depends on local subsidence and local sedimentation, both of which vary along the profile. In their two-dimensional model (eustatic amplitude 10 m, period 2 Ma; subsidence increasing basinward from 20 to 40 m/Ma; sedimentation decreasing from 15 to 5 m/Ma), the water-depth MFS becomes younger offshore and the water-depth CTS older offshore, and basinward of about 71 km subsidence always exceeds the maximum rate of eustatic fall, so no such surface forms there at all.</li>
+                <li>Citing Naish &amp; Kamp (1997), they note that the maximum water depth often occurs within the lower part of the highstand (normal regressive) wedge, i.e. after the shoreline has already turned to regression.</li>
+            </ul>
+            <div class="key-concept">
+                <h4>Key concept</h4>
+                <p>"Deepening-upward and shallowing-upward facies should not be confused with transgressive and regressive systems tracts. The latter are strictly controlled by the shoreline movements" (Catuneanu et al., 1998, abstract). Offshore, the sea can deepen while the shoreline regresses. In the arithmetic of Section 12, water deepening and transgression coincide only because we evaluated both at the shoreline.</p>
+            </div>
+
+            <h3>14. Trajectory, not lithology, defines the systems tract</h3>
+            <p>Shoreline trajectory analysis (Helland-Hansen &amp; Martinsen, 1996; Helland-Hansen &amp; Hampson, 2009) classifies the shoreline path by its direction. Catuneanu (2019a) separates <strong>diagnostic</strong> from <strong>non-diagnostic</strong> features:</p>
+            <ul class="plain">
+                <li>Diagnostic: the geometric trend of the shoreline. Backstepping and upstepping of shallow-water facies (coastal onlap) defines transgression; progradation with downstepping of shoreface or delta-front facies defines forced regression; progradation with upstepping defines normal regression.</li>
+                <li>Non-diagnostic: aggradation or degradation in fluvial and coastal environments, which can accompany more than one systems tract.</li>
+            </ul>
+            <p>Lithology is not the defining criterion, for two reasons given by Catuneanu (2019a). First, lithology changes along dip and strike, while sequence stratigraphic surfaces are defined independently of it; conformable surfaces such as the maximum flooding surface within a condensed section can be lithologically "cryptic", because the change in stacking pattern, rather than grain size, is the defining feature. Second, the same lithology occurs in different systems tracts: a coarsening-upward shoreface forms in both normal and forced regression. What separates them is the trajectory and its expression, e.g. upstepping vs downstepping of shoreface facies downdip, expanded vs compressed shoreface, and gradationally based vs <strong>sharp-based</strong> shoreface (Catuneanu, 2019a).</p>
+            <p>Catuneanu (2019a) also notes that pure aggradation (a shoreline that only steps up) and pure progradation at relative stillstand are theoretical end-members that are uncommon in nature, and that even under constant relative rise and constant supply the stacking pattern can change from progradation to retrogradation, because sedimentation rates fall as the sediment is spread over a wider area during progradation (autoretreat; Muto &amp; Steel, 2002, as cited there). This is the honest answer to the lecture question "relative sea level rises at a constant rate and supply doubles: what happens?": the shoreline moves seaward only if the new sedimentation rate at the shoreline exceeds the rate of rise, and that rate itself changes as the system progrades.</p>
+            <p>Present-day examples cited by Catuneanu (2019a, Figs. 19, 20): forced-regressive shorelines in the Canadian Arctic Archipelago and normal-regressive shorelines (including a prograding strandplain) on the east coast of India.</p>
+
+            <div class="case-study">
+                <h4>Case study preview: Po Plain – Adriatic Sea</h4>
+                <p>Amorosi, Maselli &amp; Trincardi (2016) trace a late Quaternary source-to-sink system over more than 1000 km from fluvial to deep-marine settings. Two observations from their abstract connect directly to this module: (1) because of high subsidence rates, the middle Pleistocene forced-regressive systems tracts are exceptionally expanded, i.e. tectonics modulates how much of the record a eustatic fall leaves; (2) within the Late glacial–Holocene transgression, the Younger Dryas cold reversal records a short-lived episode of subaqueous progradation, a regression nested in a transgression. They also report allogenic control dominating the TST and a predominantly autogenic control in the HST. The basin is a later case study in the course.</p>
+            </div>
+        </section>
+
+        <!-- EXERCISE -->
+        <section class="section">
+            <h2>Worked Exercise: Four Rate Scenarios</h2>
+            <p>For each scenario, compute the rate of relative sea-level change at the shoreline, state the shoreline shift, its stacking pattern and trajectory, and the possible systems tract(s). Rates in m/kyr; numbers are illustrative. Check yourself with the calculator above only after you have written your answer.</p>
+            <ol style="margin: 0 0 16px 24px; color: var(--gray-600);">
+                <li><strong>Scenario 1.</strong> Eustasy −2, subsidence +6, sedimentation 1.</li>
+                <li><strong>Scenario 2.</strong> Eustasy +1, subsidence +2, sedimentation 6. The underlying unit is a forced-regressive shoreface.</li>
+                <li><strong>Scenario 3.</strong> Eustasy −4, subsidence +1, sedimentation 10 (a large delta is building out).</li>
+                <li><strong>Scenario 4.</strong> Eustasy +1, subsidence +2, sedimentation 2. Later, sediment supply doubles and the sedimentation rate at the shoreline becomes 4.</li>
+            </ol>
+            <details class="answer">
+                <summary>Solution, scenario 1</summary>
+                <p>Relative change = −2 + 6 = <strong>+4</strong> (relative rise). 4 &gt; 1 → <strong>transgression</strong>: backstepping + upstepping, transgressive trajectory, TST. A eustatic fall with transgression: subsidence wins. Water depth at the shoreline increases at 4 − 1 = 3 m/kyr.</p>
+            </details>
+            <details class="answer">
+                <summary>Solution, scenario 2</summary>
+                <p>Relative change = +3 (rise). 6 &gt; 3 → <strong>normal regression</strong>: forestepping + upstepping, ascending regressive trajectory. Because it follows a forced regression, it is a <strong>lowstand</strong> normal regression (LST). The same rates above a transgressive unit would give an HST: the rates alone cannot tell lowstand from highstand.</p>
+            </details>
+            <details class="answer">
+                <summary>Solution, scenario 3</summary>
+                <p>Relative change = −4 + 1 = <strong>−3</strong> (relative fall). → <strong>forced regression</strong>: forestepping + downstepping, descending regressive trajectory, FSST. The high sedimentation rate does not make it a normal regression; it only changes how much sediment the forced-regressive wedge contains. Expect a sharp-based shoreface and a regressive surface of marine erosion at its base (Block 5).</p>
+            </details>
+            <details class="answer">
+                <summary>Solution, scenario 4</summary>
+                <p>Relative change = +3. First stage: 3 &gt; 2 → <strong>transgression</strong> (TST). After supply doubles: 4 &gt; 3 → <strong>normal regression</strong> (highstand, because it follows a transgression). The turnaround, where the shoreline stops moving landward, marks the maximum flooding surface. Note that doubling the supply reversed the shift only because the new rate exceeded the rate of rise; had sedimentation risen from 1 to 2, the shoreline would still transgress, only more slowly. And in a real system the sedimentation rate at the shoreline is not fixed by supply alone (autoretreat, Section 14).</p>
+            </details>
+        </section>
+
+        <section class="section key-points">
+            <h2>Key Points Summary</h2>
+            <ul>
+                <li>Accommodation is the space available for sediment to accumulate; its rate of change is the rate of relative sea-level change = eustasy + subsidence/uplift</li>
+                <li>The shoreline is where accommodation and sedimentation are in balance; it moves whenever either rate changes</li>
+                <li>Relative rise faster than sedimentation → transgression (backstepping + upstepping, TST)</li>
+                <li>Sedimentation faster than relative rise → normal regression (forestepping + upstepping, LST or HST)</li>
+                <li>Relative fall → forced regression (forestepping + downstepping, FSST), whatever the sediment supply</li>
+                <li>Read the rates, not the curve: the shoreline turns where the two rates cross, not at highstand or lowstand</li>
+                <li>Lowstand vs highstand normal regression is decided by the preceding stacking pattern</li>
+                <li>The same eustatic signal gives different systems-tract combinations under different subsidence and supply; a eustatic fall can even coincide with transgression</li>
+                <li>Offshore, water-depth changes do not track shoreline shifts; systems tracts are defined by the shoreline trajectory, not by lithology or bathymetry</li>
+                <li>What a well records depends on where it sits relative to the shoreline</li>
+            </ul>
+        </section>
+
+        <section class="reference-list">
+            <h4>Key References</h4>
+            <p><strong>Lecture 1 references:</strong> Catuneanu, O. (2019a) Model-independent sequence stratigraphy. Earth-Science Reviews 188, 312–388 • Helland-Hansen, W. &amp; Martinsen, O.J. (1996) Shoreline trajectories and sequences: description of variable depositional-dip scenarios. Journal of Sedimentary Research 66, 670–688 • Helland-Hansen, W. &amp; Hampson, G.J. (2009) Trajectory analysis: concepts and applications. Basin Research 21, 454–483 • Jervey, M.T. (1988) Quantitative geological modeling of siliciclastic rock sequences and their seismic expression. In: Wilgus, C.K. et al. (Eds.), Sea-Level Changes: An Integrated Approach. SEPM Special Publication 42, 47–69 • Kendall, C.G.St.C. (2001) Major sequence stratigraphic and chronostratigraphic surfaces (animation, after J. Baum). SEPM Strata, www.sepmstrata.org • Posamentier, H.W., Jervey, M.T. &amp; Vail, P.R. (1988) Eustatic controls on clastic deposition I – conceptual framework. SEPM Special Publication 42, 109–124</p>
+            <p><strong>Going deeper:</strong> Catuneanu, O., Willis, A.J. &amp; Miall, A.D. (1998) Temporal significance of sequence boundaries. Sedimentary Geology 121, 157–178 • Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam, 375 pp. • Catuneanu, O., Galloway, W.E., Kendall, C.G.St.C., Miall, A.D., Posamentier, H.W., Strasser, A. &amp; Tucker, M.E. (2011) Sequence stratigraphy: methodology and nomenclature. Newsletters on Stratigraphy 44(3), 173–245 • Amorosi, A., Maselli, V. &amp; Trincardi, F. (2016) Onshore to offshore anatomy of a late Quaternary source-to-sink system (Po Plain–Adriatic Sea, Italy). Earth-Science Reviews 153, 212–237</p>
+            <p><strong>Cited as reported in the works above (not read directly):</strong> Catuneanu et al. (1997), Martinsen &amp; Helland-Hansen (1995) and Naish &amp; Kamp (1997), as cited in Catuneanu et al. (1998); Muto, T. &amp; Steel, R.J. (2002) Basin Research 14, 303–318, as cited in Catuneanu (2019a).</p>
+            <p><strong>Online:</strong> SEPM Strata, www.sepmstrata.org</p>
+        </section>
+
+        <section class="section quiz-section">
+            <h2>Self-Assessment Quiz</h2>
+            <p>Twelve questions. Each one asks you to apply the balance of rates, not to recall a definition. Options are shuffled each time the page loads.</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz (12 Questions)</button>
+            <div id="quiz-container"></div>
+        </section>
+
+        <div class="module-nav">
+            <a href="module0_course_skeleton.html" class="nav-btn">← Previous: Course Skeleton</a>
+            <a href="module2_history_concepts.html" class="nav-btn">Next: History &amp; Basic Concepts →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>GeoZentrum Nordbayern</h4>
+                <p>Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p>Course Instructor: <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+            </div>
+            <div class="footer-logos">
+                <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    /* ---------- Shoreline balance widget ---------- */
+    (function () {
+        var $ = function (id) { return document.getElementById(id); };
+        var sA = $('sA'), sS = $('sS'), sE = $('sE'), sT = $('sT'), comp = $('compBox');
+        var COL = { FR: '#D9534F', NR: '#4A90C8', T: '#5CB85C', ST: '#7A7A7A', BAL: '#8E6CB5', NONE: '#999999' };
+        function fmt(v) { return (v > 0 ? '+' : '') + v.toFixed(1); }
+
+        // Classification follows Lecture 1 exactly:
+        // relative fall at the shoreline -> forced regression, regardless of sedimentation;
+        // relative rise: rate of rise > sedimentation -> transgression; < -> normal regression.
+        function classify(A, S) {
+            if (A < 0) return { k: 'FR', name: 'Forced regression',
+                text: 'Relative sea level falls at the shoreline (negative accommodation). The shoreline is forced seaward and downward whatever the sedimentation rate. A higher sedimentation rate makes the forced-regressive wedge larger; it does not turn it into a normal regression.',
+                lat: 'seaward (forestepping)', ver: 'downward (downstepping)', traj: 'descending regressive', st: 'FSST (falling-stage systems tract)', dx: 1, dy: -1 };
+            if (A === 0 && S === 0) return { k: 'NONE', name: 'No shift',
+                text: 'No accommodation is created or destroyed and no sediment arrives: the shoreline stays where it is.',
+                lat: 'none', ver: 'none', traj: 'none', st: 'none', dx: 0, dy: 0 };
+            if (A === 0) return { k: 'ST', name: 'Regression at relative stillstand',
+                text: 'Relative sea level is stationary, so all sediment builds the coast outward with no vertical shift. This is a theoretical limiting case; Catuneanu (2019a) notes that pure progradation at stillstand is uncommon in nature. It is not a forced regression, because relative sea level does not fall.',
+                lat: 'seaward (forestepping)', ver: 'none', traj: 'horizontal (limiting case)', st: 'limiting case between normal and forced regression', dx: 1, dy: 0 };
+            if (A > S) return { k: 'T', name: 'Transgression',
+                text: 'Relative sea level rises faster than sedimentation can fill the new space. The shoreline moves landward and upward; the deposits step back towards the land.',
+                lat: 'landward (backstepping)', ver: 'upward (upstepping)', traj: 'transgressive', st: 'TST (transgressive systems tract)', dx: -1, dy: 1 };
+            if (A < S) return { k: 'NR', name: 'Normal regression',
+                text: 'Relative sea level rises, but sedimentation outpaces the creation of space. The shoreline moves seaward and upward although sea level is rising. Whether it is a lowstand or a highstand normal regression cannot be read from the rates: it depends on whether it follows a forced regression (LST) or a transgression (HST).',
+                lat: 'seaward (forestepping)', ver: 'upward (upstepping)', traj: 'ascending regressive', st: 'LST or HST (decided by the preceding stacking pattern)', dx: 1, dy: 1 };
+            return { k: 'BAL', name: 'Balance: turnaround',
+                text: 'The rate of relative rise exactly equals the rate of sedimentation: the shoreline only steps up, with no lateral shift. In a real cycle this is a momentary turnaround between transgression and normal regression (where the maximum regressive or maximum flooding surface forms), not a lasting state; Catuneanu (2019a) calls pure aggradation uncommon in nature.',
+                lat: 'none', ver: 'upward (upstepping)', traj: 'vertical (turnaround)', st: 'boundary between TST and LST/HST', dx: 0, dy: 1 };
+        }
+
+        function draw(r, A, S) {
+            var svg = $('wSvg'), c = COL[r.k];
+            var x0 = 160, y0 = 78;
+            // schematic profile: land to the left, sea to the right
+            var s = '';
+            s += '<rect x="0" y="0" width="320" height="150" fill="#ffffff"/>';
+            s += '<polygon points="0,40 160,78 320,128 320,150 0,150" fill="#E8E3D7"/>';
+            s += '<rect x="160" y="78" width="160" height="0.1" fill="none"/>';
+            s += '<polygon points="160,78 320,78 320,128" fill="#BFE3F2"/>';
+            s += '<line x1="160" y1="78" x2="320" y2="78" stroke="#1a7fa8" stroke-width="2"/>';
+            s += '<text x="8" y="22" font-size="11" fill="#555" font-family="Inter, sans-serif">land</text>';
+            s += '<text x="282" y="70" font-size="11" fill="#1a7fa8" font-family="Inter, sans-serif">sea</text>';
+            if (r.dx !== 0 || r.dy !== 0) {
+                var L = 52, n = Math.sqrt(r.dx * r.dx + r.dy * r.dy);
+                var x1 = x0 + L * r.dx / n, y1 = y0 - L * r.dy / n;
+                s += '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + c + '"/></marker></defs>';
+                s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x1.toFixed(1) + '" y2="' + y1.toFixed(1) + '" stroke="' + c + '" stroke-width="4" marker-end="url(#ah)"/>';
+            }
+            s += '<circle cx="' + x0 + '" cy="' + y0 + '" r="5" fill="#ff6a00" stroke="#333" stroke-width="1"/>';
+            s += '<text x="' + (x0 - 40) + '" y="' + (y0 + 22) + '" font-size="10" fill="#333" font-family="Inter, sans-serif">shoreline now</text>';
+            // rate bars
+            var sc = 6, bx = 12, by = 120;
+            s += '<text x="' + bx + '" y="' + (by - 6) + '" font-size="10" fill="#333" font-family="Inter, sans-serif">A ' + fmt(A) + '   S ' + S.toFixed(1) + '</text>';
+            s += '<rect x="' + bx + '" y="' + by + '" width="' + Math.min(Math.abs(A) * sc, 130) + '" height="7" fill="' + (A < 0 ? COL.FR : '#04316A') + '"/>';
+            s += '<rect x="' + bx + '" y="' + (by + 10) + '" width="' + Math.min(S * sc, 130) + '" height="7" fill="#8B4513"/>';
+            svg.innerHTML = s;
+        }
+
+        function update() {
+            if (comp.open) {
+                var a = parseFloat(sE.value) + parseFloat(sT.value);
+                sA.value = a;
+            }
+            var A = parseFloat(sA.value), S = parseFloat(sS.value);
+            $('vA').textContent = fmt(A); $('vS').textContent = S.toFixed(1);
+            $('vE').textContent = fmt(parseFloat(sE.value)); $('vT').textContent = fmt(parseFloat(sT.value));
+            var r = classify(A, S);
+            var b = $('wBadge'); b.textContent = r.name; b.style.background = COL[r.k];
+            var extra = '';
+            if (comp.open) {
+                var E = parseFloat(sE.value);
+                if (E < 0 && A > 0) extra = ' Note: eustasy is falling, but subsidence turns it into a relative rise at this shoreline.';
+                if (E > 0 && A < 0) extra = ' Note: eustasy is rising, but uplift turns it into a relative fall at this shoreline.';
+            }
+            $('wText').textContent = r.text + extra;
+            $('wLat').textContent = r.lat; $('wVer').textContent = r.ver; $('wTraj').textContent = r.traj; $('wST').textContent = r.st;
+            draw(r, A, S);
+        }
+        [sA, sS, sE, sT].forEach(function (el) { el.addEventListener('input', update); });
+        sA.addEventListener('input', function () { if (comp.open) comp.open = false; update(); });
+        comp.addEventListener('toggle', update);
+        update();
+    })();
+
+    /* ---------- Quiz ---------- */
+    const quizQuestions = [
+        {
+            question: "At a shoreline, eustatic sea level falls at 2 m/kyr, the basin subsides at 5 m/kyr and the sedimentation rate is 1 m/kyr. How does the shoreline move?",
+            options: [
+                "Landward: relative sea level rises at 3 m/kyr, faster than sedimentation",
+                "Seaward and downward: global sea level is falling",
+                "Seaward and upward: subsidence and sedimentation together exceed the eustatic fall",
+                "It stays in place: subsidence cancels the eustatic fall"
+            ],
+            correct: 0,
+            explanation: "Rate of relative change = −2 + 5 = +3 m/kyr, a relative rise. Since 3 > 1, accommodation is created faster than sediment fills it: transgression. Eustasy alone does not decide the shift; the relative change at the shoreline does."
+        },
+        {
+            question: "Relative sea level at a shoreline falls at 3 m/kyr while a large delta delivers sediment at 10 m/kyr. Which shift results?",
+            options: [
+                "Normal regression, because sedimentation exceeds the rate of change of accommodation",
+                "Forced regression, because relative sea level falls at the shoreline",
+                "Transgression, because the delta cannot keep up with a fall",
+                "Aggradation without lateral shift, because the two effects cancel"
+            ],
+            correct: 1,
+            explanation: "A relative fall at the shoreline forces the shoreline seaward and downward whatever the sediment supply. High supply only enlarges the forced-regressive wedge. Normal regression requires relative rise."
+        },
+        {
+            question: "In one relative sea-level cycle with constant sedimentation rate, when does the shoreline switch from lowstand normal regression to transgression?",
+            options: [
+                "At the lowest point of the relative sea-level curve",
+                "When the rate of relative rise reaches its maximum",
+                "When the rate of relative rise first exceeds the rate of sedimentation",
+                "At the inflection point of the falling limb"
+            ],
+            correct: 2,
+            explanation: "At the lowstand the rate is zero, still below sedimentation, so regression continues (LST). Only when the rising rate overtakes the sedimentation rate does the shoreline turn landward. The turnaround is a crossing of two rates, not a point on the sea-level curve."
+        },
+        {
+            question: "A basin subsides faster than the maximum rate of eustatic fall throughout a eustatic cycle. Which systems tract cannot form at its shoreline?",
+            options: [
+                "Transgressive systems tract",
+                "Highstand systems tract",
+                "Falling-stage systems tract",
+                "None: all four still form, only thinner"
+            ],
+            correct: 2,
+            explanation: "Relative sea level = eustasy + subsidence. If subsidence always outpaces the eustatic fall, relative sea level never falls, so there is no forced regression and no FSST. The shoreline alternates between transgression and normal regression (case B of the lecture)."
+        },
+        {
+            question: "Relative sea level rises at a constant 3 m/kyr. Sediment supply doubles, raising the sedimentation rate at the shoreline from 1 to 2 m/kyr. What happens?",
+            options: [
+                "The shoreline turns seaward, because more sediment always produces regression",
+                "Forced regression begins, because sedimentation now dominates",
+                "The shoreline keeps moving landward, but more slowly",
+                "The shoreline becomes stationary, because supply doubled"
+            ],
+            correct: 2,
+            explanation: "Before: 3 > 1, transgression. After: 3 > 2, still transgression, but the imbalance is smaller. Doubling supply reverses the shift only if the new sedimentation rate exceeds the rate of rise. Forced regression needs a relative fall, which has not happened."
+        },
+        {
+            question: "Two shoreline segments of the same basin experience the same eustatic cycle. At the same time, one transgresses and the other regresses. Which explanation is consistent with the balance concept?",
+            options: [
+                "Eustasy must have differed between the two segments",
+                "Subsidence or sedimentation rates differ along strike",
+                "One of the two records must be misinterpreted",
+                "Transgression and regression cannot coexist within one basin"
+            ],
+            correct: 1,
+            explanation: "Eustasy is basin-wide, but subsidence and sediment supply vary in space (and autogenic lobe switching can act locally). The balance at each shoreline segment can therefore differ, producing coeval transgression and regression."
+        },
+        {
+            question: "An offshore well shows upward-deepening facies across an interval during which, according to a well-dated coastal section, the shoreline was regressing. How do you resolve this?",
+            options: [
+                "The coastal section must be wrong, since offshore deepening implies transgression",
+                "Offshore water depth depends on local subsidence and sedimentation, so the sea can deepen while the shoreline regresses",
+                "The offshore well records a eustatic rise that did not reach the coast",
+                "Upward-deepening facies always indicate a forced regression"
+            ],
+            correct: 1,
+            explanation: "Catuneanu et al. (1998) show that water-depth changes offshore depend on local subsidence and sedimentation rates, so deepening- and shallowing-upward facies must not be equated with transgressive and regressive systems tracts, which are defined by shoreline movement."
+        },
+        {
+            question: "A forestepping and upstepping shoreface unit directly overlies a backstepping transgressive unit of the same hierarchical rank. How should it be classified?",
+            options: [
+                "Lowstand normal regression (LST)",
+                "Falling-stage systems tract (FSST)",
+                "Highstand normal regression (HST)",
+                "It cannot be classified without the eustatic curve"
+            ],
+            correct: 2,
+            explanation: "Forestepping + upstepping is normal regression. A normal regression that follows a transgression is a highstand normal regression; one that follows a forced regression is a lowstand normal regression. The preceding stacking pattern decides, not the eustatic curve."
+        },
+        {
+            question: "In the synthetic wells, W1 (near the basin margin) contains only alluvium, with gaps in the time lines. What does this tell you?",
+            options: [
+                "The shoreline never reached W1; it received sediment only during relative rise",
+                "W1 records repeated transgressions that removed all marine deposits",
+                "W1 was below sea level but received only fluvial sand",
+                "The gaps in W1 correspond to the transgressive intervals"
+            ],
+            correct: 0,
+            explanation: "No marine or nearshore facies means the shoreline stayed basinward of W1. In this model, alluvial deposition occurs only while relative sea level rises; during falls nothing is deposited at W1, hence the missing time."
+        },
+        {
+            question: "W3, at the toe of slope, is always under water, but receives sand only once in the model run. Why?",
+            options: [
+                "Sand reaches it only when the shoreline transgresses across the shelf",
+                "Sand reaches it only during the highstand, when supply is largest",
+                "Sand reaches it only when relative fall pushes the shoreline to the shelf edge",
+                "Sand reaches it only when subsidence stops"
+            ],
+            correct: 2,
+            explanation: "Most of the time the shelf traps the coarse sediment near the shoreline. During relative fall the shoreline is forced to the shelf edge and sand bypasses to the slope toe. In the model this is a rule; in nature the retention capacity of shallow-water systems is lowest during forced regression, but deviations are possible (Catuneanu, 2019a)."
+        },
+        {
+            question: "Two coarsening-upward shoreface sandstones look identical in core. Which observation best distinguishes a forced-regressive from a normal-regressive origin?",
+            options: [
+                "The grain size at the top of each sandstone",
+                "Whether shoreface facies step down or up in the downdip direction",
+                "The thickness of the overlying marine mudstone",
+                "The presence of fluvial channels above the sandstone"
+            ],
+            correct: 1,
+            explanation: "Lithology is shared by both. The diagnostic criterion is the shoreline trajectory: downstepping (forced regression, often with a sharp base) vs upstepping (normal regression, gradational base). Fluvial aggradation or erosion above is non-diagnostic (Catuneanu, 2019a)."
+        },
+        {
+            question: "Global sea level falls by 5 m/kyr, subsidence is 9 m/kyr and sedimentation 3 m/kyr. A student concludes: 'falling sea level, so forced regression'. What is wrong?",
+            options: [
+                "Nothing; a eustatic fall always causes forced regression",
+                "The student should have compared eustasy with sedimentation only",
+                "Relative sea level rises at 4 m/kyr, which exceeds sedimentation, so the shoreline transgresses",
+                "Relative sea level rises at 14 m/kyr, so the shoreline is in normal regression"
+            ],
+            correct: 2,
+            explanation: "Relative change = −5 + 9 = +4 m/kyr, a relative rise; 4 > 3 gives transgression, with the water deepening by 1 m/kyr at the shoreline. A transgression during eustatic fall is possible; a transgression during relative fall is not (Catuneanu, 2019a, Fig. 24)."
+        }
+    ];
+    // Shuffle answer options once per page load
+    quizQuestions.forEach(q => {
+        const right = q.options[q.correct];
+        for (let i = q.options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+        }
+        q.correct = q.options.indexOf(right);
+    });
+
+    let currentQuestion = 0, score = 0, answered = false;
+    function startQuiz() { document.querySelector('.start-quiz-btn').style.display = 'none'; currentQuestion = 0; score = 0; answered = false; loadQuestion(); }
+    function loadQuestion() { const q = quizQuestions[currentQuestion]; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card"><div class="quiz-progress"><div class="progress-text">Question ${currentQuestion + 1} of ${quizQuestions.length}</div><div class="progress-bar"><div class="progress-fill" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div></div></div><div class="question-text">${q.question}</div><div class="options-container">${q.options.map((opt, i) => `<button class="option-btn" onclick="selectAnswer(${i})" id="option-${i}"><span class="option-letter">${String.fromCharCode(65 + i)}</span><span class="option-text">${opt}</span></button>`).join('')}</div><div id="feedback" class="feedback-box"></div><div class="quiz-navigation"><button onclick="previousQuestion()" class="quiz-nav-btn" ${currentQuestion === 0 ? 'disabled' : ''}>← Previous</button><button onclick="nextQuestion()" class="quiz-nav-btn" id="next-btn" disabled>${currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next →'}</button></div></div>`; }
+    function selectAnswer(index) { if (answered) return; answered = true; const q = quizQuestions[currentQuestion], isCorrect = index === q.correct; if (isCorrect) score++; document.getElementById(`option-${index}`).classList.add(isCorrect ? 'correct' : 'incorrect'); if (!isCorrect) document.getElementById(`option-${q.correct}`).classList.add('correct'); document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true); const feedback = document.getElementById('feedback'); feedback.innerHTML = `<div class="${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}"><strong>${isCorrect ? 'Correct.' : 'Not quite.'}</strong><p>${q.explanation}</p></div>`; feedback.style.display = 'block'; document.getElementById('next-btn').disabled = false; }
+    function nextQuestion() { if (currentQuestion < quizQuestions.length - 1) { currentQuestion++; answered = false; loadQuestion(); } else { showResults(); } }
+    function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; answered = false; loadQuestion(); } }
+    function showResults() { const percentage = Math.round((score / quizQuestions.length) * 100); let message; if (percentage >= 90) { message = 'Excellent: you can reason with the balance of rates.'; } else if (percentage >= 75) { message = 'Good: revisit the questions you missed.'; } else if (percentage >= 60) { message = 'Fair: work through Parts II and III again.'; } else { message = 'Go back to the calculator and the worked exercise first.'; } document.getElementById('quiz-container').innerHTML = `<div class="quiz-card results-card"><h3>${message}</h3><div class="score-display"><span class="score-number">${score}</span> / ${quizQuestions.length}</div><div class="percentage">${percentage}%</div><button onclick="startQuiz()" class="start-quiz-btn" style="margin-top: 20px;">Retake Quiz</button></div>`; }
+    </script>
+</body>
+</html>
