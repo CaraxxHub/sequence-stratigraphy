@@ -14,7 +14,15 @@
   'use strict';
 
   var STUDENT_EMAIL_HASHES = [
-    // WS 2026/27 cohort: TO BE FILLED (roster not yet provided)
+    // WS 2026/27 cohort (8 students, updated 2026-11-02)
+    '2e98006e397cb9d56335ef48df5162c5420a7394e75df76f75e7da2507086a9d',
+    '2654a8d63bfebe96bef3ee5e4d6716c7911a274e2adc015d17d56ec30662b4c0',
+    '029c78a845f855ec2880eed6bed1799fd2e23efa06332faf978d64b29646bee7',
+    'dc73ece83609eb107968c815a888d6bc8cdb42bfaa82d39b4b043694594c1cf6',
+    '2578085ba9d1d712285a516f34c9ff736580a4446ad72243f11fce0f97a07518',
+    '162ad17ced2a3196b8a3aa47001eadc938e885015657b8f32ecdda4fffe4eb7d',
+    '2ce02fb3822c9c0a1b11b8410cb4384a4437262876d4b979ce99376c84c8140f',
+    '9c6d3845503f60de4a3281d9ee3d975c22a8b74c300141ef8aa489bb52964bf4',
   ];
 
   var INSTRUCTOR_EMAIL_HASHES = [
