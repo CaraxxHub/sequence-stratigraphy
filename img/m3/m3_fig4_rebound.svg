@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" font-family="Inter, Arial, sans-serif" font-size="13">
+  <title>Glacio-isostatic rebound faster than eustatic rise gives a relative sea-level fall (own schematic, not to scale)</title>
+  <rect width="680" height="400" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1E293B"/></marker>
+  </defs>
+  <text x="80" y="26" font-weight="700" fill="#04316A">Elevation change at a coast after deglaciation, relative to its starting position</text>
+  <!-- axes: x 80..600 (time), y 60..320, zero at y=200 -->
+  <line x1="80" y1="330" x2="80" y2="50" stroke="#1E293B" marker-end="url(#ar)"/>
+  <line x1="80" y1="200" x2="610" y2="200" stroke="#1E293B" marker-end="url(#ar)"/>
+  <text x="612" y="218" font-size="12" text-anchor="end">time</text>
+  <text x="74" y="204" text-anchor="end" font-size="12">0</text>
+  <text x="74" y="70" text-anchor="end" font-size="12">up</text>
+  <text x="74" y="326" text-anchor="end" font-size="12">down</text>
+  <!-- land surface uplift (rebound): fast, decelerating -->
+  <path d="M80,200 C200,120 330,95 600,78" fill="none" stroke="#8D6E63" stroke-width="3"/>
+  <text x="300" y="80" fill="#6D4C41" font-weight="600">Land surface: glacio-isostatic rebound (U)</text>
+  <!-- eustatic rise: slow -->
+  <path d="M80,200 L600,165" fill="none" stroke="#1565C0" stroke-width="3"/>
+  <text x="320" y="160" fill="#1565C0" font-weight="600">Sea surface: eustatic rise (E)</text>
+  <!-- relative sea level = E - U -->
+  <path d="M80,200 C200,265 330,280 600,287" fill="none" stroke="#C62828" stroke-width="3" stroke-dasharray="8 5"/>
+  <text x="400" y="306" fill="#C62828" font-weight="600">Relative sea level (E − U): falls</text>
+  <!-- vertical bracket at x=520 -->
+  <line x1="560" y1="82" x2="560" y2="167" stroke="#1E293B" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="552" y="122" font-size="11" text-anchor="end">U exceeds E:</text>
+  <text x="552" y="136" font-size="11" text-anchor="end">accommodation lost</text>
+  <text x="80" y="356" font-size="12" fill="#334155">Coastal response: forced regression, offlapping (seaward-downstepping) delta,</text>
+  <text x="80" y="374" font-size="12" fill="#334155">while global sea level is rising.</text>
+  <text x="600" y="394" font-size="11" fill="#64748B" text-anchor="end" font-style="italic">Schematic, not to scale</text>
+</svg>
