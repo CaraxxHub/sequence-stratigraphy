@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="assets/access.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 0: Course Skeleton | Sequence Stratigraphy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
+    <style>
+        /* Module 0 page-specific styles */
+        body { overflow-x: hidden; }
+        .header-tools { display: flex; align-items: center; gap: 10px; }
+        .logout-btn { padding: 7px 12px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px;
+                      font-size: 0.82rem; font-family: var(--font-sans); color: var(--gray-700); cursor: pointer; white-space: nowrap; }
+        .logout-btn:hover { background: var(--gray-200); }
+        .chain { display: block; width: 100%; height: auto; }
+        .chain-v { display: none; max-width: 380px; margin: 0 auto; }
+        .workflow { list-style: none; counter-reset: wf; margin: 8px 0 20px; }
+        .workflow li { counter-increment: wf; position: relative; padding: 12px 0 12px 52px; border-bottom: 1px dashed var(--gray-200); color: var(--gray-700); }
+        .workflow li:last-child { border-bottom: none; }
+        .workflow li::before { content: counter(wf); position: absolute; left: 0; top: 10px; width: 34px; height: 34px; border-radius: 50%;
+                               border: 2.5px solid var(--nat-green); color: var(--nat-green-dark); font-weight: 700; display: flex;
+                               align-items: center; justify-content: center; background: white; }
+        .workflow li.last::before { border-color: var(--gray-400); color: var(--gray-500); }
+        .section ul.plain { margin: 0 0 16px 22px; color: var(--gray-600); }
+        .section ul.plain li { margin-bottom: 6px; }
+        .chain-step { display: inline-block; min-width: 22px; padding: 0 6px; border-radius: 100px; font-size: 0.78rem; font-weight: 700;
+                      text-align: center; color: white; background: var(--fau-blue); margin: 1px 2px 1px 0; }
+        .chain-step.c { background: var(--accent-gold); }
+        .chain-step.r { background: var(--fau-blue-light); }
+        .chain-step.g { background: var(--nat-green); }
+        .chain-step.p { background: var(--fau-blue); }
+        .chain-step.s { background: var(--fau-blue-dark); }
+        .data-table td, .data-table th { vertical-align: top; }
+        .data-table td:first-child { white-space: nowrap; }
+        .glossary td:first-child { white-space: normal; font-weight: 600; color: var(--fau-blue-dark); min-width: 130px; }
+        .src { font-size: 0.78rem; color: var(--gray-500); }
+        .lede { text-align: left !important; }
+        @media (max-width: 640px) {
+            .chain-h { display: none; }
+            .chain-v { display: block; }
+            .header-tools { width: 100%; }
+            .header-tools .nav-links { flex: 1; min-width: 0; }
+            .section p { text-align: left; }
+            .data-table td:first-child { white-space: normal; }
+            .figure-container { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › <a href="index.html">Sequence Stratigraphy</a> › Module 0
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-logos">
+                    <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+                </div>
+                <div class="brand-divider"></div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <div class="header-tools">
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="module0_course_skeleton.html" class="active">Start</a>
+                    <a href="module1_shoreline_shifts.html">Shorelines</a>
+                    <a href="module2_history_concepts.html">Concepts</a>
+                    <a href="module3_controlling_factors.html">Controls</a>
+                    <a href="index.html#tools">Wheeler</a>
+                </nav>
+                <button class="logout-btn" type="button" onclick="SeqAccess.logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Module 0 · Start here · ~40 minutes</div>
+            <h1>Course Skeleton</h1>
+            <p class="hero-description">One chain of cause and effect runs through every lecture of this course. This page shows the chain, the workflow you will use to read it from the rocks, and how the exam and the weekly assignments work.</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="objectives">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Explain the genetic chain from allogenic controls to the Wheeler diagram, and say which link each lecture of the course deals with</li>
+                <li>Explain why the workflow starts from observed stacking patterns and not from the controls or from a model template</li>
+                <li>Distinguish what is observed (stacking patterns, surfaces) from what is a convention (which surface is called the sequence boundary)</li>
+                <li>Define every core term by when, where and why it forms, not by its appearance</li>
+                <li>Know what the exam asks for, and how to justify an interpretation from shoreline trajectories</li>
+            </ul>
+        </div>
+
+        <!-- PART I -->
+        <section class="section">
+            <h2>Part I: The Genetic Chain</h2>
+            <h3>1. One question, one chain</h3>
+            <p class="lede">The question of the course was set in Lecture 1: <strong>why does a depositional system move basinward or landward through time?</strong> The answer is a chain of cause and effect. Every topic in this course is one link of it.</p>
+            <p>At the shoreline, two rates compete: the rate at which accommodation is created or destroyed, and the rate of sedimentation. Accommodation is the space made available for sediment to fill (Jervey, 1988); it is created or destroyed by changes in relative sea level, that is eustasy combined with subsidence or uplift, and it is measured independently of sedimentation (Catuneanu, 2019a). The balance of the two rates decides the direction of the shoreline. The path of the shoreline through time, the shoreline trajectory, decides which stratal stacking pattern is built. Changes in stacking pattern are what we map as sequence stratigraphic surfaces. Each stacking pattern, bounded by those surfaces, is a systems tract. A full cycle of change in stacking pattern is a sequence. The Wheeler diagram shows the same record with time, instead of thickness, on the vertical axis.</p>
+
+            <figure class="figure-container">
+<svg class="chain chain-h" viewBox="0 0 1120 330" role="img" aria-labelledby="chainH-t chainH-d" xmlns="http://www.w3.org/2000/svg">
+<title id="chainH-t">The genetic chain of sequence stratigraphy</title>
+<desc id="chainH-d">Eight linked steps from allogenic controls, through the balance of accommodation and sedimentation, shoreline trajectory, stacking patterns, surfaces, systems tracts and sequences, to the Wheeler diagram. A dashed arrow below shows that the model-independent workflow starts from the observed stacking patterns and interprets the controls last.</desc>
+<defs>
+<linearGradient id="chainH-g" gradientUnits="userSpaceOnUse" x1="70" x2="1050" y1="0" y2="0"><stop offset="0" stop-color="#C99700"/><stop offset="0.45" stop-color="#43B02A"/><stop offset="1" stop-color="#04316A"/></linearGradient>
+<marker id="chainH-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#64748B" stroke-width="1.6"/></marker>
+</defs>
+<g font-family="Inter, Segoe UI, sans-serif">
+<line x1="18" y1="62" x2="262" y2="62" stroke="#C99700" stroke-width="3" stroke-linecap="round"/>
+<text x="140.0" y="50" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.6" fill="#C99700">CAUSE</text>
+<line x1="298" y1="62" x2="402" y2="62" stroke="#0056AD" stroke-width="3" stroke-linecap="round"/>
+<text x="350.0" y="50" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.6" fill="#0056AD">RESPONSE</text>
+<line x1="438" y1="62" x2="682" y2="62" stroke="#43B02A" stroke-width="3" stroke-linecap="round"/>
+<text x="560.0" y="50" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.6" fill="#43B02A">RECORD</text>
+<line x1="718" y1="62" x2="962" y2="62" stroke="#04316A" stroke-width="3" stroke-linecap="round"/>
+<text x="840.0" y="50" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.6" fill="#04316A">PACKAGING</text>
+<line x1="998" y1="62" x2="1102" y2="62" stroke="#002147" stroke-width="3" stroke-linecap="round"/>
+<text x="1050.0" y="50" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1.6" fill="#002147">SYNTHESIS</text>
+<line x1="70" y1="120" x2="1050" y2="120" stroke="url(#chainH-g)" stroke-width="3" stroke-linecap="round"/>
+<path d="M136.0,114 L144.0,120 L136.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M136.0,114 L144.0,120 L136.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M276.0,114 L284.0,120 L276.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M276.0,114 L284.0,120 L276.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416.0,114 L424.0,120 L416.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416.0,114 L424.0,120 L416.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M556.0,114 L564.0,120 L556.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M556.0,114 L564.0,120 L556.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M696.0,114 L704.0,120 L696.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M696.0,114 L704.0,120 L696.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M836.0,114 L844.0,120 L836.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M836.0,114 L844.0,120 L836.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M976.0,114 L984.0,120 L976.0,126" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M976.0,114 L984.0,120 L976.0,126" fill="none" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="120" r="17" fill="white" stroke="#C99700" stroke-width="3"/>
+<text x="70" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#C99700">1</text>
+<text x="70" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Allogenic controls</text>
+<text x="70" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">tectonics, eustasy,</text>
+<text x="70" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">climate</text>
+<circle cx="210" cy="120" r="17" fill="white" stroke="#C99700" stroke-width="3"/>
+<text x="210" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#C99700">2</text>
+<text x="210" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Accommodation</text>
+<text x="210" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">vs sedimentation:</text>
+<text x="210" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">two competing rates</text>
+<circle cx="350" cy="120" r="17" fill="white" stroke="#0056AD" stroke-width="3"/>
+<text x="350" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#0056AD">3</text>
+<text x="350" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Shoreline trajectory</text>
+<text x="350" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">landward, seaward-up</text>
+<text x="350" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">or seaward-down</text>
+<circle cx="490" cy="120" r="17" fill="white" stroke="#43B02A" stroke-width="3"/>
+<text x="490" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#43B02A">4</text>
+<text x="490" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Stacking patterns</text>
+<text x="490" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">T, NR (LST, HST), FR;</text>
+<text x="490" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">fluvial where no shoreline</text>
+<circle cx="630" cy="120" r="17" fill="white" stroke="#43B02A" stroke-width="3"/>
+<text x="630" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#43B02A">5</text>
+<text x="630" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Surfaces</text>
+<text x="630" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">form where the</text>
+<text x="630" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">stacking pattern changes</text>
+<circle cx="770" cy="120" r="17" fill="white" stroke="#04316A" stroke-width="3"/>
+<text x="770" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#04316A">6</text>
+<text x="770" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Systems tracts</text>
+<text x="770" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">one stacking pattern</text>
+<text x="770" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">FSST, LST, TST, HST</text>
+<circle cx="910" cy="120" r="17" fill="white" stroke="#04316A" stroke-width="3"/>
+<text x="910" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#04316A">7</text>
+<text x="910" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Sequences</text>
+<text x="910" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">one full cycle of</text>
+<text x="910" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">stacking-pattern change</text>
+<circle cx="1050" cy="120" r="17" fill="white" stroke="#002147" stroke-width="3"/>
+<text x="1050" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#002147">8</text>
+<text x="1050" y="166" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1E293B">Wheeler diagram</text>
+<text x="1050" y="186" text-anchor="middle" font-size="11.5" fill="#64748B">the same record with</text>
+<text x="1050" y="202" text-anchor="middle" font-size="11.5" fill="#64748B">time on the vertical axis</text>
+<line x1="480" y1="270" x2="1080" y2="270" stroke="#64748B" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#chainH-a)"/>
+<line x1="480" y1="270" x2="40" y2="270" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#chainH-a)"/>
+<circle cx="480" cy="270" r="5" fill="#43B02A"/>
+<text x="480" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#1E293B">Workflow starts here: observe</text>
+<text x="860.0" y="260" text-anchor="middle" font-size="11.5" fill="#64748B">map surfaces, assemble tracts and sequences, choose the boundary convention last</text>
+<text x="200.0" y="260" text-anchor="middle" font-size="11.5" fill="#64748B">controls are interpreted afterwards</text>
+</g></svg>
+<svg class="chain chain-v" viewBox="0 0 360 900" role="img" aria-labelledby="chainV-t" xmlns="http://www.w3.org/2000/svg">
+<title id="chainV-t">The genetic chain of sequence stratigraphy (vertical layout)</title>
+<defs>
+<linearGradient id="chainV-g" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="70" y2="742"><stop offset="0" stop-color="#C99700"/><stop offset="0.45" stop-color="#43B02A"/><stop offset="1" stop-color="#04316A"/></linearGradient>
+</defs>
+<g font-family="Inter, Segoe UI, sans-serif">
+<line x1="34" y1="70" x2="34" y2="742" stroke="url(#chainV-g)" stroke-width="3" stroke-linecap="round"/>
+<line x1="346" y1="40" x2="346" y2="196" stroke="#C99700" stroke-width="3" stroke-linecap="round"/>
+<text x="336" y="118.0" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1.4" fill="#C99700" transform="rotate(-90 336 118.0)">CAUSE</text>
+<line x1="346" y1="232" x2="346" y2="292" stroke="#0056AD" stroke-width="3" stroke-linecap="round"/>
+<text x="336" y="262.0" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1.4" fill="#0056AD" transform="rotate(-90 336 262.0)">RESPONSE</text>
+<line x1="346" y1="328" x2="346" y2="484" stroke="#43B02A" stroke-width="3" stroke-linecap="round"/>
+<text x="336" y="406.0" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1.4" fill="#43B02A" transform="rotate(-90 336 406.0)">RECORD</text>
+<line x1="346" y1="520" x2="346" y2="676" stroke="#04316A" stroke-width="3" stroke-linecap="round"/>
+<text x="336" y="598.0" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1.4" fill="#04316A" transform="rotate(-90 336 598.0)">PACKAGING</text>
+<line x1="346" y1="712" x2="346" y2="772" stroke="#002147" stroke-width="3" stroke-linecap="round"/>
+<text x="336" y="742.0" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1.4" fill="#002147" transform="rotate(-90 336 742.0)">SYNTHESIS</text>
+<circle cx="34" cy="70" r="16" fill="white" stroke="#C99700" stroke-width="3"/>
+<text x="34" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#C99700">1</text>
+<text x="64" y="66" font-size="15" font-weight="700" fill="#1E293B">Allogenic controls</text>
+<text x="64" y="85" font-size="12.5" fill="#64748B">tectonics, eustasy, climate</text>
+<circle cx="34" cy="166" r="16" fill="white" stroke="#C99700" stroke-width="3"/>
+<text x="34" y="171" text-anchor="middle" font-size="13" font-weight="700" fill="#C99700">2</text>
+<text x="64" y="162" font-size="15" font-weight="700" fill="#1E293B">Accommodation</text>
+<text x="64" y="181" font-size="12.5" fill="#64748B">vs sedimentation:</text><text x="64" y="197" font-size="12.5" fill="#64748B">two competing rates</text>
+<circle cx="34" cy="262" r="16" fill="white" stroke="#0056AD" stroke-width="3"/>
+<text x="34" y="267" text-anchor="middle" font-size="13" font-weight="700" fill="#0056AD">3</text>
+<text x="64" y="258" font-size="15" font-weight="700" fill="#1E293B">Shoreline trajectory</text>
+<text x="64" y="277" font-size="12.5" fill="#64748B">landward, seaward-up</text><text x="64" y="293" font-size="12.5" fill="#64748B">or seaward-down</text>
+<circle cx="34" cy="358" r="16" fill="white" stroke="#43B02A" stroke-width="3"/>
+<text x="34" y="363" text-anchor="middle" font-size="13" font-weight="700" fill="#43B02A">4</text>
+<text x="64" y="354" font-size="15" font-weight="700" fill="#1E293B">Stacking patterns</text>
+<text x="64" y="373" font-size="12.5" fill="#64748B">T, NR (LST, HST), FR;</text><text x="64" y="389" font-size="12.5" fill="#64748B">fluvial where no shoreline</text>
+<circle cx="34" cy="454" r="16" fill="white" stroke="#43B02A" stroke-width="3"/>
+<text x="34" y="459" text-anchor="middle" font-size="13" font-weight="700" fill="#43B02A">5</text>
+<text x="64" y="450" font-size="15" font-weight="700" fill="#1E293B">Surfaces</text>
+<text x="64" y="469" font-size="12.5" fill="#64748B">form where the</text><text x="64" y="485" font-size="12.5" fill="#64748B">stacking pattern changes</text>
+<circle cx="34" cy="550" r="16" fill="white" stroke="#04316A" stroke-width="3"/>
+<text x="34" y="555" text-anchor="middle" font-size="13" font-weight="700" fill="#04316A">6</text>
+<text x="64" y="546" font-size="15" font-weight="700" fill="#1E293B">Systems tracts</text>
+<text x="64" y="565" font-size="12.5" fill="#64748B">one stacking pattern</text><text x="64" y="581" font-size="12.5" fill="#64748B">FSST, LST, TST, HST</text>
+<circle cx="34" cy="646" r="16" fill="white" stroke="#04316A" stroke-width="3"/>
+<text x="34" y="651" text-anchor="middle" font-size="13" font-weight="700" fill="#04316A">7</text>
+<text x="64" y="642" font-size="15" font-weight="700" fill="#1E293B">Sequences</text>
+<text x="64" y="661" font-size="12.5" fill="#64748B">one full cycle of</text><text x="64" y="677" font-size="12.5" fill="#64748B">stacking-pattern change</text>
+<circle cx="34" cy="742" r="16" fill="white" stroke="#002147" stroke-width="3"/>
+<text x="34" y="747" text-anchor="middle" font-size="13" font-weight="700" fill="#002147">8</text>
+<text x="64" y="738" font-size="15" font-weight="700" fill="#1E293B">Wheeler diagram</text>
+<text x="64" y="757" font-size="12.5" fill="#64748B">the same record with</text><text x="64" y="773" font-size="12.5" fill="#64748B">time on the vertical axis</text>
+<circle cx="34" cy="800" r="5" fill="#43B02A"/>
+<text x="50" y="804" font-size="12.5" font-weight="700" fill="#1E293B">Workflow: start at 4 (observe), then 5, 6-7, 8;</text>
+<text x="50" y="822" font-size="12.5" fill="#64748B">choose the boundary convention last;</text>
+<text x="50" y="840" font-size="12.5" fill="#64748B">interpret the controls (1-2) afterwards.</text>
+</g></svg>
+                <figcaption class="figure-caption"><strong>Figure 1.</strong> The genetic chain of sequence stratigraphy as it is taught in this course. Steps 1 and 2 are the causes, step 3 is the response at the shoreline, steps 4 and 5 are what is preserved and observed, steps 6 and 7 are how the record is packaged, step 8 is the synthesis in a time-distance chart. The dashed line shows that the workflow runs in the opposite direction to the causes: it starts at step 4 with observations, and the controls are interpreted at the end, if at all. <em>Basis: own schematic drawn for this course from the lecture content and from Catuneanu (2019a) and Catuneanu et al. (2011); no published figure reproduced.</em></figcaption>
+            </figure>
+
+            <h3>2. Each link, by when, where and why</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Link</th><th>What happens</th><th>What it does to the record</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="chain-step c">1</span> Allogenic controls</td><td>Tectonics (subsidence, uplift), eustasy and climate. They are not independent: eustasy is itself driven by climate (ice volume) and tectonics (ocean-basin volume). Sediment supply is a product of tectonics and climate, not a fourth control of the same rank (Lecture 2, after Catuneanu, 2006).</td><td>Act basin-wide, so their effects can be correlated. Autogenic processes (avulsion, lobe switching) act locally and do not.</td></tr>
+                        <tr><td><span class="chain-step c">2</span> Accommodation vs sedimentation</td><td>Relative sea level sets the rate of creation or loss of accommodation; supply and energy flux set the rate of sedimentation. Supply is not sedimentation: energy flux decides how much of the supply stays.</td><td>Decides the direction of the shoreline. A rising sea level does not guarantee a landward-moving shoreline.</td></tr>
+                        <tr><td><span class="chain-step r">3</span> Shoreline trajectory</td><td>Landward and up (transgression), seaward and up (normal regression), seaward and down (forced regression). Forced regression is driven by relative fall at the shoreline, whatever the supply.</td><td>Sets the geometry of what is deposited next to the shoreline.</td></tr>
+                        <tr><td><span class="chain-step g">4</span> Stacking patterns</td><td>Retrogradational (transgressive), progradational with aggradation (normal regressive, lowstand or highstand), progradational with downstepping (forced regressive). Where the shoreline is out of reach, upstream-controlled fluvial patterns (high vs low channel amalgamation).</td><td>The basis for all units and surfaces: each type of stacking pattern defines a systems tract (Catuneanu, 2017).</td></tr>
+                        <tr><td><span class="chain-step g">5</span> Surfaces</td><td>Form where and when the stacking pattern changes: onset of fall (BSFR), end of fall (CC), end of regression (MRS), end of transgression (MFS); plus erosion surfaces (SU, ravinement surfaces, RSME).</td><td>Defined by a change in trend, not by a change in lithology. The same surface can be erosional in one place and conformable in another.</td></tr>
+                        <tr><td><span class="chain-step p">6</span> Systems tracts</td><td>A linkage of contemporaneous depositional systems, forming the subdivision of a sequence (Brown &amp; Fisher, 1977, in Catuneanu, 2019a): FSST, LST, TST, HST.</td><td>Predicts where sands, muds, seals and coals sit relative to each other.</td></tr>
+                        <tr><td><span class="chain-step p">7</span> Sequences</td><td>A succession of strata deposited during a full cycle of change in accommodation or sediment supply (Catuneanu et al., 2009), bounded by the same type of surface at base and top.</td><td>The boundary surface is a choice; the rocks and the surfaces are not.</td></tr>
+                        <tr><td><span class="chain-step s">8</span> Wheeler diagram</td><td>Plots each stratum where and when it was deposited (Wheeler, 1958).</td><td>Makes gaps visible: hiatus, erosion, and the basinward passage of an unconformity into a conformable surface.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3. Every session mapped onto the chain</h3>
+            <p>The schedule below is the WS 2026/27 syllabus. Lecture blocks follow the syllabus; single dates within a block may shift, and changes are announced on Teams.</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Date</th><th>Session</th><th>Links</th><th>What it adds to the chain</th></tr></thead>
+                    <tbody>
+                        <tr><td>19.10.2026</td><td>Lecture 1: why depositional systems move basinward or landward</td><td><span class="chain-step c">2</span><span class="chain-step r">3</span></td><td>Accommodation vs sediment supply; transgression, normal and forced regression; coupling of eustasy, tectonics and supply; synthetic wells and the Kendall animation as a first look at links 4 and 8. Module 1.</td></tr>
+                        <tr><td>26.10.2026</td><td>Lecture 2: history and basic concepts</td><td><span class="chain-step g">4</span><span class="chain-step g">5</span><span class="chain-step p">7</span><span class="chain-step s">8</span></td><td>From unconformity-bounded units (Sloss, Wheeler) to correlative conformities and competing models; the model-independent standard; depositional trends, surfaces, scale and hierarchy. Module 2.</td></tr>
+                        <tr><td>02.11.2026</td><td>Block 3: controlling factors</td><td><span class="chain-step c">1</span><span class="chain-step c">2</span></td><td>Tectonics, eustasy, climate; supply vs energy flux; base level; relative sea level vs water depth. Module 3.</td></tr>
+                        <tr><td>09.11.2026</td><td>Block 4: lithostratigraphy vs sequence stratigraphy</td><td><span class="chain-step g">4</span><span class="chain-step g">5</span></td><td>How to observe: facies analysis and Walther's Law; why a lithological boundary is not a sequence stratigraphic surface; the workflow.</td></tr>
+                        <tr><td>16.11 and 23.11.2026</td><td>Block 5: shoreline shifting and sequence stratigraphic surfaces (1, 2)</td><td><span class="chain-step r">3</span><span class="chain-step g">5</span></td><td>SU, CC, BSFR, MRS, MFS, ravinement surfaces, RSME: when and where each forms along the trajectory.</td></tr>
+                        <tr><td>30.11.2026</td><td>Surfaces: application</td><td><span class="chain-step g">5</span></td><td>Recognising the surfaces in outcrop, core, well logs and seismic.</td></tr>
+                        <tr><td>07.12 and 14.12.2026</td><td>Wheeler diagrams; Wheeler exercise</td><td><span class="chain-step s">8</span></td><td>Constructing time-distance charts from cross-sections; reading hiatus and erosion; practice with the platform tool.</td></tr>
+                        <tr><td>11.01.2027</td><td>Systems tracts</td><td><span class="chain-step p">6</span></td><td>FSST, LST, TST, HST: their stacking patterns, bounding surfaces and economic significance.</td></tr>
+                        <tr><td>18.01.2027</td><td>Parasequences</td><td><span class="chain-step g">4</span>–<span class="chain-step p">7</span></td><td>The chain at a lower hierarchical rank; why Catuneanu (2017) prefers bedsets and high-frequency sequences to the parasequence concept.</td></tr>
+                        <tr><td>Later blocks</td><td>Case studies</td><td><span class="chain-step c">1</span>–<span class="chain-step s">8</span></td><td>Po Plain–Adriatic (Amorosi et al., 2016), Karoo Basin (Catuneanu &amp; Elango, 2001), Viking Formation (MacEachern et al., 1999): the whole chain in real basins.</td></tr>
+                        <tr><td>25.01.2027</td><td>Wrap-up and exam preparation</td><td><span class="chain-step c">1</span>–<span class="chain-step s">8</span></td><td>The whole chain, in both directions.</td></tr>
+                        <tr><td>01.02.2027</td><td>Final exam</td><td><span class="chain-step r">3</span>–<span class="chain-step s">8</span></td><td>Wheeler diagram construction and three questions (Part III).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.9rem;color:var(--gray-500);">No lectures on 21.12.2026, 28.12.2026 and 04.01.2027.</p>
+
+            <div class="warning-box">
+                <h4>Two confusions this chain is meant to prevent</h4>
+                <p><strong>Maximum flooding surface vs sequence boundary.</strong> The MFS forms at the end of transgression, when the shoreline reaches its most landward position; it is the paleo-seafloor at that moment and separates a retrogradational package below from a highstand normal regressive package above (Catuneanu, 2017). The surfaces most often used as sequence boundaries (subaerial unconformity with the basal surface of forced regression or with the correlative conformity) form during and at the end of relative sea-level fall, the opposite end of the cycle. The MFS can be chosen as a sequence boundary (Galloway, 1989), but that is a convention; it never becomes a surface that formed during fall.</p>
+                <p style="margin-top:10px;"><strong>Normal vs forced regression.</strong> Both move the shoreline seaward. In normal regression the shoreline also moves up, because relative sea level is still rising and sedimentation outpaces it. In forced regression it moves down, because relative sea level falls at the shoreline. A seaward-moving shoreline alone does not tell you that sea level fell.</p>
+            </div>
+        </section>
+
+        <!-- PART II -->
+        <section class="section">
+            <h2>Part II: The Model-Independent Workflow</h2>
+            <h3>4. Observe first, label last</h3>
+            <p>Several sequence models exist (depositional sequences II, III and IV, genetic stratigraphic sequence, transgressive–regressive sequence). They differ mainly in which surface they promote to "sequence boundary"; the stacking patterns and the surfaces are the same (Catuneanu, 2006; Catuneanu et al., 2011). Catuneanu et al. (2009, 2011) therefore defined the common ground of all approaches as a methodology that does not depend on the model, developed further in Catuneanu (2019a, 2022). This is the workflow used in the course:</p>
+            <ol class="workflow">
+                <li><strong>Observe the stacking patterns</strong> in your data: forced regressive, normal regressive (lowstand or highstand) and transgressive; upstream-controlled fluvial patterns where the shoreline is out of reach. Use local data from the basin under study.</li>
+                <li><strong>Map the surfaces that separate them</strong>: subaerial unconformity, basal surface of forced regression, correlative conformity, maximum regressive surface, maximum flooding surface, ravinement surfaces.</li>
+                <li><strong>Assemble systems tracts and sequences</strong> from the stacking patterns and their bounding surfaces, at the scale your data allow.</li>
+                <li class="last"><strong>Choose the boundary convention last.</strong> Which surface becomes the "sequence boundary" is a model-dependent choice, often guided by which surface is best mapped in the available data (Catuneanu, 2019a).</li>
+            </ol>
+            <div class="key-concept">
+                <h4>Why the controls are not part of the workflow</h4>
+                <p>Catuneanu (2019a) states that the interpretation of the underlying controls may follow the construction of a sequence stratigraphic framework, but plays no role in the workflow itself; and that global standards, such as a global sea-level chart, should not be used to build a local framework, whereas global correlations can be tested once local frameworks exist. In practice: you never start from "sea level fell here at 15 Ma". You start from the geometry and facies in front of you. A sequence boundary is evidence of base-level fall, not of eustasy (Lecture 2).</p>
+            </div>
+
+            <h3>5. Going deeper: the chain without a sea, and a surface that looks diagnostic but is not</h3>
+            <div class="case-study">
+                <h4>Karoo Basin: sequences controlled by tectonics alone</h4>
+                <p>The Balfour Formation (late Late Permian to earliest Triassic) is a fully fluvial succession that accumulated in the foredeep of the Karoo foreland basin, with no coeval marine environment within the preserved basin. Catuneanu &amp; Elango (2001) recognised six fluvial depositional sequences separated by subaerial unconformities, with an average duration of 0.66 My (six cycles in 4 My) and no recorded climatic fluctuations. Sediment accumulated during flexural subsidence driven by orogenic loading; the bounding unconformities relate to stages of isostatic uplift during unloading. Within each sequence, fluvial style changes upward from higher- to lower-energy systems as the topographic slope decreases.</p>
+                <p style="margin-top:10px;">What it shows for the chain: link 1 can be tectonics alone; link 2 still works (accommodation created by subsidence, destroyed by uplift); links 3 to 5 are replaced by their upstream-controlled equivalents; links 6 to 8 apply unchanged. Tectonically driven accommodation is not an exotic special case.</p>
+            </div>
+            <div class="case-study">
+                <h4>Viking Formation: a sharp-based sandstone is not a systems tract</h4>
+                <p>Sharp-based shoreface sandstones encased in shelf mudstones have been interpreted as late highstand, forced regressive, lowstand and transgressive deposits. MacEachern et al. (1999) argued, for the Viking Formation of the Joffre field (Alberta), that the sharp base alone is not diagnostic. Their criterion was positional: in weakly storm-influenced shorefaces, the regressive surface of erosion (forced regression) and the sequence boundary (lowstand) pass seaward into correlative conformities beyond fair-weather wave base. Where the basal discontinuity stays erosional even below facies deposited under fair-weather wave base, it was cut earlier, by ravinement during shoreface retreat, so the body is a transgressively incised shoreface.</p>
+                <p style="margin-top:10px;">What it shows for the chain: identifying a surface (link 5) requires knowing where it sits relative to the shoreline trajectory (link 3). The same lithological contact can belong to three different scenarios.</p>
+            </div>
+            <div class="research-box">
+                <h4>One sea level, two shoreline directions</h4>
+                <p>Along the present Adriatic coast, the shoreline progrades south of the Po delta and retreats to the north under the same relative sea-level history. Sediment from the Po is carried south by longshore currents, so the sedimentation rate exceeds the rate of accommodation creation in the south but not in the north (Catuneanu, 2019a, Fig. 96). Highstand normal regression and transgression are coeval along one coastline: link 2 is evaluated locally, not basin-wide.</p>
+            </div>
+
+            <h3>6. Worked example: walking a succession through the workflow</h3>
+            <p>A shelf-margin section shows five units, from bottom to top. The shoreline trajectory of each has been reconstructed from clinoform geometry and facies:</p>
+            <ul class="plain">
+                <li><strong>Unit A</strong>: shoreline moves seaward and up; topset aggradation decreases upward (convex-up trajectory); gradationally based, coarsening-upward shorefaces.</li>
+                <li><strong>Unit B</strong>: shoreline moves seaward and down; sharp-based, detached shoreface sands offlap basinward; no topsets preserved; the area landward is truncated by a fluvial erosion surface.</li>
+                <li><strong>Unit C</strong>: shoreline moves seaward and up; topset aggradation increases upward (concave-up trajectory).</li>
+                <li><strong>Unit D</strong>: shoreline moves landward and up; facies belts backstep; deepening-upward succession capped by a condensed, high-gamma mudstone.</li>
+                <li><strong>Unit E</strong>: shoreline moves seaward and up again; convex-up trajectory.</li>
+            </ul>
+            <p><strong>Tasks.</strong> (a) Name the stacking pattern and systems tract of each unit. (b) Name the surface at each contact and the moment it records. (c) Where would the sequence boundary be placed in depositional sequence II, depositional sequence III/IV, the genetic stratigraphic sequence and the T–R sequence?</p>
+            <details class="answer">
+                <summary>Show solution</summary>
+                <p><strong>(a)</strong> A: normal regression following a transgression, so highstand (HST). B: forced regression (FSST); offlap and downstepping require relative sea-level fall at the shoreline. C: normal regression following a forced regression, so lowstand (LST); the concave-up trajectory records accelerating rates of accommodation creation after the onset of rise (Catuneanu, 2017). D: transgression (TST). E: highstand normal regression (HST).</p>
+                <p><strong>(b)</strong> A/B: basal surface of forced regression, the paleo-seafloor at the onset of forced regression; landward, the subaerial unconformity truncates it. B/C: correlative conformity, the paleo-seafloor at the end of forced regression, connecting landward with the downdip end of the subaerial unconformity. C/D: maximum regressive surface, end of regression, reworked in part by the transgressive surface of erosion where wave or tidal scour occurred. D/E: maximum flooding surface, end of transgression; the condensed high-gamma mudstone is where you look for it.</p>
+                <p><strong>(c)</strong> Depositional sequence II: subaerial unconformity + basal surface of forced regression (A/B). Depositional sequences III and IV: subaerial unconformity + correlative conformity (B/C); they differ only in how they split the sequence into systems tracts. Genetic stratigraphic sequence: maximum flooding surface (D/E). T–R sequence: subaerial unconformity + marine part of the maximum regressive surface (C/D). Lecture 2, after Catuneanu (2006) and Catuneanu et al. (2011). Four conventions, one set of observations: if your answer to (a) and (b) changes with the model, step 1 of the workflow went wrong.</p>
+            </details>
+        </section>
+
+        <!-- PART III -->
+        <section class="section">
+            <h2>Part III: Exam, Assignments and the Platform</h2>
+            <h3>7. How the exam works</h3>
+            <p>The final exam is on <strong>1 February 2027</strong>, in the last session. You will construct and interpret a Wheeler diagram from data provided, and answer three questions on the case study. The exam environment on this platform (password-protected) has the same drawing tools as the Wheeler practice tool, so practise with it beforehand. Format, rules and preparation material are posted on Teams.</p>
+            <p>Interpretations must be justified from stacking patterns and shoreline trajectories, not from a model template (Lecture 2). In practice:</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Weak justification</th><th>Why it fails</th><th>Trajectory-based justification</th></tr></thead>
+                    <tbody>
+                        <tr><td>"Unit X is the HST because it lies above the MFS."</td><td>Circular: the MFS is identified from the change in stacking pattern, so it cannot be the evidence for it.</td><td>"Unit X forestepps and upsteps after a backstepping unit, so it is a highstand normal regression; the contact between them is the MFS."</td></tr>
+                        <tr><td>"Sea level fell, so there is a sequence boundary here."</td><td>Starts from an assumed control instead of the record.</td><td>"Clinoforms downstep and offlap, and the topsets are truncated: the shoreline moved seaward and down, so relative sea level fell at the shoreline."</td></tr>
+                        <tr><td>"This sandstone is sharp-based, so it is a forced regression."</td><td>A sharp base occurs in several scenarios (MacEachern et al., 1999).</td><td>"The shoreface sand rests on a basinward-younging erosion surface and the shoreline trajectory descends; the sharp base is a regressive surface of marine erosion."</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>8. Weekly assignments</h3>
+            <ul class="plain">
+                <li>One assignment every week, posted and submitted through the Teams channel. Course material is not distributed by e-mail.</li>
+                <li>Deadline: <strong>Sunday at 12:00</strong>, before the Monday lecture.</li>
+                <li>Completing at least <strong>80 %</strong> of the assignments gives a bonus of <strong>0.3</strong> on the final exam grade.</li>
+                <li>You must be able to explain what you submitted. If you cannot justify your answer in class, the assignment does not count.</li>
+            </ul>
+
+            <h3>9. How to use this platform</h3>
+            <ul class="plain">
+                <li><strong>One module per lecture.</strong> Read it after the lecture: each module summarises the lecture and then goes deeper, with examples from the literature that were not shown in class.</li>
+                <li><strong>Worked examples</strong> have hidden solutions. Try the task before opening them.</li>
+                <li><strong>Self-assessment quizzes</strong> are not graded. The answer options are shuffled on every visit; read the explanation after each question, also when you were right.</li>
+                <li><strong>Wheeler tools.</strong> Practise in the exercise tool from December onward; the exam tool opens only with the password given in the exam session.</li>
+                <li><strong>Figures</strong> on this platform are drawn for the course or generated with the instructor's forward model; published figures are cited in the text (for example "Amorosi et al., 2016, Fig. 7") so you can look them up.</li>
+                <li><strong>SEPM Strata</strong> (<a href="https://www.sepmstrata.org/" target="_blank" rel="noopener">sepmstrata.org</a>) has lectures, literature and exercises on sequence stratigraphy, including Wheeler diagrams (Lecture 1).</li>
+                <li>Access is tied to your course registration. Your session is remembered in this browser; use <em>Logout</em> on shared computers.</li>
+            </ul>
+        </section>
+
+        <!-- GLOSSARY -->
+        <section class="section">
+            <h2>Glossary of Core Terms</h2>
+            <p>One-line genetic definitions: what the term records and when it forms. Abbreviations as used in the course and in the Wheeler tools. Definitions follow Catuneanu (2017, 2019a) unless stated.</p>
+            <div class="table-wrapper">
+                <table class="data-table glossary">
+                    <thead><tr><th>Term</th><th>Genetic definition</th></tr></thead>
+                    <tbody>
+                        <tr><td>Accommodation</td><td>Space made available for sediment to fill, created or destroyed by relative sea-level change (eustasy plus subsidence or uplift); measured independently of sedimentation (Jervey, 1988).</td></tr>
+                        <tr><td>Sedimentation vs supply</td><td>Supply is the load delivered by transport agents; sedimentation is what accumulates at a place. Energy flux decides how much supply becomes sedimentation (Lecture 2, after Catuneanu, 2006).</td></tr>
+                        <tr><td>Base level</td><td>Surface of equilibrium between sedimentation and erosion: below it there is space for sediment, above it the surface is eroded or bypassed.</td></tr>
+                        <tr><td>Relative sea level</td><td>Sea level measured from a datum attached to the substrate; changes with eustasy and with subsidence or uplift. Not the same as water depth.</td></tr>
+                        <tr><td>Shoreline trajectory</td><td>The path of the shoreline through time; the key element in defining stacking patterns in downstream-controlled settings (Catuneanu, 2017; trajectory analysis: Helland-Hansen &amp; Hampson, 2009).</td></tr>
+                        <tr><td>Transgression (T)</td><td>Backstepping and upstepping of the shoreline; occurs when sediment supply cannot fill the accommodation created by relative sea-level rise at the shoreline.</td></tr>
+                        <tr><td>Normal regression (NR)</td><td>Forestepping and upstepping; occurs when sediment supply outpaces the accommodation created by relative sea-level rise at the shoreline. Lowstand if it follows a forced regression, highstand if it follows a transgression.</td></tr>
+                        <tr><td>Forced regression (FR)</td><td>Forestepping and downstepping; driven by relative sea-level fall at the shoreline, whatever the supply.</td></tr>
+                        <tr><td>Stratal stacking pattern</td><td>The architecture built by one type of shoreline trajectory (or, upstream, by channel amalgamation); each type defines a systems tract, and each change defines a surface.</td></tr>
+                        <tr><td>Systems tract</td><td>A linkage of contemporaneous depositional systems, forming the subdivision of a sequence; interpreted from stacking patterns, stratal relations and bounding surfaces; scale-independent.</td></tr>
+                        <tr><td>FSST</td><td>Falling-stage systems tract: the forced regressive stacking pattern; built during relative sea-level fall at the shoreline.</td></tr>
+                        <tr><td>LST</td><td>Lowstand systems tract: normal regression after a forced regression, at the start of relative rise; typically a concave-up trajectory.</td></tr>
+                        <tr><td>TST</td><td>Transgressive systems tract: the retrogradational stacking pattern; built while accommodation is created faster than sediment fills it at the shoreline.</td></tr>
+                        <tr><td>HST</td><td>Highstand systems tract: normal regression after a transgression, late in the rise; typically a convex-up trajectory.</td></tr>
+                        <tr><td>Subaerial unconformity (SU)</td><td>Forms under subaerial conditions by fluvial erosion or bypass, pedogenesis, wind degradation or karstification; most commonly during negative accommodation, landward of the shoreline.</td></tr>
+                        <tr><td>Basal surface of forced regression (BSFR)</td><td>Paleo-seafloor at the onset of forced regression; separates normal regressive deposits below from forced regressive deposits above.</td></tr>
+                        <tr><td>Correlative conformity (CC)</td><td>Paleo-seafloor at the end of forced regression; separates forced regressive below from lowstand normal regressive above, and connects with the downdip end of the SU.</td></tr>
+                        <tr><td>Maximum regressive surface (MRS)</td><td>Paleo-seafloor at the end of regression, when the shoreline is at its most seaward position and turns landward; marks the change from regression to transgression.</td></tr>
+                        <tr><td>Maximum flooding surface (MFS)</td><td>Paleo-seafloor at the end of transgression, when the shoreline is at its most landward position; separates transgressive below from highstand normal regressive above. Often cryptic, inside a condensed section.</td></tr>
+                        <tr><td>Transgressive surface of erosion (TSE, ravinement)</td><td>Wave- or tidal-scour surface cut during transgression in coastal to shallow water; youngs landward and reworks part of the MRS.</td></tr>
+                        <tr><td>Regressive surface of marine erosion (RSME)</td><td>Wave-scour surface cut during forced regression as wave base is lowered by relative fall; youngs basinward, reworks part of the BSFR, overlain by sharp-based shorefaces.</td></tr>
+                        <tr><td>Flooding surface</td><td>A facies contact recording an abrupt increase in water depth; a lithological (allostratigraphic) surface that may or may not mark a change in stacking pattern. Not the same as an MFS.</td></tr>
+                        <tr><td>Sequence</td><td>A succession of strata deposited during a full cycle of change in accommodation or sediment supply (Catuneanu et al., 2009); bounded at base and top by the same type of sequence stratigraphic surface.</td></tr>
+                        <tr><td>Wheeler diagram</td><td>Chronostratigraphic chart with time on the vertical axis and distance on the horizontal; shows deposition, hiatus and erosion where and when they occurred (Wheeler, 1958).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section key-points">
+            <h2>Key Points Summary</h2>
+            <ul>
+                <li>The course follows one chain: allogenic controls → accommodation vs sedimentation → shoreline trajectory → stacking patterns → surfaces → systems tracts → sequences → Wheeler diagram</li>
+                <li>The shoreline moves according to a balance of rates, not according to the sea-level curve alone</li>
+                <li>Surfaces are defined by changes in stacking pattern, that is by when and where they form, not by lithology</li>
+                <li>The workflow runs against the causal chain: observe stacking patterns, map surfaces, assemble tracts and sequences, choose the boundary convention last</li>
+                <li>Sequence models differ in packaging, not in the rocks; the MFS forms at the end of transgression, the SU/CC during and at the end of fall</li>
+                <li>Tectonics alone can drive full sequences (Karoo); a sharp base alone does not identify a systems tract (Viking)</li>
+                <li>Exam: Wheeler diagram plus three questions, justified from trajectories; assignments weekly, Sunday 12:00, +0.3 bonus at 80 %, only if you can explain them</li>
+            </ul>
+        </section>
+
+        <section class="reference-list">
+            <h4>Key References</h4>
+            <p><strong>Framework:</strong> Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam, 375 pp. • Catuneanu, O. (2017) Sequence stratigraphy: guidelines for a standard methodology. Stratigraphy &amp; Timescales 2, Elsevier, doi:10.1016/bs.sats.2017.07.003 • Catuneanu, O. (2019a) Model-independent sequence stratigraphy. Earth-Science Reviews 188, 312–388 • Catuneanu, O. (2019b) Scale in sequence stratigraphy. Marine and Petroleum Geology 106, 128–159 • Catuneanu, O. (2022) Principles of Sequence Stratigraphy, 2nd ed. Elsevier, 490 pp. • Catuneanu, O. et al. (2009) Towards the standardization of sequence stratigraphy. Earth-Science Reviews 92, 1–33 • Catuneanu, O. et al. (2011) Sequence stratigraphy: methodology and nomenclature. Newsletters on Stratigraphy 44, 173–245</p>
+            <p><strong>Concepts:</strong> Jervey, M.T. (1988) SEPM Special Publication 42, 47–69 • Helland-Hansen, W. &amp; Hampson, G.J. (2009) Trajectory analysis: concepts and applications. Basin Research 21, 454–483 • Wheeler, H.E. (1958) Time-stratigraphy. AAPG Bulletin 42, 1047–1063 • Galloway, W.E. (1989) AAPG Bulletin 73, 125–142</p>
+            <p><strong>Case studies:</strong> Amorosi, A., Maselli, V. &amp; Trincardi, F. (2016) Onshore to offshore anatomy of a late Quaternary source-to-sink system (Po Plain–Adriatic Sea, Italy). Earth-Science Reviews 153, 212–237 • Catuneanu, O. &amp; Elango, H.N. (2001) Tectonic control on fluvial styles: the Balfour Formation of the Karoo Basin, South Africa. Sedimentary Geology 140, 291–313 • MacEachern, J.A., Zaitlin, B.A. &amp; Pemberton, S.G. (1999) A sharp-based sandstone of the Viking Formation, Joffre field, Alberta, Canada: criteria for recognition of transgressively incised shoreface complexes. Journal of Sedimentary Research 69, 876–892</p>
+        </section>
+
+        <section class="section quiz-section">
+            <h2>Self-Assessment Quiz</h2>
+            <p>Eight questions on the logic of the course. Each one asks you to reason along the chain.</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz (8 Questions)</button>
+            <div id="quiz-container"></div>
+        </section>
+
+        <div class="module-nav">
+            <a href="index.html" class="nav-btn">← Back to Home</a>
+            <a href="module1_shoreline_shifts.html" class="nav-btn">Next: Why shorelines move →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>GeoZentrum Nordbayern</h4>
+                <p>Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p>Course Instructor: <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+            </div>
+            <div class="footer-logos">
+                <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const quizQuestions = [
+            {
+                question: "In a well, a shoreface succession builds seaward while its topsets keep aggrading, during a period when relative sea level is known to be rising. What does this tell you about the two competing rates at the shoreline?",
+                options: [
+                    "Sedimentation outpaced the rate of accommodation creation, so the shoreline regressed while still moving up",
+                    "Relative sea level must have fallen for a short time, because seaward movement needs a fall",
+                    "Accommodation was created faster than sediment arrived, but waves pushed the shoreline seaward",
+                    "Sediment supply was lower than before, so the shoreline had to move seaward to stay in balance"
+                ],
+                correct: 0,
+                explanation: "Seaward plus upward movement is a normal regression: relative sea level rises, but sedimentation fills the new space faster than it is created. A fall would make the shoreline step down, not up, and with accommodation outpacing supply the shoreline would move landward."
+            },
+            {
+                question: "Two interpreters work on the same well. One places the sequence boundary at the maximum flooding surface, the other at the subaerial unconformity and its correlative conformity. Which statement is correct?",
+                options: [
+                    "Both can be valid packaging conventions; their stacking patterns and surfaces should be identical",
+                    "Only the second is valid, because a sequence must be bounded by an unconformity",
+                    "The first is valid only if the maximum flooding surface formed during relative sea-level fall",
+                    "They will necessarily identify different systems tracts in the same interval"
+                ],
+                correct: 0,
+                explanation: "The genetic stratigraphic sequence (Galloway, 1989) uses the MFS, depositional sequences III/IV use SU + CC. The models differ in which surface is promoted to boundary, not in the rocks. The MFS forms at the end of transgression, never during fall, and the modern sequence definition (Catuneanu et al., 2009) does not require unconformities."
+            },
+            {
+                question: "You receive a set of well logs from a new basin, with no ages. According to the model-independent workflow, what is your first step?",
+                options: [
+                    "Identify the stacking patterns from log trends and correlation geometry in this basin",
+                    "Match the main shale peaks to a global sea-level chart to date the boundaries",
+                    "Decide which sequence model suits the basin, then look for its boundary surface",
+                    "Determine whether eustasy or tectonics drove the cycles before correlating"
+                ],
+                correct: 0,
+                explanation: "The workflow starts with observation of stacking patterns in local data. Global charts must not be used to build a local framework, the boundary convention comes last, and the controls are interpreted after the framework exists, if at all (Catuneanu, 2019a)."
+            },
+            {
+                question: "A core shows a well-sorted shoreface sandstone resting with a sharp, erosional base on bioturbated shelf mudstone. A student writes 'forced regression'. What is the best assessment?",
+                options: [
+                    "Not yet justified: sharp-based shorefaces occur in several scenarios; the position along the trajectory decides",
+                    "Correct: a sharp-based shoreface can only form when relative sea level falls and the shoreline is forced seaward and downward",
+                    "Incorrect: erosional sharp bases form only during transgression, when wave ravinement scours the shoreface",
+                    "Correct, provided the sandstone is markedly coarser than the underlying shelf and shoreface deposits"
+                ],
+                correct: 0,
+                explanation: "MacEachern et al. (1999) showed that sharp-based shorefaces have been attributed to highstand, forced regressive, lowstand and transgressive scenarios, and used the position of the erosion surface relative to fair-weather wave base to identify a transgressively incised shoreface in the Viking Formation. Grain size alone does not decide the systems tract."
+            },
+            {
+                question: "In the Karoo foredeep, six fluvial sequences bounded by subaerial unconformities formed with no coeval sea in the basin. What do they demonstrate for the genetic chain?",
+                options: [
+                    "Accommodation can be created and destroyed by tectonics alone, and the chain still produces sequences through upstream-controlled patterns",
+                    "These are not sequences, because without a shoreline there is no trajectory to define them",
+                    "Their average duration of 0.66 My shows that they are third-order eustatic cycles",
+                    "They record climatic cycles, since tectonics acts too slowly to form repeated sequences"
+                ],
+                correct: 0,
+                explanation: "Catuneanu & Elango (2001) linked deposition to flexural subsidence during orogenic loading and the unconformities to isostatic uplift during unloading, with no recorded climatic fluctuations. Duration does not identify a mechanism, and sequences exist in upstream-controlled settings too."
+            },
+            {
+                question: "A retrogradational, deepening-upward package is overlain by a package that forestepps and upsteps. Which surface separates them, and when did it form?",
+                options: [
+                    "Maximum flooding surface, at the end of transgression",
+                    "Maximum regressive surface, at the end of regression",
+                    "Correlative conformity, at the end of relative sea-level fall",
+                    "Basal surface of forced regression, at the onset of relative fall"
+                ],
+                correct: 0,
+                explanation: "The change from transgression below to highstand normal regression above is the MFS: the paleo-seafloor when the shoreline reached its most landward position. The MRS marks the opposite change (regression to transgression); CC and BSFR bound the forced regressive package."
+            },
+            {
+                question: "Along the present Adriatic coast, the shoreline progrades south of the Po delta while it retreats to the north, under the same relative sea-level history. What is the best explanation?",
+                options: [
+                    "Longshore currents carry Po sediment south, so sedimentation outpaces accommodation creation there but not to the north",
+                    "Relative sea level is falling in the south and rising in the north",
+                    "The southern coast is in forced regression because of local uplift",
+                    "Autogenic lobe switching has temporarily reversed the eustatic signal"
+                ],
+                correct: 0,
+                explanation: "Catuneanu (2019a, Fig. 96) uses this case to show coeval highstand normal regression and transgression driven by differences in sediment supply. The balance of rates is local: the same rise gives regression where supply is high and transgression where it is low."
+            },
+            {
+                question: "In the exam, which justification for interpreting a unit (Unit X) as a highstand systems tract would earn credit?",
+                options: [
+                    "Unit X forestepps with aggrading topsets above a backstepping unit: a normal regression after a transgression",
+                    "Unit X lies directly above the maximum flooding surface identified in the well, so by definition it must be the highstand systems tract",
+                    "Unit X is the third unit of the sequence, and in the standard model highstands always follow the lowstand and the transgression",
+                    "Unit X contains thick, clean shoreface sandstones, which are the characteristic reservoir facies of highstand systems tracts"
+                ],
+                correct: 0,
+                explanation: "A highstand systems tract is defined by its stacking pattern and its position in the cycle (normal regression after a transgression). Citing the MFS is circular, because the MFS is identified from that very change; template order and lithology do not define a systems tract."
+            }
+        ];
+        // Shuffle answer options once per page load so the correct answer is not always in the same position
+        quizQuestions.forEach(q => {
+            const right = q.options[q.correct];
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+            q.correct = q.options.indexOf(right);
+        });
+
+        let currentQuestion = 0, score = 0, answered = false;
+        function startQuiz() { document.querySelector('.start-quiz-btn').style.display = 'none'; currentQuestion = 0; score = 0; answered = false; loadQuestion(); }
+        function loadQuestion() { const q = quizQuestions[currentQuestion]; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card"><div class="quiz-progress"><div class="progress-text">Question ${currentQuestion + 1} of ${quizQuestions.length}</div><div class="progress-bar"><div class="progress-fill" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div></div></div><div class="question-text">${q.question}</div><div class="options-container">${q.options.map((opt, i) => `<button class="option-btn" onclick="selectAnswer(${i})" id="option-${i}"><span class="option-letter">${String.fromCharCode(65 + i)}</span><span class="option-text">${opt}</span></button>`).join('')}</div><div id="feedback" class="feedback-box"></div><div class="quiz-navigation"><button onclick="previousQuestion()" class="quiz-nav-btn" ${currentQuestion === 0 ? 'disabled' : ''}>← Previous</button><button onclick="nextQuestion()" class="quiz-nav-btn" id="next-btn" disabled>${currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next →'}</button></div></div>`; }
+        function selectAnswer(index) { if (answered) return; answered = true; const q = quizQuestions[currentQuestion], isCorrect = index === q.correct; if (isCorrect) score++; document.getElementById(`option-${index}`).classList.add(isCorrect ? 'correct' : 'incorrect'); if (!isCorrect) document.getElementById(`option-${q.correct}`).classList.add('correct'); document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true); const feedback = document.getElementById('feedback'); feedback.innerHTML = `<div class="${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}"><strong>${isCorrect ? 'Correct' : 'Not quite'}</strong><p>${q.explanation}</p></div>`; feedback.style.display = 'block'; document.getElementById('next-btn').disabled = false; }
+        function nextQuestion() { if (currentQuestion < quizQuestions.length - 1) { currentQuestion++; answered = false; loadQuestion(); } else { showResults(); } }
+        function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; answered = false; loadQuestion(); } }
+        function showResults() { const percentage = Math.round((score / quizQuestions.length) * 100); let message; if (percentage >= 90) { message = 'Excellent: you can reason along the whole chain.'; } else if (percentage >= 75) { message = 'Good: check the explanations you missed.'; } else if (percentage >= 50) { message = 'Partly there: reread Parts I and II.'; } else { message = 'Start again from Figure 1 and the workflow.'; } document.getElementById('quiz-container').innerHTML = `<div class="quiz-card results-card"><h3>${message}</h3><div class="score-display"><span class="score-number">${score}</span> / ${quizQuestions.length}</div><div class="percentage">${percentage}%</div><button onclick="startQuiz()" class="start-quiz-btn" style="margin-top: 20px;">Retake Quiz</button></div>`; }
+    </script>
+</body>
+</html>

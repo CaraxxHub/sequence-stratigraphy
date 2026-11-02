@@ -1,317 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-login-page>
 <head>
+    <script src="assets/access.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wheeler Diagram Tools - FAU Erlangen-Nürnberg</title>
+    <title>Sequence Stratigraphy | GeoZentrum Nordbayern</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
     <style>
-        :root {
-            --primary: #1A5276;
-            --primary-light: #2980B9;
-            --secondary: #2C3E50;
-            --accent: #E74C3C;
-            --bg: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --text: #2C3E50;
-            --text-muted: #7F8C8D;
-            --border: #DEE2E6;
-        }
+        /* Home / login page (platform-v1). Shared header, hero and footer come from assets/platform.css. */
+        body.lang-de .en { display: none !important; }
+        body.lang-en .de { display: none !important; }
+        body { overflow-x: hidden; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Header controls */
+        .lang-switch { display: flex; gap: 4px; }
+        .lang-btn { padding: 3px 9px; border: 1px solid rgba(255,255,255,0.35); background: transparent; color: white;
+                    font-size: 0.72rem; font-family: var(--font-sans); cursor: pointer; border-radius: 4px; }
+        .lang-btn.active { background: white; color: var(--fau-blue); }
+        .header-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .user-info { display: flex; align-items: center; gap: 8px; color: var(--gray-600); font-size: 0.85rem; min-width: 0; }
+        .user-info #navUserName { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .user-badge { font-size: 0.68rem; padding: 2px 8px; background: var(--nat-green); color: white; border-radius: 100px; font-weight: 600; }
+        .user-badge.instructor { background: var(--accent-gold); }
+        .header-btn { padding: 7px 14px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px;
+                      font-size: 0.85rem; font-family: var(--font-sans); color: var(--gray-700); cursor: pointer; }
+        .header-btn:hover { background: var(--gray-200); }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+        /* Hero */
+        .welcome-msg { margin-top: 20px; padding: 12px 16px; background: rgba(255,255,255,0.1); border-radius: 8px;
+                       display: inline-block; font-size: 0.95rem; }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
+        /* Sections and cards */
+        .section-header { margin: 8px 0 24px; }
+        .section-header h2 { font-family: var(--font-serif); font-size: 1.45rem; color: var(--gray-900); margin-bottom: 6px; }
+        .section-header p { color: var(--gray-500); font-size: 0.95rem; }
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; margin-bottom: 52px; }
+        .module-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200);
+                       box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-decoration: none; color: inherit; display: flex;
+                       flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+        a.module-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.09); }
+        .module-header { padding: 18px 22px; color: white; background: linear-gradient(135deg, var(--fau-blue), var(--fau-blue-light)); }
+        .module-header.mod-0 { background: linear-gradient(135deg, #5B4300, #C99700); }
+        .module-header.mod-2 { background: linear-gradient(135deg, #0B3B5C, #1F6FA8); }
+        .module-header.mod-3 { background: linear-gradient(135deg, #1D4E2A, #43B02A); }
+        .module-header.tool-ex { background: linear-gradient(135deg, #24425F, #4F7CA8); }
+        .module-header.tool-exam { background: linear-gradient(135deg, #5A1A1A, #A33A2E); }
+        .module-number { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; margin-bottom: 4px; }
+        .module-title { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 700; line-height: 1.3; }
+        .module-body { padding: 18px 22px; flex: 1; display: flex; flex-direction: column; }
+        .module-description { color: var(--gray-600); font-size: 0.9rem; line-height: 1.6; flex: 1; }
+        .module-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px;
+                         border-top: 1px solid var(--gray-100); font-size: 0.82rem; }
+        .module-meta { color: var(--gray-400); }
+        .module-action { color: var(--fau-blue); font-weight: 600; }
+        .module-card.soon { opacity: 0.55; filter: grayscale(0.85); cursor: default; }
+        .module-card.soon .module-header { background: linear-gradient(135deg, #475569, #94A3B8); }
+        .soon-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 100px; background: var(--gray-200); color: var(--gray-600); }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
+        /* Login overlay */
+        .login-overlay { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
+                         padding: 20px 16px; overflow-y: auto;
+                         background: linear-gradient(135deg, var(--fau-blue-dark) 0%, var(--fau-blue) 55%, var(--fau-blue-light) 100%); }
+        .login-overlay.hidden { display: none; }
+        .lang-switch-login { position: absolute; top: 16px; right: 16px; display: flex; gap: 4px; }
+        .login-card { background: white; border-radius: 16px; padding: 36px; width: 100%; max-width: 460px; margin: auto;
+                      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); }
+        .login-logos { display: flex; align-items: center; justify-content: center; gap: 20px; padding-bottom: 18px; margin-bottom: 20px;
+                       border-bottom: 1px solid var(--gray-200); }
+        .login-logos img { height: 44px; width: auto; max-width: 45%; }
+        .login-card h1 { font-family: var(--font-serif); font-size: 1.45rem; color: var(--gray-900); text-align: center; }
+        .login-subtitle { text-align: center; color: var(--gray-500); font-size: 0.88rem; margin: 6px 0 22px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 0.86rem; font-weight: 500; color: var(--gray-700); margin-bottom: 6px; }
+        .form-input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 1rem; font-family: var(--font-sans); }
+        .form-input:focus { outline: none; border-color: var(--fau-blue); box-shadow: 0 0 0 3px rgba(4,49,106,0.12); }
+        .form-hint { font-size: 0.78rem; color: var(--gray-500); margin-top: 4px; }
+        .login-btn { width: 100%; padding: 13px 20px; background: var(--fau-blue); color: white; border: none; border-radius: 8px;
+                     font-size: 1rem; font-weight: 600; font-family: var(--font-sans); cursor: pointer; }
+        .login-btn:hover { background: var(--fau-blue-dark); }
+        .login-btn:disabled { opacity: 0.6; cursor: wait; }
+        .login-msg { display: none; padding: 11px 14px; border-radius: 8px; font-size: 0.86rem; margin-bottom: 16px; line-height: 1.5; }
+        .login-msg.visible { display: block; }
+        .login-msg.error { background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C; }
+        .login-msg.expired { background: #FFF7ED; border: 1px solid #FED7AA; color: #9A3412; }
+        .login-msg.info { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
+        .login-footer { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--gray-100); text-align: center;
+                        font-size: 0.78rem; color: var(--gray-500); line-height: 1.55; }
+        .login-footer a { color: var(--fau-blue); text-decoration: none; }
 
-        .header .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+        /* Footer additions */
+        .footer-note { margin-top: 10px; font-size: 0.8rem; opacity: 0.7; }
 
-        .header .institution {
-            margin-top: 20px;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .intro {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .intro h2 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .intro p {
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .card-header {
-            padding: 25px;
-            color: white;
-        }
-
-        .card-header.exercise {
-            background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
-        }
-
-        .card-header.exam {
-            background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
-        }
-
-        .card-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .card-header .badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
-
-        .card-body {
-            padding: 25px;
-        }
-
-        .card-body p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .features li {
-            padding: 8px 0;
-            padding-left: 28px;
-            position: relative;
-            color: var(--text);
-        }
-
-        .features li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #27AE60;
-            font-weight: bold;
-        }
-
-        .card-footer {
-            padding: 0 25px 25px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            text-align: center;
-            width: 100%;
-        }
-
-        .btn-exercise {
-            background: #27AE60;
-            color: white;
-        }
-
-        .btn-exercise:hover {
-            background: #219A52;
-        }
-
-        .btn-exam {
-            background: #E74C3C;
-            color: white;
-        }
-
-        .btn-exam:hover {
-            background: #C0392B;
-        }
-
-        .info-section {
-            margin-top: 60px;
-            padding: 40px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .info-section h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .info-section p {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .info-section ul {
-            color: var(--text-muted);
-            margin-left: 20px;
-        }
-
-        .info-section ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        @media (max-width: 500px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
-            }
+        @media (max-width: 640px) {
+            .header-top-inner { padding: 0 16px; gap: 8px; }
+            .breadcrumb { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+            .header-right { width: 100%; justify-content: space-between; gap: 8px; }
+            .nav-links { width: auto; }
+            .user-info #navUserName { max-width: 110px; }
+            .main-content { padding: 32px 16px; }
+            .hero { padding: 36px 16px; }
+            .login-card { padding: 26px 20px; }
+            .modules-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
-    <header class="header">
-        <h1>Wheeler Diagram Tools</h1>
-        <p class="subtitle">Interactive Sequence Stratigraphy Learning Resources</p>
-        <p class="institution">Seismo- und Sequenzstratigraphie | FAU Erlangen-Nürnberg | WS 2025/26</p>
+<body class="lang-en">
+
+    <!-- LOGIN OVERLAY (visible until a valid session is confirmed) -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="lang-switch-login">
+            <button class="lang-btn" data-lang="en" type="button">EN</button>
+            <button class="lang-btn" data-lang="de" type="button">DE</button>
+        </div>
+        <div class="login-card">
+            <div class="login-logos">
+                <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GeoZentrum Nordbayern" onerror="this.style.display='none'">
+            </div>
+            <h1>Sequence Stratigraphy</h1>
+            <p class="login-subtitle">
+                <span class="en">Learning platform · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</span>
+                <span class="de">Lernplattform · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</span>
+            </p>
+
+            <div class="login-msg expired" id="msgExpired">
+                <span class="en"><strong>Access expired.</strong> Your access to this course has ended. Please contact the instructor if you need an extension.</span>
+                <span class="de"><strong>Zugang abgelaufen.</strong> Ihr Zugang zu diesem Kurs ist beendet. Bitte wenden Sie sich an den Dozenten, falls Sie eine Verlängerung benötigen.</span>
+            </div>
+            <div class="login-msg info" id="msgNext">
+                <span class="en">Please sign in to open the requested page.</span>
+                <span class="de">Bitte melden Sie sich an, um die angeforderte Seite zu öffnen.</span>
+            </div>
+            <div class="login-msg error" id="msgError">
+                <span class="en">E-mail not recognised. Use the FAU IdM / Teams address you are enrolled with (e.g. ab12cdef@fauad.fau.de).</span>
+                <span class="de">E-Mail nicht erkannt. Verwenden Sie die FAU-IdM-/Teams-Adresse, mit der Sie eingeschrieben sind (z. B. ab12cdef@fauad.fau.de).</span>
+            </div>
+            <div class="login-msg error" id="msgTech">
+                <span class="en">Sign-in needs a secure connection (https) and a current browser. Please try again from the course link.</span>
+                <span class="de">Die Anmeldung erfordert eine sichere Verbindung (https) und einen aktuellen Browser. Bitte erneut über den Kurslink versuchen.</span>
+            </div>
+
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        <span class="en">FAU IdM / Teams e-mail</span>
+                        <span class="de">FAU-IdM-/Teams-E-Mail</span>
+                    </label>
+                    <input class="form-input" type="email" id="email" autocomplete="email" placeholder="ab12cdef@fauad.fau.de" required>
+                    <p class="form-hint">
+                        <span class="en">The address you use for the course Teams channel.</span>
+                        <span class="de">Die Adresse, die Sie für den Teams-Kanal des Kurses verwenden.</span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="fullName">
+                        <span class="en">Full name</span>
+                        <span class="de">Vollständiger Name</span>
+                    </label>
+                    <input class="form-input" type="text" id="fullName" autocomplete="name" required>
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="en">Sign in</span>
+                    <span class="de">Anmelden</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <span class="en">Access is restricted to students enrolled in the course.</span>
+                <span class="de">Der Zugang ist auf eingeschriebene Studierende des Kurses beschränkt.</span><br>
+                GeoZentrum Nordbayern · FAU Erlangen-Nürnberg<br>
+                <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › Sequence Stratigraphy
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" data-lang="en" type="button">EN</button>
+                    <button class="lang-btn" data-lang="de" type="button">DE</button>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-logos">
+                    <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+                </div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a href="#modules"><span class="en">Modules</span><span class="de">Module</span></a>
+                    <a href="#tools"><span class="en">Wheeler</span><span class="de">Wheeler</span></a>
+                </nav>
+                <div class="user-info">
+                    <span id="navUserName">–</span>
+                    <span class="user-badge" id="userBadge">Student</span>
+                </div>
+                <button class="header-btn" id="logoutBtn" type="button">
+                    <span class="en">Logout</span>
+                    <span class="de">Abmelden</span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <main class="container">
-        <section class="intro">
-            <h2>Welcome</h2>
-            <p>These interactive tools are designed to help you understand and practice Wheeler diagram construction and interpretation. Choose the appropriate resource based on your learning objectives.</p>
-        </section>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="en">MSc Course · WS 2026/27 · Mondays 14:30–16:00</span>
+                <span class="de">MSc-Kurs · WS 2026/27 · Montags 14:30–16:00</span>
+            </div>
+            <h1>Sequence Stratigraphy</h1>
+            <p class="hero-description">
+                <span class="en">Why do depositional systems move basinward or landward? Each module follows one lecture and goes deeper, from the balance between accommodation and sedimentation to surfaces, systems tracts and Wheeler diagrams.</span>
+                <span class="de">Warum verlagern sich Ablagerungssysteme beckenwärts oder landwärts? Jedes Modul folgt einer Vorlesung und vertieft sie, vom Gleichgewicht zwischen Akkommodation und Sedimentation bis zu Flächen, Systemtrakten und Wheeler-Diagrammen.</span>
+            </p>
+            <div class="welcome-msg">
+                <span class="en">Welcome, <strong class="welcome-name">–</strong></span>
+                <span class="de">Willkommen, <strong class="welcome-name">–</strong></span>
+            </div>
+        </div>
+    </section>
 
-        <section class="cards">
-            <!-- Practice Exercise Card -->
-            <article class="card">
-                <div class="card-header exercise">
-                    <h3>Practice Exercise</h3>
-                    <span class="badge">Self-Study</span>
-                </div>
-                <div class="card-body">
-                    <p>An interactive learning environment for practicing Wheeler diagram construction without time limits.</p>
-                    <ul class="features">
-                        <li>No time limit - learn at your own pace</li>
-                        <li>Full suite of drawing tools</li>
-                        <li>Strata numbering and drilling tools</li>
-                        <li>Auto System Tract generation</li>
-                        <li>Cross-section to Wheeler projection</li>
-                        <li>Export your work as images</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="exercise/index.html" class="btn btn-exercise">Open Practice Exercise</a>
-                </div>
-            </article>
+    <main class="main-content">
+        <!-- COURSE MODULES -->
+        <div class="section-header" id="modules">
+            <h2><span class="en">Course modules</span><span class="de">Kursmodule</span></h2>
+            <p>
+                <span class="en">Start with Module 0, then follow the lectures in order. Module pages are in English.</span>
+                <span class="de">Beginnen Sie mit Modul 0 und folgen Sie dann den Vorlesungen der Reihe nach. Die Modulseiten sind auf Englisch.</span>
+            </p>
+        </div>
 
-            <!-- Exam Card -->
-            <article class="card">
-                <div class="card-header exam">
-                    <h3>Examination</h3>
-                    <span class="badge">Timed Assessment</span>
+        <div class="modules-grid">
+            <a href="module0_course_skeleton.html" class="module-card">
+                <div class="module-header mod-0">
+                    <div class="module-number"><span class="en">Module 0 · Start here</span><span class="de">Modul 0 · Hier beginnen</span></div>
+                    <h3 class="module-title"><span class="en">Course skeleton</span><span class="de">Kursgerüst</span></h3>
                 </div>
-                <div class="card-body">
-                    <p>The official examination environment with strict time controls and automatic submission.</p>
-                    <ul class="features">
-                        <li>2-hour timed assessment</li>
-                        <li>Timer continues even when switching tabs</li>
-                        <li>Password-protected access</li>
-                        <li>Auto-save every 30 seconds</li>
-                        <li>Written questions included</li>
-                        <li>Automatic submission at time expiry</li>
-                    </ul>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">The genetic chain behind the whole course, the model-independent workflow, how the exam works, the weekly assignments, and a glossary of core terms.</span>
+                        <span class="de">Die genetische Kette hinter dem gesamten Kurs, der modellunabhängige Arbeitsablauf, der Ablauf der Prüfung, die wöchentlichen Aufgaben und ein Glossar der Kernbegriffe.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">~40 min</span>
+                        <span class="module-action"><span class="en">Start →</span><span class="de">Starten →</span></span>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <a href="exam/index.html" class="btn btn-exam">Enter Examination</a>
-                </div>
-            </article>
-        </section>
+            </a>
 
-        <section class="info-section">
-            <h3>About Wheeler Diagrams</h3>
-            <p>Wheeler diagrams (chronostratigraphic charts) are essential tools in sequence stratigraphy for visualizing the temporal relationships between stratigraphic units. Unlike traditional cross-sections that show spatial relationships, Wheeler diagrams plot relative geologic time on the vertical axis against distance on the horizontal axis.</p>
-            <p>Key concepts you will practice:</p>
-            <ul>
-                <li><strong>Stratal terminations:</strong> Onlap, downlap, toplap, and truncation patterns</li>
-                <li><strong>Systems tracts:</strong> HST, TST, LST, FSST identification and mapping</li>
-                <li><strong>Key surfaces:</strong> Sequence boundaries (SB), Maximum Flooding Surfaces (MFS), Transgressive Surfaces (TS)</li>
-                <li><strong>Hiatuses and lacunae:</strong> Identifying gaps in the stratigraphic record</li>
-                <li><strong>Accommodation/Sediment supply:</strong> Understanding A/S ratios through stratal patterns</li>
-            </ul>
-        </section>
+            <a href="module1_shoreline_shifts.html" class="module-card">
+                <div class="module-header">
+                    <div class="module-number"><span class="en">Module 1 · Lecture 1</span><span class="de">Modul 1 · Vorlesung 1</span></div>
+                    <h3 class="module-title"><span class="en">Why shorelines move</span><span class="de">Warum sich Küstenlinien verlagern</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">Accommodation versus sedimentation at the shoreline; transgression, normal and forced regression; how eustasy, tectonics and supply combine; reading synthetic wells.</span>
+                        <span class="de">Akkommodation gegenüber Sedimentation an der Küstenlinie; Transgression, normale und erzwungene Regression; das Zusammenspiel von Eustasie, Tektonik und Sedimentzufuhr; synthetische Bohrungen lesen.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">19.10.2026</span>
+                        <span class="module-action"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="module2_history_concepts.html" class="module-card">
+                <div class="module-header mod-2">
+                    <div class="module-number"><span class="en">Module 2 · Lecture 2</span><span class="de">Modul 2 · Vorlesung 2</span></div>
+                    <h3 class="module-title"><span class="en">History and basic concepts</span><span class="de">Geschichte und Grundbegriffe</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">From Sloss and Wheeler to the model-independent standard; what a sequence is; depositional trends, surfaces, scale and hierarchy.</span>
+                        <span class="de">Von Sloss und Wheeler zum modellunabhängigen Standard; was eine Sequenz ist; Ablagerungstrends, Flächen, Maßstab und Hierarchie.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">26.10.2026</span>
+                        <span class="module-action"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="module3_controlling_factors.html" class="module-card">
+                <div class="module-header mod-3">
+                    <div class="module-number"><span class="en">Module 3 · Block 3</span><span class="de">Modul 3 · Block 3</span></div>
+                    <h3 class="module-title"><span class="en">Controlling factors</span><span class="de">Steuernde Faktoren</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">Tectonics, eustasy and climate; sediment supply versus energy flux; base level, relative sea level and how the controls reach accommodation.</span>
+                        <span class="de">Tektonik, Eustasie und Klima; Sedimentzufuhr gegenüber Energiefluss; Basisniveau, relativer Meeresspiegel und wie die Faktoren auf die Akkommodation wirken.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">02.11.2026</span>
+                        <span class="module-action"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="module-card soon" aria-disabled="true">
+                <div class="module-header">
+                    <div class="module-number"><span class="en">Block 4</span><span class="de">Block 4</span></div>
+                    <h3 class="module-title"><span class="en">Lithostratigraphy vs sequence stratigraphy</span><span class="de">Lithostratigraphie vs. Sequenzstratigraphie</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">Facies analysis, Walther's Law and the sequence stratigraphic workflow.</span>
+                        <span class="de">Faziesanalyse, Walther'sches Gesetz und der sequenzstratigraphische Arbeitsablauf.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">09.11.2026</span>
+                        <span class="soon-tag"><span class="en">Coming soon</span><span class="de">Folgt in Kürze</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card soon" aria-disabled="true">
+                <div class="module-header">
+                    <div class="module-number"><span class="en">Block 5</span><span class="de">Block 5</span></div>
+                    <h3 class="module-title"><span class="en">Shoreline shifts and surfaces</span><span class="de">Küstenlinienverlagerung und Flächen</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">SU, CC, BSFR, MRS, MFS, ravinement surfaces and RSME: when and where each forms, and how to recognise it in outcrop, core, logs and seismic.</span>
+                        <span class="de">SU, CC, BSFR, MRS, MFS, Ravinement-Flächen und RSME: wann und wo sie entstehen und wie man sie in Aufschluss, Kern, Logs und Seismik erkennt.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">16.11.2026</span>
+                        <span class="soon-tag"><span class="en">Coming soon</span><span class="de">Folgt in Kürze</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHEELER TOOLS -->
+        <div class="section-header" id="tools">
+            <h2><span class="en">Wheeler diagram tools</span><span class="de">Wheeler-Diagramm-Werkzeuge</span></h2>
+            <p>
+                <span class="en">Construct Wheeler diagrams from a cross-section: practise without a time limit, then use the same environment in the exam.</span>
+                <span class="de">Wheeler-Diagramme aus einem Profilschnitt konstruieren: ohne Zeitlimit üben, dann dieselbe Umgebung in der Prüfung nutzen.</span>
+            </p>
+        </div>
+
+        <div class="modules-grid">
+            <a href="exercise/index.html" class="module-card">
+                <div class="module-header tool-ex">
+                    <div class="module-number"><span class="en">Practice</span><span class="de">Übung</span></div>
+                    <h3 class="module-title"><span class="en">Wheeler diagram exercise</span><span class="de">Wheeler-Diagramm-Übung</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">Drawing tools for surfaces, stratal terminations and systems tracts, with projection into the Wheeler panel. No time limit; export your work as an image.</span>
+                        <span class="de">Zeichenwerkzeuge für Flächen, Schichtterminationen und Systemtrakte mit Projektion in das Wheeler-Feld. Kein Zeitlimit; Ergebnis als Bild exportierbar.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta"><span class="en">Self-paced</span><span class="de">Eigenes Tempo</span></span>
+                        <span class="module-action"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="exam/index.html" class="module-card">
+                <div class="module-header tool-exam">
+                    <div class="module-number"><span class="en">Exam · password-protected</span><span class="de">Prüfung · passwortgeschützt</span></div>
+                    <h3 class="module-title"><span class="en">Wheeler diagram exam</span><span class="de">Wheeler-Diagramm-Prüfung</span></h3>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        <span class="en">The timed exam environment: Wheeler diagram construction plus three interpretation questions. Opens only with the password given in the exam session.</span>
+                        <span class="de">Die zeitgebundene Prüfungsumgebung: Konstruktion eines Wheeler-Diagramms und drei Interpretationsfragen. Öffnet nur mit dem in der Prüfung ausgegebenen Passwort.</span>
+                    </p>
+                    <div class="module-footer">
+                        <span class="module-meta">01.02.2027</span>
+                        <span class="module-action"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </main>
 
-    <footer class="footer">
-        <p>Seismo- und Sequenzstratigraphie | FAU Erlangen-Nürnberg | WS 2025/26</p>
-        <p style="margin-top: 10px;">Dr. Andrea Calabria | <a href="mailto:calabriaxp@gmail.com">calabriaxp@gmail.com</a></p>
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</h4>
+                <p><span class="en">Instructor:</span><span class="de">Dozent:</span> <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+                <p>GeoZentrum Nordbayern · Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p class="footer-note">
+                    <span class="en">Access is restricted to students enrolled in the course.</span>
+                    <span class="de">Der Zugang ist auf eingeschriebene Studierende des Kurses beschränkt.</span>
+                </p>
+            </div>
+            <div class="footer-logos">
+                <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+            </div>
+        </div>
     </footer>
+
+    <script>
+    (function () {
+        'use strict';
+        var LANG_KEY = 'seqstrat_lang';
+        var params = new URLSearchParams(window.location.search);
+        var overlay = document.getElementById('loginOverlay');
+
+        /* ---------- language toggle (labels only; module pages stay English) ---------- */
+        function setLang(lang) {
+            if (lang !== 'de') lang = 'en';
+            document.body.classList.remove('lang-en', 'lang-de');
+            document.body.classList.add('lang-' + lang);
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.lang-btn').forEach(function (b) {
+                b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+            });
+            try { localStorage.setItem(LANG_KEY, lang); } catch (e) { /* storage blocked: keep in-page only */ }
+        }
+        document.querySelectorAll('.lang-btn').forEach(function (b) {
+            b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+        });
+        var saved = 'en';
+        try { saved = localStorage.getItem(LANG_KEY) || 'en'; } catch (e) { saved = 'en'; }
+        setLang(saved);
+
+        /* ---------- ?next= handling: same-site paths under the site root only ---------- */
+        function safeNext() {
+            var raw = params.get('next');
+            if (!raw) return null;
+            // must be an absolute path on this host: "/..." but not "//host" or "/\host"
+            if (raw.charAt(0) !== '/' || raw.charAt(1) === '/' || raw.charAt(1) === '\\' || /[\u0000-\u001f]/.test(raw)) return null;
+            var target, root;
+            try {
+                target = new URL(raw, window.location.origin);
+                root = new URL(window.SeqAccess.root, window.location.href);
+            } catch (e) { return null; }
+            if (target.origin !== window.location.origin) return null;
+            if (target.pathname.indexOf(root.pathname) !== 0) return null;
+            // never bounce back to the login page itself
+            var rel = target.pathname.slice(root.pathname.length);
+            if (rel === '' || rel === 'index.html') return null;
+            return target.pathname + target.search + target.hash;
+        }
+
+        function show(id, on) { document.getElementById(id).classList.toggle('visible', !!on); }
+
+        function showHome(user) {
+            var name = user.name || 'Student';
+            document.getElementById('navUserName').textContent = name;
+            document.querySelectorAll('.welcome-name').forEach(function (el) { el.textContent = name; });
+            var badge = document.getElementById('userBadge');
+            badge.textContent = user.role;
+            badge.classList.toggle('instructor', user.role === 'Instructor');
+            overlay.classList.add('hidden');
+        }
+
+        function showLogin() {
+            overlay.classList.remove('hidden');
+            show('msgExpired', params.get('expired') === '1');
+            show('msgNext', !!safeNext() && params.get('expired') !== '1');
+        }
+
+        function proceed(user) {
+            var next = safeNext();
+            if (next) { window.location.replace(next); return; }
+            showHome(user);
+        }
+
+        if (!window.SeqAccess || !window.crypto || !window.crypto.subtle) {
+            showLogin();
+            show('msgTech', true);
+            document.getElementById('loginBtn').disabled = true;
+            return;
+        }
+
+        window.SeqAccess.validate().then(function (u) {
+            if (u && !u.expired) { proceed(u); return; }
+            if (u && u.expired) params.set('expired', '1');
+            showLogin();
+        }).catch(function () { showLogin(); });
+
+        document.getElementById('loginForm').addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            var email = document.getElementById('email').value.trim();
+            var name = document.getElementById('fullName').value.trim();
+            show('msgError', false);
+            if (!email || !name) { show('msgError', true); return; }
+            var btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            window.SeqAccess.login(email, name).then(function (role) {
+                btn.disabled = false;
+                if (role === 'Student' || role === 'Instructor') {
+                    show('msgExpired', false);
+                    proceed({ name: name, role: role });
+                } else if (role === 'Expired') {
+                    show('msgExpired', true);
+                } else {
+                    show('msgError', true);
+                }
+            }).catch(function () { btn.disabled = false; show('msgTech', true); });
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', function () { window.SeqAccess.logout(); });
+    })();
+    </script>
 </body>
 </html>
