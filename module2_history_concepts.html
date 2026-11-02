@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="assets/access.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: History and Basic Concepts | Sequence Stratigraphy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
+    <style>
+        /* Module 2 page-specific styles */
+        .header-btn { padding: 7px 14px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 6px;
+                      font-size: 0.85rem; font-family: var(--font-sans); color: var(--gray-700); cursor: pointer; white-space: nowrap; }
+        .header-btn:hover { background: var(--gray-200); }
+        .header-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .section ul.plain, .section ol.plain { margin: 0 0 16px 24px; color: var(--gray-600); }
+        .section ul.plain li, .section ol.plain li { margin-bottom: 6px; }
+        .figure-container img, .figure-container svg { width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        .figure-container img.narrow { max-width: 560px; }
+        .figure-container img.mid { max-width: 680px; }
+        blockquote.def { border-left: 4px solid var(--fau-blue); background: var(--gray-50); padding: 12px 18px; margin: 16px 0;
+                         font-family: var(--font-serif); color: var(--fau-blue-dark); border-radius: 0 8px 8px 0; }
+        blockquote.def cite { display: block; font-family: var(--font-sans); font-style: normal; font-size: 0.85rem; color: var(--gray-500); margin-top: 6px; }
+        .three-q { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+        .three-q div { background: var(--gray-50); border: 1px solid var(--gray-200); border-top: 4px solid var(--fau-blue); border-radius: 8px; padding: 14px 16px; font-size: 0.92rem; color: var(--gray-700); }
+        .three-q strong { display: block; color: var(--fau-blue-dark); margin-bottom: 6px; }
+        details.answer { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+        details.answer summary { cursor: pointer; font-weight: 600; color: var(--fau-blue); }
+        details.answer[open] summary { margin-bottom: 10px; }
+        .lede { font-size: 1.05rem; color: var(--gray-700); }
+        /* Wheeler explainer */
+        .wz-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 6px 0 12px; }
+        .wz-ctrl label { font-weight: 600; color: var(--gray-700); font-size: 0.92rem; }
+        .wz-ctrl input[type=range] { flex: 1 1 220px; accent-color: var(--fau-blue); }
+        .wz-ctrl button { padding: 6px 12px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; cursor: pointer; font-family: var(--font-sans); font-size: 0.85rem; }
+        .wz-ctrl button[aria-pressed="true"] { background: var(--fau-blue); color: white; border-color: var(--fau-blue); }
+        .wz-out { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 16px; font-size: 0.92rem; color: var(--gray-700); }
+        .wz-out dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 6px 0 0; }
+        .wz-out dt { font-weight: 600; }
+        .wz-out dd { margin: 0; font-variant-numeric: tabular-nums; }
+        #wheelerSvg .wz-dim { opacity: 0.25; }
+        .data-table td, .data-table th { vertical-align: top; }
+        @media (max-width: 760px) { .three-q { grid-template-columns: 1fr; } .wz-out dl { grid-template-columns: 1fr; } .wz-out dd { margin-bottom: 6px; } }
+        @media (max-width: 640px) { .header-right { width: 100%; justify-content: space-between; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › <a href="index.html">Sequence Stratigraphy</a> › Module 2
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-logos">
+                    <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+                </div>
+                <div class="brand-divider"></div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="module0_course_skeleton.html">Course</a>
+                    <a href="module1_shoreline_shifts.html">Shoreline shifts</a>
+                    <a href="module2_history_concepts.html" class="active">History &amp; concepts</a>
+                    <a href="module3_controlling_factors.html">Controlling factors</a>
+                </nav>
+                <button class="header-btn" id="logoutBtn" type="button" onclick="SeqAccess.logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Module 2 · Lecture 2 (26.10.2026) · ~90 minutes</div>
+            <h1>History and Basic Concepts</h1>
+            <p class="hero-description">From Hutton's unconformity to a model-independent standard: what bounds a sequence, what drives it, at what scale we look at it, and the vocabulary we use to read the record of accommodation versus sedimentation.</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="objectives">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Trace how the answers to three questions (what bounds a sequence, what drives it, at what scale) changed from Sloss to Catuneanu</li>
+                <li>Read a Wheeler diagram: explain where and when deposition, hiatus and degradational vacuity form, using base-level transits</li>
+                <li>Explain why an unconformity passes basinward into a correlative conformity, and why Walther's Law fails across it</li>
+                <li>Evaluate the global cycle chart critically, and say what evidence a eustatic interpretation would need</li>
+                <li>Place the sequence boundary of the five classic models on one section, and explain why the surfaces are the same in all of them</li>
+                <li>State when each sequence stratigraphic surface forms, and keep the maximum flooding surface and the sequence boundary apart</li>
+                <li>Use the relative sea-level versus shoreline-shift diagram to predict transgression, normal and forced regression</li>
+                <li>Explain why hierarchical rank is basin-specific, using the Po Plain–Adriatic and other real basins</li>
+            </ul>
+        </div>
+
+        <!-- PART I -->
+        <section class="section">
+            <h2>Part I: Three Questions and a Long Thinking Path</h2>
+            <p class="lede">Sequence stratigraphy is the product of more than two hundred years of observations, arguments and corrections. Some of these arguments are still going on, which is why the literature contains different definitions and different models. The history is easiest to follow through three questions. Every step changed the answer to at least one of them.</p>
+            <div class="three-q">
+                <div><strong>What bounds a sequence?</strong>Unconformities only (Sloss) → unconformities and their correlative conformities (Mitchum, 1977) → competing boundary choices (1988–2000) → a model-independent standard (Catuneanu et al., 2009).</div>
+                <div><strong>What drives it?</strong>Tectonics (Sloss) → eustasy (Vail et al., 1977) → the balance between accommodation and sedimentation (Jervey, 1988; Posamentier et al., 1988).</div>
+                <div><strong>At what scale?</strong>Fixed-duration "orders" (Vail et al., 1977, 1991) → a hierarchy defined within each basin (Catuneanu, 2019b).</div>
+            </div>
+            <figure class="figure-container">
+                <img class="narrow" src="img/m2/m2_fig1_timeline.svg" alt="Vertical timeline of sequence stratigraphy milestones from Hutton 1788 to Catuneanu 2019-2022, grouped in five coloured phases." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 1.</strong> Milestones discussed in this module, grouped by phase (not to scale): foundations (brown), unconformity-bounded sequences (orange), seismic stratigraphy and the Exxon models (red), competing models and debate (green), standardisation (blue). <em>Basis: drawn for this module from the Lecture 2 timeline (slides 4–5); phase colours as in the lecture.</em></figcaption>
+            </figure>
+            <p>Notice how short the modern, standardised phase is compared with the whole story. Most of what follows is about how each answer was found to be incomplete.</p>
+        </section>
+
+        <!-- PART II -->
+        <section class="section">
+            <h2>Part II: Foundations — Cycles, Facies and Base Level</h2>
+            <h3>1. Hutton: cycles and unconformities</h3>
+            <p>James Hutton (1726–1797) contributed two ideas that matter here. The first is what we now call uniformitarianism: slow processes acting today, given enough time, produce enormous effects, and they are the same processes that acted in the past. The second is the geological cycle: erosion, transport, deposition, burial, uplift and erosion again. His field evidence was Siccar Point in Scotland, visited in 1788, where gently dipping red Devonian sandstones rest on steeply dipping grey Silurian greywackes. To explain that contact, the lower rocks had to be deposited, tilted, uplifted, eroded and covered again.</p>
+            <p>An unconformity records a break in a cycle. It was therefore the first answer to the question <em>what bounds a sequence</em>.</p>
+
+            <h3>2. Walther's Law and its limit</h3>
+            <blockquote class="def">In a conformable succession, the only facies that can occur together in vertical succession are those that can occur side by side in nature.<cite>Walther's Law as formulated by Middleton (1973); reproduced in Catuneanu (2006)</cite></blockquote>
+            <p>In short, vertical facies changes record lateral shifts of environments. If shoreface sands are overlain by offshore mud, the offshore environment moved over the shoreface: the shoreline moved landward. Every interpretation of shoreline shifts from a vertical profile depends on this law. Remember the terminology from Module 1: a transgression is a landward shift of the <em>shoreline</em>, not simply a rise of sea level.</p>
+            <div class="warning-box">
+                <h4>The limitation is the point</h4>
+                <p>Walther's Law is valid only within a relatively conformable succession. Across an unconformity an unknown amount of time and rock is missing, so the facies above and below may be genetically unrelated (Catuneanu, 2006). A fluvial conglomerate sharply overlying a shoreface sand across an erosion surface does not prove that rivers and shoreface were neighbours. This is exactly why unconformities became so important as boundaries: they mark where the vertical reading of facies stops being valid.</p>
+            </div>
+
+            <h3>3. Barrell (1917): base level divides the record</h3>
+            <p>Joseph Barrell linked subaerial unconformities to falls of base level. When base level falls, the land surface is exposed and eroded, and that erosion surface is preserved as an unconformity; when base level rises again, deposition resumes on top of it. From this he built a deductive model: repeated cycles of base-level rise and fall should generate repeated unconformities. That is already very close to the modern idea of a sequence.</p>
+            <p>His 1917 diagram combines three base-level curves of different wavelength and amplitude into one composite curve. Two messages follow from it, and both return later in this module. First, only a fraction of time is recorded as rock; much of it is represented by surfaces (Wheeler diagrams, Part III). Second, cycles of different duration are superimposed (hierarchy, Part VII).</p>
+        </section>
+
+        <!-- PART III -->
+        <section class="section">
+            <h2>Part III: Unconformity-Bounded Sequences — Sloss and Wheeler</h2>
+            <h3>4. Sloss: sequences bounded by interregional unconformities</h3>
+            <p>The term <em>sequence</em> in our sense was introduced by Sloss, Krumbein and Dapples (1949) for units bounded by large regional subaerial unconformities that could be traced across most of North America. Sloss (1963) described sequences as rock-stratigraphic units of higher rank than group or supergroup, bounded by unconformities of interregional scope, and recognised six of them on the North American craton (from the base: Sauk, Tippecanoe, Kaskaskia, Absaroka, Zuni and Tejas). They record cycles lasting tens of millions of years.</p>
+            <p>Two points to keep. A Sloss sequence is defined by its unconformities: where the unconformity can be mapped, the sequence can be mapped. And Sloss attributed the sequences and their bounding unconformities largely to tectonic movements of the craton, an idea widely accepted today but overlooked in the early days of seismic stratigraphy.</p>
+
+            <h3>5. Wheeler (1958): the same rocks plotted in time</h3>
+            <p>Harry Wheeler, in "Time-stratigraphy" (AAPG Bulletin, 1958), also worked with unconformity-bounded units, but he showed their main weakness. Near the basin margin two sequences, A and B, are separated by an unconformity. Basinward the unconformity dies out and the two can no longer be separated: they merge into one sequence. If a sequence is bounded by unconformities only, the number of sequences you recognise depends on where you are in the basin. That is a serious problem for correlation.</p>
+            <p>Wheeler's solution was to redraw the section with <strong>time</strong>, not thickness, on the vertical axis. Each horizontal line is now a time line, rock is shown where and when it was deposited, and the gaps in the record become areas you can see. This is the <strong>Wheeler diagram</strong>, and it is the diagram you will construct in the exam.</p>
+
+            <div class="key-concept">
+                <h4>The one idea you need: base level and base-level transits</h4>
+                <p>Where base level lies <em>above</em> the depositional surface there is space for sediment and deposition takes place. Where base level lies <em>below</em> the surface there is no space: the surface is exposed and is eroded, or sediment bypasses it. Wheeler called the moment when base level crosses the surface at a given place a <strong>base-level transit</strong>. An <strong>upward transit</strong> means deposition begins and erosion stops; a <strong>downward transit</strong> means deposition stops and erosion begins.</p>
+            </div>
+
+            <figure class="figure-container" id="wheeler-explainer">
+                <div class="wz-ctrl">
+                    <label for="wzX">Location along the section:</label>
+                    <input type="range" id="wzX" min="0" max="9.8" step="0.1" value="1.0" aria-describedby="wzOut">
+                    <button type="button" id="wzShow" aria-pressed="false">Show vertical line</button>
+                </div>
+                <svg id="wheelerSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 860" role="img" aria-labelledby="wtitle wdesc" font-family="Inter, Arial, sans-serif">
+<title id="wtitle">Cross-section and Wheeler diagram of the same two sequences</title>
+<desc id="wdesc">Top: thickness-distance cross-section with sequences A and B separated by an unconformity that dies out at x prime; basinward the strata are continuous. Bottom: the same strata in a time-distance Wheeler diagram, with deposition, degradational vacuity and hiatus shown as areas bounded by the upward and downward base-level transit lines and the terminal degradation surface.</desc>
+<defs><pattern id="hatchV" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F6D6D2"/><line x1="0" y1="0" x2="0" y2="8" stroke="#C0392B" stroke-width="2"/></pattern></defs>
+<rect width="820" height="860" fill="#ffffff"/>
+<text x="70" y="40" font-size="20" font-weight="700" fill="#04316A">A  Cross-section (vertical axis = thickness)</text>
+<path d="M70.0,118.0 L76.0,120.0 L82.0,122.0 L88.0,124.0 L94.0,125.9 L100.0,127.9 L106.0,129.9 L112.0,131.8 L118.0,133.8 L124.0,135.8 L130.0,137.8 L136.0,139.7 L142.0,141.7 L148.0,143.7 L154.0,145.7 L160.0,147.6 L166.0,149.6 L172.0,151.6 L178.0,153.5 L184.0,155.5 L190.0,157.5 L196.0,159.5 L202.0,161.4 L208.0,163.4 L214.0,165.4 L220.0,167.4 L226.0,169.3 L232.0,171.3 L238.0,173.3 L244.0,175.2 L250.0,177.2 L256.0,179.2 L262.0,181.2 L268.0,183.1 L274.0,185.1 L280.0,187.1 L286.0,189.1 L292.0,191.0 L298.0,193.0 L304.0,195.0 L310.0,196.9 L316.0,198.9 L322.0,200.9 L328.0,202.9 L334.0,204.8 L340.0,206.8 L346.0,208.8 L352.0,210.7 L358.0,212.7 L364.0,214.7 L370.0,216.7 L376.0,218.6 L382.0,220.6 L388.0,222.6 L394.0,224.6 L400.0,226.5 L406.0,228.5 L412.0,230.5 L418.0,232.4 L424.0,234.4 L430.0,236.4 L436.0,238.4 L442.0,240.3 L448.0,242.3 L454.0,244.3 L460.0,246.3 L466.0,248.2 L472.0,250.2 L478.0,252.2 L484.0,254.1 L490.0,256.1 L496.0,258.1 L502.0,260.1 L508.0,262.0 L514.0,264.0 L520.0,266.0 L526.0,268.0 L532.0,269.9 L538.0,271.9 L544.0,273.9 L550.0,275.8 L556.0,277.8 L562.0,279.8 L568.0,281.8 L574.0,283.7 L580.0,285.7 L586.0,287.7 L592.0,289.6 L598.0,291.6 L604.0,293.6 L610.0,295.6 L616.0,297.5 L622.0,299.5 L628.0,301.5 L634.0,303.5 L640.0,305.4 L646.0,307.4 L652.0,309.4 L658.0,311.3 L664.0,313.3 L670.0,315.3 L676.0,317.3 L682.0,319.2 L688.0,321.2 L694.0,323.2 L700.0,325.2 L706.0,327.1 L712.0,329.1 L718.0,331.1 L724.0,333.0 L730.0,335.0 L736.0,337.0 L742.0,339.0 L748.0,340.9 L754.0,342.9 L760.0,344.9 L766.0,346.9 L772.0,348.8 L778.0,350.8 L784.0,352.8 L790.0,354.7 L790.0,380 L70.0,380 Z" fill="#E8E3D7" stroke="#666" stroke-width="1.5"/>
+<path d="M70.0,99.1 L82.2,101.3 L94.4,103.4 L106.6,105.5 L118.8,107.5 L131.0,109.5 L143.2,111.5 L155.4,113.4 L167.6,115.3 L179.8,117.2 L192.0,119.0 L204.2,120.8 L216.4,122.6 L228.6,124.3 L240.8,126.0 L253.1,127.6 L265.3,129.2 L277.5,130.8 L289.7,132.3 L301.9,133.8 L314.1,135.3 L326.3,136.7 L338.5,138.1 L350.7,139.4 L362.9,140.8 L375.1,142.0 L387.3,143.3 L399.5,144.5 L411.7,145.6 L423.9,146.8 L436.1,147.9 L448.3,148.9 L460.5,149.9 L472.7,150.9 L484.9,151.9 L497.1,152.8 L509.3,153.7 L521.5,154.5 L533.7,155.3 L545.9,156.1 L558.1,156.8 L570.3,157.5 L582.5,158.1 L594.7,158.7 L606.9,159.3 L619.2,161.4 L631.4,164.0 L643.6,166.6 L655.8,169.1 L668.0,171.7 L680.2,174.2 L692.4,176.8 L704.6,179.3 L716.8,181.9 L729.0,184.4 L741.2,186.9 L753.4,189.4 L765.6,191.9 L777.8,194.4 L790.0,196.9 L790.0,354.7 L777.8,350.7 L765.6,346.7 L753.4,342.7 L741.2,338.7 L729.0,334.7 L716.8,330.7 L704.6,326.7 L692.4,322.6 L680.2,318.6 L668.0,314.6 L655.8,310.6 L643.6,306.6 L631.4,302.6 L619.2,298.6 L606.9,294.6 L594.7,290.6 L582.5,286.5 L570.3,282.5 L558.1,278.5 L545.9,274.5 L533.7,270.5 L521.5,266.5 L509.3,262.5 L497.1,258.5 L484.9,254.4 L472.7,250.4 L460.5,246.4 L448.3,242.4 L436.1,238.4 L423.9,234.4 L411.7,230.4 L399.5,226.4 L387.3,222.3 L375.1,218.3 L362.9,214.3 L350.7,210.3 L338.5,206.3 L326.3,202.3 L314.1,198.3 L301.9,194.3 L289.7,190.3 L277.5,186.2 L265.3,182.2 L253.1,178.2 L240.8,174.2 L228.6,170.2 L216.4,166.2 L204.2,162.2 L192.0,158.2 L179.8,154.1 L167.6,150.1 L155.4,146.1 L143.2,142.1 L131.0,138.1 L118.8,134.1 L106.6,130.1 L94.4,126.1 L82.2,122.1 L70.0,118.0 Z" fill="#F3E2B3"/>
+<path d="M70.0,77.0 L82.2,78.3 L94.4,79.6 L106.6,80.9 L118.8,82.0 L131.0,83.2 L143.2,84.3 L155.4,85.3 L167.6,86.3 L179.8,87.2 L192.0,88.1 L204.2,88.9 L216.4,89.7 L228.6,90.4 L240.8,91.1 L253.1,91.8 L265.3,92.4 L277.5,92.9 L289.7,93.4 L301.9,93.8 L314.1,94.2 L326.3,94.5 L338.5,94.8 L350.7,95.1 L362.9,95.3 L375.1,95.4 L387.3,95.5 L399.5,95.5 L411.7,95.5 L423.9,95.5 L436.1,95.4 L448.3,95.2 L460.5,95.0 L472.7,94.7 L484.9,94.4 L497.1,94.1 L509.3,93.7 L521.5,93.2 L533.7,92.7 L545.9,92.2 L558.1,91.6 L570.3,90.9 L582.5,90.2 L594.7,89.5 L606.9,88.7 L619.2,90.0 L631.4,92.0 L643.6,94.1 L655.8,96.1 L668.0,98.1 L680.2,100.1 L692.4,102.2 L704.6,104.2 L716.8,106.2 L729.0,108.2 L741.2,110.1 L753.4,112.1 L765.6,114.1 L777.8,116.1 L790.0,118.0 L790.0,196.9 L777.8,194.4 L765.6,191.9 L753.4,189.4 L741.2,186.9 L729.0,184.4 L716.8,181.9 L704.6,179.3 L692.4,176.8 L680.2,174.2 L668.0,171.7 L655.8,169.1 L643.6,166.6 L631.4,164.0 L619.2,161.4 L606.9,159.3 L594.7,158.7 L582.5,158.1 L570.3,157.5 L558.1,156.8 L545.9,156.1 L533.7,155.3 L521.5,154.5 L509.3,153.7 L497.1,152.8 L484.9,151.9 L472.7,150.9 L460.5,149.9 L448.3,148.9 L436.1,147.9 L423.9,146.8 L411.7,145.6 L399.5,144.5 L387.3,143.3 L375.1,142.0 L362.9,140.8 L350.7,139.4 L338.5,138.1 L326.3,136.7 L314.1,135.3 L301.9,133.8 L289.7,132.3 L277.5,130.8 L265.3,129.2 L253.1,127.6 L240.8,126.0 L228.6,124.3 L216.4,122.6 L204.2,120.8 L192.0,119.0 L179.8,117.2 L167.6,115.3 L155.4,113.4 L143.2,111.5 L131.0,109.5 L118.8,107.5 L106.6,105.5 L94.4,103.4 L82.2,101.3 L70.0,99.1 Z" fill="#CFE6F5"/>
+<path d="M70.0,118.0 L76.0,119.9 L82.0,121.7 L88.0,123.6 L94.0,125.4 L100.0,127.2 L106.0,129.1 L112.0,130.9 L118.0,132.7 L124.0,134.6 L130.0,136.4 L136.0,138.2 L142.0,140.0 L148.0,141.9 L154.0,143.7 L160.0,145.5 L166.0,147.3 L172.0,149.1 L178.0,150.9 L184.0,152.8 L190.0,154.6 L196.0,156.4 L202.0,158.2 L208.0,160.0 L214.0,161.8 L220.0,163.6 L226.0,165.4 L232.0,167.2 L238.0,169.0 L244.0,170.8 L250.0,172.6 L256.0,174.4 L262.0,176.2 L268.0,178.0 L274.0,179.8 L280.0,181.6 L286.0,183.4 L292.0,185.2 L298.0,186.9 L304.0,188.7 L310.0,190.5 L316.0,192.3 L322.0,194.1 L328.0,195.9 L334.0,197.6 L340.0,199.4 L346.0,201.2 L352.0,203.0 L358.0,204.7 L364.0,206.5 L370.0,208.3 L376.0,210.0 L382.0,211.8 L388.0,213.6 L394.0,215.3 L400.0,217.1 L406.0,218.8 L412.0,220.6 L418.0,222.4 L424.0,224.1 L430.0,225.9 L436.0,227.6 L442.0,229.4 L448.0,231.1 L454.0,232.9 L460.0,234.6 L466.0,236.4 L472.0,238.1 L478.0,239.9 L484.0,241.6 L490.0,243.3 L496.0,245.1 L502.0,246.8 L508.0,248.5 L514.0,250.3 L520.0,252.0 L526.0,253.7 L532.0,255.5 L538.0,257.2 L544.0,258.9 L550.0,260.6 L556.0,262.4 L562.0,264.1 L568.0,265.8 L574.0,267.5 L580.0,269.2 L586.0,271.0 L592.0,272.7 L598.0,274.4 L604.0,276.1 L610.0,277.8 L616.0,279.5 L622.0,281.2 L628.0,282.9 L634.0,284.6 L640.0,286.3 L646.0,288.0 L652.0,289.7 L658.0,291.4 L664.0,293.1 L670.0,294.8 L676.0,296.5 L682.0,298.2 L688.0,299.9 L694.0,301.6 L700.0,303.3 L706.0,305.0 L712.0,306.7 L718.0,308.3 L724.0,310.0 L730.0,311.7 L736.0,313.4 L742.0,315.1 L748.0,316.7 L754.0,318.4 L760.0,320.1 L766.0,321.8 L772.0,323.4 L778.0,325.1 L784.0,326.8 L790.0,328.4" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M70.0,102.3 L76.0,104.0 L82.0,105.8 L88.0,107.5 L94.0,109.3 L100.0,111.0 L106.0,112.8 L112.0,114.5 L118.0,116.2 L124.0,118.0 L130.0,119.7 L136.0,121.5 L142.0,123.2 L148.0,124.9 L154.0,126.7 L160.0,128.4 L166.0,130.1 L172.0,131.9 L178.0,133.6 L184.0,135.3 L190.0,137.0 L196.0,138.8 L202.0,140.5 L208.0,142.2 L214.0,143.9 L220.0,145.6 L226.0,147.4 L232.0,149.1 L238.0,150.8 L244.0,152.5 L250.0,154.2 L256.0,155.9 L262.0,157.6 L268.0,159.3 L274.0,161.0 L280.0,162.7 L286.0,164.4 L292.0,166.1 L298.0,167.8 L304.0,169.5 L310.0,171.2 L316.0,172.9 L322.0,174.6 L328.0,176.3 L334.0,178.0 L340.0,179.7 L346.0,181.4 L352.0,183.1 L358.0,184.7 L364.0,186.4 L370.0,188.1 L376.0,189.8 L382.0,191.5 L388.0,193.1 L394.0,194.8 L400.0,196.5 L406.0,198.2 L412.0,199.8 L418.0,201.5 L424.0,203.2 L430.0,204.8 L436.0,206.5 L442.0,208.2 L448.0,209.8 L454.0,211.5 L460.0,213.1 L466.0,214.8 L472.0,216.5 L478.0,218.1 L484.0,219.8 L490.0,221.4 L496.0,223.1 L502.0,224.7 L508.0,226.4 L514.0,228.0 L520.0,229.7 L526.0,231.3 L532.0,232.9 L538.0,234.6 L544.0,236.2 L550.0,237.9 L556.0,239.5 L562.0,241.1 L568.0,242.8 L574.0,244.4 L580.0,246.0 L586.0,247.6 L592.0,249.3 L598.0,250.9 L604.0,252.5 L610.0,254.1 L616.0,255.8 L622.0,257.4 L628.0,259.0 L634.0,260.6 L640.0,262.2 L646.0,263.8 L652.0,265.5 L658.0,267.1 L664.0,268.7 L670.0,270.3 L676.0,271.9 L682.0,273.5 L688.0,275.1 L694.0,276.7 L700.0,278.3 L706.0,279.9 L712.0,281.5 L718.0,283.1 L724.0,284.7 L730.0,286.3 L736.0,287.9 L742.0,289.5 L748.0,291.1 L754.0,292.6 L760.0,294.2 L766.0,295.8 L772.0,297.4 L778.0,299.0 L784.0,300.6 L790.0,302.1" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M184.0,117.9 L190.0,119.5 L196.0,121.1 L202.0,122.8 L208.0,124.4 L214.0,126.0 L220.0,127.7 L226.0,129.3 L232.0,130.9 L238.0,132.5 L244.0,134.2 L250.0,135.8 L256.0,137.4 L262.0,139.0 L268.0,140.7 L274.0,142.3 L280.0,143.9 L286.0,145.5 L292.0,147.1 L298.0,148.7 L304.0,150.3 L310.0,151.9 L316.0,153.5 L322.0,155.2 L328.0,156.8 L334.0,158.4 L340.0,160.0 L346.0,161.6 L352.0,163.2 L358.0,164.7 L364.0,166.3 L370.0,167.9 L376.0,169.5 L382.0,171.1 L388.0,172.7 L394.0,174.3 L400.0,175.9 L406.0,177.5 L412.0,179.1 L418.0,180.6 L424.0,182.2 L430.0,183.8 L436.0,185.4 L442.0,186.9 L448.0,188.5 L454.0,190.1 L460.0,191.7 L466.0,193.2 L472.0,194.8 L478.0,196.4 L484.0,197.9 L490.0,199.5 L496.0,201.1 L502.0,202.6 L508.0,204.2 L514.0,205.7 L520.0,207.3 L526.0,208.9 L532.0,210.4 L538.0,212.0 L544.0,213.5 L550.0,215.1 L556.0,216.6 L562.0,218.2 L568.0,219.7 L574.0,221.2 L580.0,222.8 L586.0,224.3 L592.0,225.9 L598.0,227.4 L604.0,228.9 L610.0,230.5 L616.0,232.0 L622.0,233.5 L628.0,235.1 L634.0,236.6 L640.0,238.1 L646.0,239.7 L652.0,241.2 L658.0,242.7 L664.0,244.2 L670.0,245.7 L676.0,247.3 L682.0,248.8 L688.0,250.3 L694.0,251.8 L700.0,253.3 L706.0,254.8 L712.0,256.3 L718.0,257.9 L724.0,259.4 L730.0,260.9 L736.0,262.4 L742.0,263.9 L748.0,265.4 L754.0,266.9 L760.0,268.4 L766.0,269.9 L772.0,271.4 L778.0,272.9 L784.0,274.3 L790.0,275.8" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M328.0,137.2 L334.0,138.7 L340.0,140.2 L346.0,141.7 L352.0,143.3 L358.0,144.8 L364.0,146.3 L370.0,147.8 L376.0,149.3 L382.0,150.8 L388.0,152.3 L394.0,153.8 L400.0,155.3 L406.0,156.8 L412.0,158.3 L418.0,159.8 L424.0,161.3 L430.0,162.8 L436.0,164.2 L442.0,165.7 L448.0,167.2 L454.0,168.7 L460.0,170.2 L466.0,171.7 L472.0,173.1 L478.0,174.6 L484.0,176.1 L490.0,177.6 L496.0,179.1 L502.0,180.5 L508.0,182.0 L514.0,183.5 L520.0,184.9 L526.0,186.4 L532.0,187.9 L538.0,189.3 L544.0,190.8 L550.0,192.3 L556.0,193.7 L562.0,195.2 L568.0,196.6 L574.0,198.1 L580.0,199.6 L586.0,201.0 L592.0,202.5 L598.0,203.9 L604.0,205.4 L610.0,206.8 L616.0,208.2 L622.0,209.7 L628.0,211.1 L634.0,212.6 L640.0,214.0 L646.0,215.5 L652.0,216.9 L658.0,218.3 L664.0,219.8 L670.0,221.2 L676.0,222.6 L682.0,224.1 L688.0,225.5 L694.0,226.9 L700.0,228.3 L706.0,229.8 L712.0,231.2 L718.0,232.6 L724.0,234.0 L730.0,235.4 L736.0,236.9 L742.0,238.3 L748.0,239.7 L754.0,241.1 L760.0,242.5 L766.0,243.9 L772.0,245.3 L778.0,246.7 L784.0,248.1 L790.0,249.5" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M472.0,151.5 L478.0,152.9 L484.0,154.3 L490.0,155.7 L496.0,157.1 L502.0,158.4 L508.0,159.8 L514.0,161.2 L520.0,162.6 L526.0,164.0 L532.0,165.3 L538.0,166.7 L544.0,168.1 L550.0,169.5 L556.0,170.8 L562.0,172.2 L568.0,173.6 L574.0,175.0 L580.0,176.3 L586.0,177.7 L592.0,179.1 L598.0,180.4 L604.0,181.8 L610.0,183.1 L616.0,184.5 L622.0,185.8 L628.0,187.2 L634.0,188.6 L640.0,189.9 L646.0,191.3 L652.0,192.6 L658.0,194.0 L664.0,195.3 L670.0,196.6 L676.0,198.0 L682.0,199.3 L688.0,200.7 L694.0,202.0 L700.0,203.4 L706.0,204.7 L712.0,206.0 L718.0,207.4 L724.0,208.7 L730.0,210.0 L736.0,211.3 L742.0,212.7 L748.0,214.0 L754.0,215.3 L760.0,216.6 L766.0,218.0 L772.0,219.3 L778.0,220.6 L784.0,221.9 L790.0,223.2" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M610.0,159.5 L616.0,160.7 L622.0,162.0 L628.0,163.3 L634.0,164.5 L640.0,165.8 L646.0,167.1 L652.0,168.3 L658.0,169.6 L664.0,170.8 L670.0,172.1 L676.0,173.4 L682.0,174.6 L688.0,175.9 L694.0,177.1 L700.0,178.4 L706.0,179.6 L712.0,180.9 L718.0,182.1 L724.0,183.4 L730.0,184.6 L736.0,185.8 L742.0,187.1 L748.0,188.3 L754.0,189.6 L760.0,190.8 L766.0,192.0 L772.0,193.3 L778.0,194.5 L784.0,195.7 L790.0,196.9" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M274.0,130.3 L280.0,130.7 L286.0,131.1 L292.0,131.5 L298.0,131.9 L304.0,132.3 L310.0,132.7 L316.0,133.0 L322.0,133.4 L328.0,133.7 L334.0,134.0 L340.0,134.3 L346.0,134.6 L352.0,134.9 L358.0,135.2 L364.0,135.4 L370.0,135.7 L376.0,135.9 L382.0,136.1 L388.0,136.4 L394.0,136.6 L400.0,136.7 L406.0,136.9 L412.0,137.1 L418.0,137.2 L424.0,137.4 L430.0,137.5 L436.0,137.6 L442.0,137.7 L448.0,137.8 L454.0,137.9 L460.0,138.0 L466.0,138.0 L472.0,138.1 L478.0,138.1 L484.0,138.1 L490.0,138.1 L496.0,138.1 L502.0,138.1 L508.0,138.1 L514.0,138.0 L520.0,138.0 L526.0,137.9 L532.0,137.9 L538.0,137.8 L544.0,137.7 L550.0,137.6 L556.0,137.4 L562.0,137.3 L568.0,137.2 L574.0,137.0 L580.0,136.8 L586.0,136.6 L592.0,136.4 L598.0,136.2 L604.0,136.0 L610.0,135.8 L616.0,137.0 L622.0,138.2 L628.0,139.3 L634.0,140.5 L640.0,141.7 L646.0,142.9 L652.0,144.0 L658.0,145.2 L664.0,146.4 L670.0,147.6 L676.0,148.7 L682.0,149.9 L688.0,151.1 L694.0,152.2 L700.0,153.4 L706.0,154.5 L712.0,155.7 L718.0,156.9 L724.0,158.0 L730.0,159.2 L736.0,160.3 L742.0,161.5 L748.0,162.6 L754.0,163.8 L760.0,164.9 L766.0,166.1 L772.0,167.2 L778.0,168.4 L784.0,169.5 L790.0,170.6" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M70.0,92.8 L76.0,93.5 L82.0,94.3 L88.0,95.0 L94.0,95.7 L100.0,96.4 L106.0,97.1 L112.0,97.8 L118.0,98.4 L124.0,99.1 L130.0,99.7 L136.0,100.4 L142.0,101.0 L148.0,101.6 L154.0,102.2 L160.0,102.8 L166.0,103.3 L172.0,103.9 L178.0,104.4 L184.0,105.0 L190.0,105.5 L196.0,106.0 L202.0,106.5 L208.0,107.0 L214.0,107.4 L220.0,107.9 L226.0,108.3 L232.0,108.8 L238.0,109.2 L244.0,109.6 L250.0,110.0 L256.0,110.4 L262.0,110.8 L268.0,111.1 L274.0,111.5 L280.0,111.8 L286.0,112.2 L292.0,112.5 L298.0,112.8 L304.0,113.1 L310.0,113.4 L316.0,113.6 L322.0,113.9 L328.0,114.1 L334.0,114.4 L340.0,114.6 L346.0,114.8 L352.0,115.0 L358.0,115.2 L364.0,115.4 L370.0,115.5 L376.0,115.7 L382.0,115.8 L388.0,115.9 L394.0,116.0 L400.0,116.1 L406.0,116.2 L412.0,116.3 L418.0,116.4 L424.0,116.4 L430.0,116.5 L436.0,116.5 L442.0,116.5 L448.0,116.5 L454.0,116.5 L460.0,116.5 L466.0,116.5 L472.0,116.4 L478.0,116.4 L484.0,116.3 L490.0,116.2 L496.0,116.1 L502.0,116.0 L508.0,115.9 L514.0,115.8 L520.0,115.6 L526.0,115.5 L532.0,115.3 L538.0,115.2 L544.0,115.0 L550.0,114.8 L556.0,114.6 L562.0,114.3 L568.0,114.1 L574.0,113.9 L580.0,113.6 L586.0,113.3 L592.0,113.0 L598.0,112.7 L604.0,112.4 L610.0,112.1 L616.0,113.2 L622.0,114.3 L628.0,115.4 L634.0,116.5 L640.0,117.6 L646.0,118.7 L652.0,119.8 L658.0,120.8 L664.0,121.9 L670.0,123.0 L676.0,124.1 L682.0,125.2 L688.0,126.2 L694.0,127.3 L700.0,128.4 L706.0,129.5 L712.0,130.5 L718.0,131.6 L724.0,132.7 L730.0,133.7 L736.0,134.8 L742.0,135.9 L748.0,136.9 L754.0,138.0 L760.0,139.1 L766.0,140.1 L772.0,141.2 L778.0,142.2 L784.0,143.3 L790.0,144.3" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M70.0,77.0 L76.0,77.7 L82.0,78.3 L88.0,79.0 L94.0,79.6 L100.0,80.2 L106.0,80.8 L112.0,81.4 L118.0,82.0 L124.0,82.5 L130.0,83.1 L136.0,83.6 L142.0,84.1 L148.0,84.7 L154.0,85.2 L160.0,85.7 L166.0,86.1 L172.0,86.6 L178.0,87.1 L184.0,87.5 L190.0,87.9 L196.0,88.4 L202.0,88.8 L208.0,89.2 L214.0,89.6 L220.0,89.9 L226.0,90.3 L232.0,90.6 L238.0,91.0 L244.0,91.3 L250.0,91.6 L256.0,91.9 L262.0,92.2 L268.0,92.5 L274.0,92.7 L280.0,93.0 L286.0,93.2 L292.0,93.5 L298.0,93.7 L304.0,93.9 L310.0,94.1 L316.0,94.3 L322.0,94.4 L328.0,94.6 L334.0,94.7 L340.0,94.9 L346.0,95.0 L352.0,95.1 L358.0,95.2 L364.0,95.3 L370.0,95.4 L376.0,95.4 L382.0,95.5 L388.0,95.5 L394.0,95.5 L400.0,95.5 L406.0,95.5 L412.0,95.5 L418.0,95.5 L424.0,95.5 L430.0,95.4 L436.0,95.4 L442.0,95.3 L448.0,95.2 L454.0,95.1 L460.0,95.0 L466.0,94.9 L472.0,94.8 L478.0,94.6 L484.0,94.5 L490.0,94.3 L496.0,94.1 L502.0,93.9 L508.0,93.7 L514.0,93.5 L520.0,93.3 L526.0,93.0 L532.0,92.8 L538.0,92.5 L544.0,92.3 L550.0,92.0 L556.0,91.7 L562.0,91.4 L568.0,91.0 L574.0,90.7 L580.0,90.4 L586.0,90.0 L592.0,89.6 L598.0,89.3 L604.0,88.9 L610.0,88.5 L616.0,89.5 L622.0,90.5 L628.0,91.5 L634.0,92.5 L640.0,93.5 L646.0,94.5 L652.0,95.5 L658.0,96.5 L664.0,97.5 L670.0,98.5 L676.0,99.5 L682.0,100.4 L688.0,101.4 L694.0,102.4 L700.0,103.4 L706.0,104.4 L712.0,105.4 L718.0,106.4 L724.0,107.3 L730.0,108.3 L736.0,109.3 L742.0,110.3 L748.0,111.3 L754.0,112.2 L760.0,113.2 L766.0,114.2 L772.0,115.1 L778.0,116.1 L784.0,117.1 L790.0,118.0" fill="none" stroke="#333" stroke-width="1" opacity="0.75"/>
+<path d="M70.0,99.1 L81.0,101.1 L92.0,103.0 L103.1,104.9 L114.1,106.7 L125.1,108.6 L136.1,110.4 L147.1,112.1 L158.2,113.9 L169.2,115.6 L180.2,117.3 L191.2,118.9 L202.2,120.5 L213.3,122.1 L224.3,123.7 L235.3,125.2 L246.3,126.7 L257.3,128.2 L268.4,129.6 L279.4,131.0 L290.4,132.4 L301.4,133.8 L312.4,135.1 L323.5,136.4 L334.5,137.6 L345.5,138.9 L356.5,140.1 L367.6,141.2 L378.6,142.4 L389.6,143.5 L400.6,144.6 L411.6,145.6 L422.7,146.7 L433.7,147.6 L444.7,148.6 L455.7,149.5 L466.7,150.4 L477.8,151.3 L488.8,152.2 L499.8,153.0 L510.8,153.8 L521.8,154.5 L532.9,155.2 L543.9,155.9 L554.9,156.6 L565.9,157.2 L576.9,157.8 L588.0,158.4 L599.0,158.9 L610.0,159.5" fill="none" stroke="#C0392B" stroke-width="4"/>
+<path d="M610.0,159.5 L612.3,159.9 L614.6,160.4 L616.8,160.9 L619.1,161.4 L621.4,161.9 L623.7,162.4 L625.9,162.8 L628.2,163.3 L630.5,163.8 L632.8,164.3 L635.1,164.8 L637.3,165.2 L639.6,165.7 L641.9,166.2 L644.2,166.7 L646.5,167.2 L648.7,167.6 L651.0,168.1 L653.3,168.6 L655.6,169.1 L657.8,169.6 L660.1,170.0 L662.4,170.5 L664.7,171.0 L667.0,171.5 L669.2,171.9 L671.5,172.4 L673.8,172.9 L676.1,173.4 L678.4,173.9 L680.6,174.3 L682.9,174.8 L685.2,175.3 L687.5,175.8 L689.7,176.2 L692.0,176.7 L694.3,177.2 L696.6,177.7 L698.9,178.1 L701.1,178.6 L703.4,179.1 L705.7,179.6 L708.0,180.0 L710.3,180.5 L712.5,181.0 L714.8,181.4 L717.1,181.9 L719.4,182.4 L721.6,182.9 L723.9,183.3 L726.2,183.8 L728.5,184.3 L730.8,184.8 L733.0,185.2 L735.3,185.7 L737.6,186.2 L739.9,186.6 L742.2,187.1 L744.4,187.6 L746.7,188.0 L749.0,188.5 L751.3,189.0 L753.5,189.5 L755.8,189.9 L758.1,190.4 L760.4,190.9 L762.7,191.3 L764.9,191.8 L767.2,192.3 L769.5,192.7 L771.8,193.2 L774.1,193.7 L776.3,194.1 L778.6,194.6 L780.9,195.1 L783.2,195.5 L785.4,196.0 L787.7,196.5 L790.0,196.9" fill="none" stroke="#C0392B" stroke-width="3" stroke-dasharray="9 6"/>
+<path d="M70.0,118.0 L76.0,120.0 L82.0,122.0 L88.0,124.0 L94.0,125.9 L100.0,127.9 L106.0,129.9 L112.0,131.8 L118.0,133.8 L124.0,135.8 L130.0,137.8 L136.0,139.7 L142.0,141.7 L148.0,143.7 L154.0,145.7 L160.0,147.6 L166.0,149.6 L172.0,151.6 L178.0,153.5 L184.0,155.5 L190.0,157.5 L196.0,159.5 L202.0,161.4 L208.0,163.4 L214.0,165.4 L220.0,167.4 L226.0,169.3 L232.0,171.3 L238.0,173.3 L244.0,175.2 L250.0,177.2 L256.0,179.2 L262.0,181.2 L268.0,183.1 L274.0,185.1 L280.0,187.1 L286.0,189.1 L292.0,191.0 L298.0,193.0 L304.0,195.0 L310.0,196.9 L316.0,198.9 L322.0,200.9 L328.0,202.9 L334.0,204.8 L340.0,206.8 L346.0,208.8 L352.0,210.7 L358.0,212.7 L364.0,214.7 L370.0,216.7 L376.0,218.6 L382.0,220.6 L388.0,222.6 L394.0,224.6 L400.0,226.5 L406.0,228.5 L412.0,230.5 L418.0,232.4 L424.0,234.4 L430.0,236.4 L436.0,238.4 L442.0,240.3 L448.0,242.3 L454.0,244.3 L460.0,246.3 L466.0,248.2 L472.0,250.2 L478.0,252.2 L484.0,254.1 L490.0,256.1 L496.0,258.1 L502.0,260.1 L508.0,262.0 L514.0,264.0 L520.0,266.0 L526.0,268.0 L532.0,269.9 L538.0,271.9 L544.0,273.9 L550.0,275.8 L556.0,277.8 L562.0,279.8 L568.0,281.8 L574.0,283.7 L580.0,285.7 L586.0,287.7 L592.0,289.6 L598.0,291.6 L604.0,293.6 L610.0,295.6 L616.0,297.5 L622.0,299.5 L628.0,301.5 L634.0,303.5 L640.0,305.4 L646.0,307.4 L652.0,309.4 L658.0,311.3 L664.0,313.3 L670.0,315.3 L676.0,317.3 L682.0,319.2 L688.0,321.2 L694.0,323.2 L700.0,325.2 L706.0,327.1 L712.0,329.1 L718.0,331.1 L724.0,333.0 L730.0,335.0 L736.0,337.0 L742.0,339.0 L748.0,340.9 L754.0,342.9 L760.0,344.9 L766.0,346.9 L772.0,348.8 L778.0,350.8 L784.0,352.8 L790.0,354.7" fill="none" stroke="#666" stroke-width="2"/>
+<text x="170.79999999999998" y="139.5" font-size="22" font-weight="700" fill="#7A5A00">A</text>
+<text x="170.79999999999998" y="109.2" font-size="22" font-weight="700" fill="#1F5F8B">B</text>
+<text x="702.8" y="224.9" font-size="22" font-weight="700" fill="#04316A">K</text>
+<text x="257.2" y="118.2" font-size="16" font-weight="600" fill="#C0392B">unconformity</text>
+<text x="624.4" y="192.5" font-size="16" font-weight="600" fill="#C0392B">continuity</text>
+<line x1="610.0" y1="62" x2="610.0" y2="380" stroke="#04316A" stroke-width="1.5" stroke-dasharray="3 4"/>
+<text x="616.0" y="74" font-size="18" font-weight="700" fill="#04316A">x′</text>
+<text x="70" y="404" font-size="15" fill="#555">basin margin</text>
+<text x="790" y="404" font-size="15" fill="#555" text-anchor="end">basin centre</text>
+<text x="401.19999999999993" y="404" font-size="15" fill="#555" text-anchor="middle">distance →</text>
+<text x="70" y="430" font-size="20" font-weight="700" fill="#04316A">B  Wheeler diagram (vertical axis = time)</text>
+<path d="M70.0,763.3 L94.8,764.6 L119.7,765.9 L144.5,767.1 L169.3,768.4 L194.1,769.7 L219.0,770.9 L243.8,772.2 L268.6,773.4 L293.4,774.7 L318.3,776.0 L343.1,777.2 L367.9,778.5 L392.8,779.8 L417.6,781.0 L442.4,782.3 L467.2,783.6 L492.1,784.8 L516.9,786.1 L541.7,787.4 L566.6,788.6 L591.4,789.9 L616.2,791.1 L641.0,792.4 L665.9,793.7 L690.7,794.9 L715.5,796.2 L740.3,797.5 L765.2,798.7 L790.0,800.0 L790.0,800.0 L765.2,800.0 L740.3,800.0 L715.5,800.0 L690.7,800.0 L665.9,800.0 L641.0,800.0 L616.2,800.0 L591.4,800.0 L566.6,800.0 L541.7,800.0 L516.9,800.0 L492.1,800.0 L467.2,800.0 L442.4,800.0 L417.6,800.0 L392.8,800.0 L367.9,800.0 L343.1,800.0 L318.3,800.0 L293.4,800.0 L268.6,800.0 L243.8,800.0 L219.0,800.0 L194.1,800.0 L169.3,800.0 L144.5,800.0 L119.7,800.0 L94.8,800.0 L70.0,800.0 Z" fill="#EEEEEE"/>
+<path d="M70.0,719.3 L88.6,714.5 L107.2,709.7 L125.9,704.9 L144.5,700.1 L163.1,695.3 L181.7,690.5 L200.3,685.7 L219.0,680.9 L237.6,676.1 L256.2,671.3 L274.8,666.5 L293.4,661.7 L312.1,656.9 L330.7,652.1 L349.3,647.3 L367.9,642.5 L386.6,637.7 L405.2,632.9 L423.8,628.0 L442.4,623.2 L461.0,618.4 L479.7,613.6 L498.3,608.8 L516.9,604.0 L535.5,599.2 L554.1,594.4 L572.8,589.6 L591.4,584.8 L610.0,580.0 L610.0,790.8 L591.4,789.9 L572.8,788.9 L554.1,788.0 L535.5,787.0 L516.9,786.1 L498.3,785.1 L479.7,784.2 L461.0,783.2 L442.4,782.3 L423.8,781.4 L405.2,780.4 L386.6,779.5 L367.9,778.5 L349.3,777.6 L330.7,776.6 L312.1,775.7 L293.4,774.7 L274.8,773.8 L256.2,772.8 L237.6,771.9 L219.0,770.9 L200.3,770.0 L181.7,769.0 L163.1,768.1 L144.5,767.1 L125.9,766.2 L107.2,765.2 L88.6,764.3 L70.0,763.3 Z" fill="#F3E2B3"/>
+<path d="M610.0,580.0 L616.2,580.0 L622.4,580.0 L628.6,580.0 L634.8,580.0 L641.0,580.0 L647.2,580.0 L653.4,580.0 L659.7,580.0 L665.9,580.0 L672.1,580.0 L678.3,580.0 L684.5,580.0 L690.7,580.0 L696.9,580.0 L703.1,580.0 L709.3,580.0 L715.5,580.0 L721.7,580.0 L727.9,580.0 L734.1,580.0 L740.3,580.0 L746.6,580.0 L752.8,580.0 L759.0,580.0 L765.2,580.0 L771.4,580.0 L777.6,580.0 L783.8,580.0 L790.0,580.0 L790.0,800.0 L783.8,799.7 L777.6,799.4 L771.4,799.1 L765.2,798.7 L759.0,798.4 L752.8,798.1 L746.6,797.8 L740.3,797.5 L734.1,797.2 L727.9,796.8 L721.7,796.5 L715.5,796.2 L709.3,795.9 L703.1,795.6 L696.9,795.3 L690.7,794.9 L684.5,794.6 L678.3,794.3 L672.1,794.0 L665.9,793.7 L659.7,793.4 L653.4,793.0 L647.2,792.7 L641.0,792.4 L634.8,792.1 L628.6,791.8 L622.4,791.5 L616.2,791.1 L610.0,790.8 Z" fill="#F3E2B3"/>
+<path class="wz-vac" d="M70.0,653.3 L88.6,650.8 L107.2,648.3 L125.9,645.7 L144.5,643.2 L163.1,640.7 L181.7,638.2 L200.3,635.6 L219.0,633.1 L237.6,630.6 L256.2,628.0 L274.8,625.5 L293.4,623.0 L312.1,620.5 L330.7,617.9 L349.3,615.4 L367.9,612.9 L386.6,610.3 L405.2,607.8 L423.8,605.3 L442.4,602.8 L461.0,600.2 L479.7,597.7 L498.3,595.2 L516.9,592.6 L535.5,590.1 L554.1,587.6 L572.8,585.1 L591.4,582.5 L610.0,580.0 L610.0,580.0 L591.4,584.8 L572.8,589.6 L554.1,594.4 L535.5,599.2 L516.9,604.0 L498.3,608.8 L479.7,613.6 L461.0,618.4 L442.4,623.2 L423.8,628.0 L405.2,632.9 L386.6,637.7 L367.9,642.5 L349.3,647.3 L330.7,652.1 L312.1,656.9 L293.4,661.7 L274.8,666.5 L256.2,671.3 L237.6,676.1 L219.0,680.9 L200.3,685.7 L181.7,690.5 L163.1,695.3 L144.5,700.1 L125.9,704.9 L107.2,709.7 L88.6,714.5 L70.0,719.3 Z" fill="url(#hatchV)"/>
+<path class="wz-hia" d="M70.0,521.3 L88.6,523.4 L107.2,525.4 L125.9,527.4 L144.5,529.4 L163.1,531.4 L181.7,533.5 L200.3,535.5 L219.0,537.5 L237.6,539.5 L256.2,541.6 L274.8,543.6 L293.4,545.6 L312.1,547.6 L330.7,549.7 L349.3,551.7 L367.9,553.7 L386.6,555.7 L405.2,557.7 L423.8,559.8 L442.4,561.8 L461.0,563.8 L479.7,565.8 L498.3,567.9 L516.9,569.9 L535.5,571.9 L554.1,573.9 L572.8,576.0 L591.4,578.0 L610.0,580.0 L610.0,580.0 L591.4,582.5 L572.8,585.1 L554.1,587.6 L535.5,590.1 L516.9,592.6 L498.3,595.2 L479.7,597.7 L461.0,600.2 L442.4,602.8 L423.8,605.3 L405.2,607.8 L386.6,610.3 L367.9,612.9 L349.3,615.4 L330.7,617.9 L312.1,620.5 L293.4,623.0 L274.8,625.5 L256.2,628.0 L237.6,630.6 L219.0,633.1 L200.3,635.6 L181.7,638.2 L163.1,640.7 L144.5,643.2 L125.9,645.7 L107.2,648.3 L88.6,650.8 L70.0,653.3 Z" fill="#D9D9D9"/>
+<path d="M70.0,470.0 L88.6,470.0 L107.2,470.0 L125.9,470.0 L144.5,470.0 L163.1,470.0 L181.7,470.0 L200.3,470.0 L219.0,470.0 L237.6,470.0 L256.2,470.0 L274.8,470.0 L293.4,470.0 L312.1,470.0 L330.7,470.0 L349.3,470.0 L367.9,470.0 L386.6,470.0 L405.2,470.0 L423.8,470.0 L442.4,470.0 L461.0,470.0 L479.7,470.0 L498.3,470.0 L516.9,470.0 L535.5,470.0 L554.1,470.0 L572.8,470.0 L591.4,470.0 L610.0,470.0 L610.0,580.0 L591.4,578.0 L572.8,576.0 L554.1,573.9 L535.5,571.9 L516.9,569.9 L498.3,567.9 L479.7,565.8 L461.0,563.8 L442.4,561.8 L423.8,559.8 L405.2,557.7 L386.6,555.7 L367.9,553.7 L349.3,551.7 L330.7,549.7 L312.1,547.6 L293.4,545.6 L274.8,543.6 L256.2,541.6 L237.6,539.5 L219.0,537.5 L200.3,535.5 L181.7,533.5 L163.1,531.4 L144.5,529.4 L125.9,527.4 L107.2,525.4 L88.6,523.4 L70.0,521.3 Z" fill="#CFE6F5"/>
+<path d="M610.0,470.0 L616.2,470.0 L622.4,470.0 L628.6,470.0 L634.8,470.0 L641.0,470.0 L647.2,470.0 L653.4,470.0 L659.7,470.0 L665.9,470.0 L672.1,470.0 L678.3,470.0 L684.5,470.0 L690.7,470.0 L696.9,470.0 L703.1,470.0 L709.3,470.0 L715.5,470.0 L721.7,470.0 L727.9,470.0 L734.1,470.0 L740.3,470.0 L746.6,470.0 L752.8,470.0 L759.0,470.0 L765.2,470.0 L771.4,470.0 L777.6,470.0 L783.8,470.0 L790.0,470.0 L790.0,580.0 L783.8,580.0 L777.6,580.0 L771.4,580.0 L765.2,580.0 L759.0,580.0 L752.8,580.0 L746.6,580.0 L740.3,580.0 L734.1,580.0 L727.9,580.0 L721.7,580.0 L715.5,580.0 L709.3,580.0 L703.1,580.0 L696.9,580.0 L690.7,580.0 L684.5,580.0 L678.3,580.0 L672.1,580.0 L665.9,580.0 L659.7,580.0 L653.4,580.0 L647.2,580.0 L641.0,580.0 L634.8,580.0 L628.6,580.0 L622.4,580.0 L616.2,580.0 L610.0,580.0 Z" fill="#CFE6F5"/>
+<line x1="70" y1="800.0" x2="790" y2="800.0" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="805.0" font-size="15" fill="#444" text-anchor="end">t0</text>
+<line x1="70" y1="763.3" x2="790" y2="763.3" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="768.3" font-size="15" fill="#444" text-anchor="end">t1</text>
+<line x1="70" y1="726.7" x2="790" y2="726.7" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="731.7" font-size="15" fill="#444" text-anchor="end">t2</text>
+<line x1="70" y1="690.0" x2="790" y2="690.0" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="695.0" font-size="15" fill="#444" text-anchor="end">t3</text>
+<line x1="70" y1="653.3" x2="790" y2="653.3" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="658.3" font-size="15" fill="#444" text-anchor="end">t4</text>
+<line x1="70" y1="616.7" x2="790" y2="616.7" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="621.7" font-size="15" fill="#444" text-anchor="end">t5</text>
+<line x1="70" y1="580.0" x2="790" y2="580.0" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="585.0" font-size="15" fill="#444" text-anchor="end">t6</text>
+<line x1="70" y1="543.3" x2="790" y2="543.3" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="548.3" font-size="15" fill="#444" text-anchor="end">t7</text>
+<line x1="70" y1="506.7" x2="790" y2="506.7" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="511.7" font-size="15" fill="#444" text-anchor="end">t8</text>
+<line x1="70" y1="470.0" x2="790" y2="470.0" stroke="#999" stroke-width="0.6" opacity="0.6"/>
+<text x="60" y="475.0" font-size="15" fill="#444" text-anchor="end">t9</text>
+<rect x="70" y="470" width="720" height="330" fill="none" stroke="#777" stroke-width="1.2"/>
+<path d="M70.0,763.3 L82.2,764.0 L94.4,764.6 L106.6,765.2 L118.8,765.8 L131.0,766.4 L143.2,767.1 L155.4,767.7 L167.6,768.3 L179.8,768.9 L192.0,769.5 L204.2,770.2 L216.4,770.8 L228.6,771.4 L240.8,772.0 L253.1,772.7 L265.3,773.3 L277.5,773.9 L289.7,774.5 L301.9,775.1 L314.1,775.8 L326.3,776.4 L338.5,777.0 L350.7,777.6 L362.9,778.2 L375.1,778.9 L387.3,779.5 L399.5,780.1 L411.7,780.7 L423.9,781.4 L436.1,782.0 L448.3,782.6 L460.5,783.2 L472.7,783.8 L484.9,784.5 L497.1,785.1 L509.3,785.7 L521.5,786.3 L533.7,786.9 L545.9,787.6 L558.1,788.2 L570.3,788.8 L582.5,789.4 L594.7,790.1 L606.9,790.7 L619.2,791.3 L631.4,791.9 L643.6,792.5 L655.8,793.2 L668.0,793.8 L680.2,794.4 L692.4,795.0 L704.6,795.6 L716.8,796.3 L729.0,796.9 L741.2,797.5 L753.4,798.1 L765.6,798.8 L777.8,799.4 L790.0,800.0" fill="none" stroke="#1E7B1E" stroke-width="3" stroke-dasharray="10 6"/>
+<path d="M70.0,653.3 L79.2,652.1 L88.3,650.8 L97.5,649.6 L106.6,648.4 L115.8,647.1 L124.9,645.9 L134.1,644.6 L143.2,643.4 L152.4,642.1 L161.5,640.9 L170.7,639.7 L179.8,638.4 L189.0,637.2 L198.1,635.9 L207.3,634.7 L216.4,633.4 L225.6,632.2 L234.7,631.0 L243.9,629.7 L253.1,628.5 L262.2,627.2 L271.4,626.0 L280.5,624.7 L289.7,623.5 L298.8,622.3 L308.0,621.0 L317.1,619.8 L326.3,618.5 L335.4,617.3 L344.6,616.0 L353.7,614.8 L362.9,613.6 L372.0,612.3 L381.2,611.1 L390.3,609.8 L399.5,608.6 L408.6,607.3 L417.8,606.1 L426.9,604.9 L436.1,603.6 L445.3,602.4 L454.4,601.1 L463.6,599.9 L472.7,598.6 L481.9,597.4 L491.0,596.2 L500.2,594.9 L509.3,593.7 L518.5,592.4 L527.6,591.2 L536.8,589.9 L545.9,588.7 L555.1,587.5 L564.2,586.2 L573.4,585.0 L582.5,583.7 L591.7,582.5 L600.8,581.2 L610.0,580.0" fill="none" stroke="#B9770E" stroke-width="3" stroke-dasharray="10 6"/>
+<path d="M70.0,719.3 L79.2,717.0 L88.3,714.6 L97.5,712.2 L106.6,709.9 L115.8,707.5 L124.9,705.2 L134.1,702.8 L143.2,700.4 L152.4,698.1 L161.5,695.7 L170.7,693.4 L179.8,691.0 L189.0,688.6 L198.1,686.3 L207.3,683.9 L216.4,681.5 L225.6,679.2 L234.7,676.8 L243.9,674.5 L253.1,672.1 L262.2,669.7 L271.4,667.4 L280.5,665.0 L289.7,662.7 L298.8,660.3 L308.0,657.9 L317.1,655.6 L326.3,653.2 L335.4,650.8 L344.6,648.5 L353.7,646.1 L362.9,643.8 L372.0,641.4 L381.2,639.0 L390.3,636.7 L399.5,634.3 L408.6,632.0 L417.8,629.6 L426.9,627.2 L436.1,624.9 L445.3,622.5 L454.4,620.1 L463.6,617.8 L472.7,615.4 L481.9,613.1 L491.0,610.7 L500.2,608.3 L509.3,606.0 L518.5,603.6 L527.6,601.3 L536.8,598.9 L545.9,596.5 L555.1,594.2 L564.2,591.8 L573.4,589.4 L582.5,587.1 L591.7,584.7 L600.8,582.4 L610.0,580.0" fill="none" stroke="#C0392B" stroke-width="4"/>
+<path d="M70.0,521.3 L79.2,522.3 L88.3,523.3 L97.5,524.3 L106.6,525.3 L115.8,526.3 L124.9,527.3 L134.1,528.3 L143.2,529.3 L152.4,530.3 L161.5,531.3 L170.7,532.3 L179.8,533.3 L189.0,534.3 L198.1,535.3 L207.3,536.2 L216.4,537.2 L225.6,538.2 L234.7,539.2 L243.9,540.2 L253.1,541.2 L262.2,542.2 L271.4,543.2 L280.5,544.2 L289.7,545.2 L298.8,546.2 L308.0,547.2 L317.1,548.2 L326.3,549.2 L335.4,550.2 L344.6,551.2 L353.7,552.2 L362.9,553.2 L372.0,554.1 L381.2,555.1 L390.3,556.1 L399.5,557.1 L408.6,558.1 L417.8,559.1 L426.9,560.1 L436.1,561.1 L445.3,562.1 L454.4,563.1 L463.6,564.1 L472.7,565.1 L481.9,566.1 L491.0,567.1 L500.2,568.1 L509.3,569.1 L518.5,570.1 L527.6,571.1 L536.8,572.0 L545.9,573.0 L555.1,574.0 L564.2,575.0 L573.4,576.0 L582.5,577.0 L591.7,578.0 L600.8,579.0 L610.0,580.0" fill="none" stroke="#1E7B1E" stroke-width="3" stroke-dasharray="10 6"/>
+<path d="M610.0,580.0 L613.1,580.0 L616.1,580.0 L619.2,580.0 L622.2,580.0 L625.3,580.0 L628.3,580.0 L631.4,580.0 L634.4,580.0 L637.5,580.0 L640.5,580.0 L643.6,580.0 L646.6,580.0 L649.7,580.0 L652.7,580.0 L655.8,580.0 L658.8,580.0 L661.9,580.0 L664.9,580.0 L668.0,580.0 L671.0,580.0 L674.1,580.0 L677.1,580.0 L680.2,580.0 L683.2,580.0 L686.3,580.0 L689.3,580.0 L692.4,580.0 L695.4,580.0 L698.5,580.0 L701.5,580.0 L704.6,580.0 L707.6,580.0 L710.7,580.0 L713.7,580.0 L716.8,580.0 L719.8,580.0 L722.9,580.0 L725.9,580.0 L729.0,580.0 L732.0,580.0 L735.1,580.0 L738.1,580.0 L741.2,580.0 L744.2,580.0 L747.3,580.0 L750.3,580.0 L753.4,580.0 L756.4,580.0 L759.5,580.0 L762.5,580.0 L765.6,580.0 L768.6,580.0 L771.7,580.0 L774.7,580.0 L777.8,580.0 L780.8,580.0 L783.9,580.0 L786.9,580.0 L790.0,580.0" fill="none" stroke="#C0392B" stroke-width="3" stroke-dasharray="9 6"/>
+<line x1="610.0" y1="470" x2="610.0" y2="800" stroke="#04316A" stroke-width="1.5" stroke-dasharray="3 4"/>
+<text x="616.0" y="490" font-size="18" font-weight="700" fill="#04316A">x′</text>
+<text x="300.4" y="730.3" font-size="17" font-weight="700" fill="#7A5A00">deposition A</text>
+<text x="300.4" y="503.0" font-size="17" font-weight="700" fill="#1F5F8B">deposition B</text>
+<text x="700.0" y="675.3" font-size="17" font-weight="700" fill="#04316A" text-anchor="middle">continuous</text>
+<text x="700.0" y="695.3" font-size="17" font-weight="700" fill="#04316A" text-anchor="middle">deposition (K)</text>
+<text x="152.79999999999998" y="684.5" font-size="16" font-weight="700" fill="#922B21">vacuity</text>
+<text x="185.2" y="594.7" font-size="17" font-weight="700" fill="#333">hiatus</text>
+<text x="91.6" y="789.0" font-size="14" fill="#555">hiatus (previous cycle)</text>
+<text x="473.19999999999993" y="773.9" font-size="14" fill="#1E7B1E" text-anchor="middle">upward transit 1</text>
+<text x="451.6" y="593.5" font-size="14" fill="#B9770E" text-anchor="middle">downward transit</text>
+<text x="379.6" y="659.4" font-size="14" fill="#C0392B" text-anchor="middle">terminal degradation surface</text>
+<text x="458.80000000000007" y="555.6" font-size="14" fill="#1E7B1E" text-anchor="middle">upward transit 2</text>
+<text x="70" y="830" font-size="15" fill="#555">basin margin</text>
+<text x="790" y="830" font-size="15" fill="#555" text-anchor="end">basin centre</text>
+<text x="401.19999999999993" y="830" font-size="15" fill="#555" text-anchor="middle">distance →</text>
+<g id="wz-locator" style="display:none"><line id="wz-l1" x1="0" y1="60" x2="0" y2="380" stroke="#04316A" stroke-width="3"/><line id="wz-l2" x1="0" y1="470" x2="0" y2="800" stroke="#04316A" stroke-width="3"/></g>
+</svg>
+                <div class="wz-out" id="wzOut" aria-live="polite"></div>
+                <figcaption class="figure-caption"><strong>Figure 2.</strong> A cross-section (A, thickness on the vertical axis) and its Wheeler diagram (B, time t0–t9 on the vertical axis) for the same two sequences. Yellow: strata of sequence A (left of x′) and of the continuous succession K (right of x′, lower part); blue: sequence B and the upper part of K. Green dashed lines: upward base-level transits; orange dashed line: downward transit; solid red line: terminal degradation surface; red dashed line: the continuation of the boundary basinward of x′. Hatched: degradational vacuity; dark grey: hiatus. Move the slider and switch on the vertical line to read one location at a time. On a small screen, <a href="img/m2/m2_fig2_wheeler_explainer.svg" target="_blank" rel="noopener">open the figure full size</a>. <em>Basis: schematic drawn for this module following the reading of Wheeler (1958) given in Lecture 2 (slide 15 notes); simplified geometry, not a reproduction of Wheeler's figure.</em></figcaption>
+            </figure>
+
+            <h4>Reading panel B from bottom to top</h4>
+            <ol class="plain">
+                <li><strong>Upward transit 1 (onlap).</strong> Base level rises and crosses the surface first in the basin, close to t0, then later and later toward the margin, reaching the left edge at about t1. Deposition does not begin everywhere at the same time: it starts basinward and spreads landward. That is onlap. Below this line, the light grey area is the hiatus of the previous cycle.</li>
+                <li><strong>Downward transit.</strong> Base level falls. It drops below the surface first at the margin, the highest part of the profile, then progressively basinward, reaching x′ at t6. Deposition stops at the margin early (here at t4) and much later basinward. Everything deposited at one place between the upward and the downward transit is what Wheeler called the <em>holostrome</em>, the depositional phase of the cycle.</li>
+                <li><strong>Terminal degradation surface.</strong> Once base level is below the surface, the exposed area is eroded. Erosion removes part of what was just deposited; the solid red line marks how deep in time it cut. Strata between this line and the downward transit were deposited and then removed.</li>
+                <li><strong>Upward transit 2.</strong> Base level rises again, crosses the surface first at x′ at t6, then progressively landward, reaching the margin late (here at about t7.6). Deposition of sequence B begins, again by onlap.</li>
+            </ol>
+
+            <h4>Three kinds of gap: when and where each forms</h4>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Gap</th><th>What it is</th><th>When it forms</th><th>Where it is largest</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Degradational vacuity</strong></td><td>Time represented by strata that were deposited at this location and later eroded</td><td>During the erosional phase, while base level is below the surface (between downward transit and terminal degradation surface in the diagram)</td><td>Near the margin, where erosion lasted longest and cut deepest; shrinks to zero at x′</td></tr>
+                        <tr><td><strong>Hiatus</strong></td><td>Time during which nothing was deposited at this location</td><td>From the downward transit (deposition stops) to the next upward transit (deposition resumes); the surface is eroded or simply bypassed</td><td>Near the margin; shrinks basinward and disappears at x′</td></tr>
+                        <tr><td><strong>Lacuna</strong></td><td>Total time not represented by rock at this location: hiatus + degradational vacuity</td><td>From the terminal degradation surface up to the upper transit line</td><td>Near the margin; zero at x′. Its lower part was once recorded and then erased; its upper part was never recorded</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="key-concept">
+                <h4>Two consequences to remember</h4>
+                <p><strong>The lacuna is a local property.</strong> Time missing at the margin is not missing everywhere. While the margin was being eroded, deposition continued basinward of x′, and those strata record exactly the interval that is missing on the left. This is why an unconformity passes basinward into a conformable surface, the surface Mitchum (1977) would call the correlative conformity; the strata deposited basinward during the fall are what we now call the falling-stage systems tract.</p>
+                <p style="margin-top:10px;"><strong>The same surface can mean different things in different places.</strong> Where it was eroded, the gap includes a degradational vacuity; where it was only exposed, the gap is a hiatus only. In the Po Plain during the last lowstand, the interfluves were exposed and developed a soil (hiatus with little erosion), while the river valleys cut into older deposits (gap including a degradational vacuity). One surface, two kinds of gap (Part VI and Going Deeper B).</p>
+            </div>
+            <p>Wheeler's principle has not changed since 1958; what has changed is the data. Modern Wheeler diagrams built from seismic and well data are one of the best ways to see how a depositional system moved basinward and landward through time. By the mid-1960s, Sloss (regional mapping) and Wheeler (time-stratigraphic reasoning) agreed that a sequence is a unit bounded by subaerial unconformities generated by base-level fall, whether by tectonic uplift or eustatic fall. Their shared limitation: basinward the unconformity passes into conformable strata, so the boundary could not be traced into the basin.</p>
+        </section>
+
+        <!-- PART IV -->
+        <section class="section">
+            <h2>Part IV: Seismic Stratigraphy, the Global Cycle Chart and its Critique</h2>
+            <h3>6. Seismic data and the correlative conformity</h3>
+            <p>In the 1970s, seismic reflection profiles showed stratal geometries at basin scale for the first time, in particular how reflections terminate against each other: onlap, downlap, toplap and truncation (Mitchum &amp; Vail, 1977). These terminations allow a surface to be followed from the margin, where it is erosional, into the basin, where it is conformable. The work was published in AAPG Memoir 26 (1977), in an exploration context: the methods helped predict where reservoir rocks are, far from any well.</p>
+            <blockquote class="def">A relatively conformable succession of genetically related strata bounded at its top and base by unconformities or their correlative conformities.<cite>Definition of a sequence, Mitchum (1977)</cite></blockquote>
+            <p>The <strong>correlative conformity</strong> continues the unconformity into the basin, where no erosion took place but the same change in depositional trend can still be recognised. Catuneanu (2019a) traces the concept back to Wheeler's "continuity" surface beyond the termination of an unconformity. With it, sequences can be mapped basin-wide. Read the definition carefully: it says nothing about systems tracts. A systems tract is only a part of a sequence. And <em>where exactly</em> to place the correlative conformity became the main disagreement between all later models.</p>
+
+            <h3>7. The Exxon global cycle chart</h3>
+            <p>Vail et al. (1977) used coastal onlap patterns on seismic profiles to construct curves of relative sea-level change, then correlated them between basins into a chart of global cycles. The working assumption was that eustasy is the dominant control and tectonics secondary. If true, sequence boundaries would be synchronous worldwide, and the chart could be used to correlate and date sequences in any basin, even without fossils or radiometric ages.</p>
+            <div class="research-box">
+                <h4>Miall's critique (Miall, 1992, 1997, 2010)</h4>
+                <ul class="plain" style="margin-top:6px;">
+                    <li>The primary data behind the chart were never published in full, so it cannot be tested independently.</li>
+                    <li>Dating is rarely precise enough to prove that boundaries in different basins are synchronous.</li>
+                    <li>With imprecise correlation, almost any local event can be matched to some event on the chart.</li>
+                    <li>Regional tectonic processes can produce near-synchronous sequences over large areas without any change in global sea level.</li>
+                </ul>
+                <p style="margin-top:8px;"><strong>Consequence:</strong> a sequence boundary is not evidence of eustasy. The driver has to be demonstrated, not assumed.</p>
+            </div>
+            <div class="case-study">
+                <h4>Worked thought experiment: a correlation that cannot fail</h4>
+                <p>Imagine (synthetic numbers, as in the lecture) a chart with an event every 1 to 1.5 My, and three basins, each with three local sequence boundaries dated to about ±1 My. Every local boundary will find a chart event within its error bar. The match looks perfect, but if the dating uncertainty is larger than the spacing of events on the chart, the test cannot fail, and a test that cannot fail proves nothing. Hence the title of Miall's 1992 paper: "Exxon global cycle chart: An event for every occasion?". Before you predict a reservoir or a seal from a global curve, the boundary has to be dated and mapped in the basin itself.</p>
+            </div>
+
+            <h3>8. From eustasy to accommodation</h3>
+            <p>The way out of the eustasy debate was to stop asking what sea level does globally and ask what happens to the space available for sediment at a given place. Jervey (1988) and Posamentier et al. (1988) framed sequences in terms of <strong>accommodation</strong>: space created or destroyed by eustasy and subsidence together, whose combination is relative sea level. Sedimentation then fills that space. Relative sea level sets the accommodation; sediment supply and energy flux decide how it is filled. That is the balance of Module 1.</p>
+            <p>In the early 1990s attention turned to the record of base-level fall. Posamentier et al. (1992) described <strong>forced regression</strong> as a distinct stage, and Hunt &amp; Tucker (1992) gave forced-regressive deposits their own systems tract, the forced regressive wedge systems tract. Plint &amp; Nummedal (2000) named it the <strong>falling-stage systems tract</strong> (FSST), the term we use. Keep the terms clean: a seaward shoreline shift while relative sea level is <em>rising</em> is a normal regression, never a forced regression.</p>
+
+            <h3>9. SEPM Special Publication 42 and the depositional sequence</h3>
+            <p>SEPM Special Publication 42 (Wilgus et al., 1988) applied the seismic stratigraphic approach to outcrops, well logs, cores and modern and ancient analogues, moving the method from seismic profiles to rocks you can touch. Its central unit was the depositional sequence, bounded by subaerial unconformities on the basin margin and their correlative conformities toward the basin centre, and subdivided into lowstand, transgressive and highstand systems tracts (Posamentier &amp; Vail, 1988; Van Wagoner et al., 1988). The block diagrams of this model are in almost every textbook. They are useful, but they are one model, built on specific assumptions.</p>
+        </section>
+
+        <!-- PART V -->
+        <section class="section">
+            <h2>Part V: Same Rocks, Different Packaging</h2>
+            <h3>10. The vocabulary</h3>
+            <ul class="plain">
+                <li><strong>Depositional system:</strong> a three-dimensional assemblage of lithofacies linked by environment and process, e.g. a delta or a fluvial system (Catuneanu, 2006, after Fisher &amp; McGowan, 1967). A sedimentological term, defined by environment.</li>
+                <li><strong>Systems tract:</strong> a linkage of contemporaneous depositional systems (Brown &amp; Fisher, 1977, in Catuneanu, 2006); hence the plural "systems".</li>
+                <li><strong>Sequence:</strong> two or more systems tracts, depending on the model.</li>
+            </ul>
+            <p>Systems tract and sequence are sequence stratigraphic terms, defined relative to base-level changes and shoreline shifts, not by rock type. Their scale is not fixed.</p>
+
+            <h3>11. Five models, one set of surfaces</h3>
+            <p>After 1988 other models appeared: Galloway (1989), following Frazier, proposed the genetic stratigraphic sequence bounded by maximum flooding surfaces; Embry &amp; Johannessen (1992) proposed the transgressive–regressive (T–R) sequence; others modified the depositional sequence. Catuneanu (2002, quoted in Catuneanu, 2006) concluded that the models differ mainly in the conceptual packaging of the same record, using different timing for systems tract and sequence boundaries relative to the same reference cycle, and that no model is universally preferable.</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Model</th><th>Proponents</th><th>Sequence boundary</th><th>Event (timing)</th><th>In Figure 3</th></tr></thead>
+                    <tbody>
+                        <tr><td>Depositional sequence II</td><td>Posamentier et al. (1988)</td><td>Subaerial unconformity + basal surface of forced regression</td><td>Onset of relative sea-level fall</td><td>SU + BSFR (event 1)</td></tr>
+                        <tr><td>Depositional sequence III</td><td>Van Wagoner et al. (1988)</td><td>Subaerial unconformity + correlative conformity</td><td>End of relative sea-level fall</td><td>SU + CC (event 2)</td></tr>
+                        <tr><td>Depositional sequence IV</td><td>Hunt &amp; Tucker (1992); Plint &amp; Nummedal (2000)</td><td>Subaerial unconformity + correlative conformity</td><td>End of relative sea-level fall</td><td>SU + CC (event 2)</td></tr>
+                        <tr><td>Genetic stratigraphic sequence</td><td>Galloway (1989)</td><td>Maximum flooding surface</td><td>End of transgression</td><td>MFS (event 4)</td></tr>
+                        <tr><td>Transgressive–regressive sequence</td><td>Embry &amp; Johannessen (1992)</td><td>Subaerial unconformity + marine portion of the maximum regressive surface</td><td>End of regression</td><td>SU + MRS (event 3)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.9rem;color:var(--gray-600);">After Lecture 2 (slide 27), based on Catuneanu (2006, Figs. 1.6–1.7) and Catuneanu et al. (2011). Depositional sequences III and IV share the boundary and differ only in how they split the sequence into systems tracts (Catuneanu, 2006). Catuneanu (2006, Fig. 1.7 caption) notes that the conformable boundary of depositional sequence II was originally placed at early sea-level fall (Posamentier et al., 1988) and later revised to the onset of fall (Posamentier et al., 1992).</p>
+
+            <figure class="figure-container">
+                <img src="img/m2/m2_fig3_one_cycle.svg" alt="Forward-model section of one relative sea-level cycle with FSST, LST, TST and HST coloured, and the BSFR, SU, CC, MRS and MFS drawn; inset curve with the four events numbered." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 3.</strong> One cycle of relative sea-level change, constant sediment supply. Systems tracts: FSST red, LST orange, TST green, HST blue. Surfaces: BSFR (purple) is the sea floor at the onset of fall (event 1); SU (solid red) is the land surface exposed during the fall, shown at its full landward extent at the end of fall; CC (dashed red) is the sea floor at the end of fall (event 2); MRS (green) at the end of regression (event 3); MFS (dark blue) at the end of transgression (event 4). Dotted line: shoreline trajectory. The lowstand is thin in this run, as in the lecture. The model does not erode, so the SU here is an exposure surface (a hiatus without vacuity). <em>Basis: generated for this module with the instructor's forward model (fig_source/sm.py; eustatic cosine of amplitude 18, uniform subsidence 3, supply 230, the "reference" parameters of the lecture figures).</em></figcaption>
+            </figure>
+            <div class="key-concept">
+                <h4>If you remember one thing from this part</h4>
+                <p>The surfaces are the same in every model. The models differ only in which surface is promoted to "sequence boundary". The rocks and the surfaces do not change; only the label does.</p>
+            </div>
+
+            <h3>12. The model-independent workflow</h3>
+            <p>Catuneanu et al. (2009, 2011) defined the common ground of all approaches, a methodology that does not depend on the model chosen; Catuneanu (2019a, 2022) developed it further. This is the approach of this course:</p>
+            <ol class="plain">
+                <li><strong>Observe stacking patterns:</strong> forced regressive, normal regressive (lowstand, highstand) and transgressive; where the shoreline is too far away to control deposition, upstream-controlled fluvial patterns.</li>
+                <li><strong>Map the surfaces that separate them:</strong> subaerial unconformity, basal surface of forced regression, correlative conformity, maximum regressive surface, maximum flooding surface, ravinement surfaces.</li>
+                <li><strong>Assemble systems tracts and sequences</strong> from the stacking patterns and their bounding surfaces.</li>
+                <li><strong>Choose the packaging last:</strong> which surface becomes the "sequence boundary" is a convention, secondary to the observations.</li>
+            </ol>
+            <p>What do you look for in step 1? <strong>Transgression:</strong> backstepping beaches and estuaries, facies belts moving landward, deepening-upward successions. <strong>Normal regression:</strong> gradationally based, coarsening-upward shorefaces; aggrading deltas and strandplains. <strong>Forced regression:</strong> sharp-based shorefaces, downstepping and detached shoreline sands, exposure and erosion landward (Catuneanu, 2006, Fig. 5.14). In the exam you will justify interpretations from stacking patterns and shoreline trajectories, not from a model template.</p>
+
+            <h3>13. The 2009 redefinition of the sequence</h3>
+            <p>Mitchum's definition requires a sequence to be relatively conformable and genetically related. But unconformities can occur within a sequence: a ravinement surface cut by waves during transgression, or the subaerial unconformity inside the genetic sequence. So a sequence cannot always be described as relatively conformable. Catuneanu et al. (2009) therefore redefined it:</p>
+            <blockquote class="def">A succession of strata deposited during a full cycle of change in accommodation or sediment supply.<cite>Catuneanu et al. (2009), as quoted in Lecture 2</cite></blockquote>
+            <p>The definition is generic and model-independent. It does not say which surface is the boundary and does not specify a scale. Catuneanu (2019a) adds the operational version: at any scale, a unit that describes a full cycle of change in stratal stacking patterns, i.e. one that starts and ends with the same type of sequence stratigraphic surface.</p>
+
+            <h3>14. Why the packaging matters</h3>
+            <p>Stacking patterns predict where specific rocks are, away from wells. In the highstand systems tract, shoreline and shoreface sands are potential reservoirs proximally, and shelf fines can be source rocks and seals distally. Detached, sharp-based forced-regressive shoreface sands can be reservoirs; lowstand shelf-edge deltas and shoreline sands are reservoir targets; transgressive deposits and the condensed section around the maximum flooding surface are typical seals and source rocks (lecture, after Catuneanu, 2006, Fig. 5.14). For coal, Catuneanu (2006) notes that, where all conditions for peat accumulation are met, the most significant coal seams tend to be associated with maximum flooding surfaces (citing Hamilton &amp; Tadros, 1994), because the water table is then at its highest relative to the landscape. The same logic is applied today to groundwater, coal and sediment-hosted mineral deposits (Catuneanu, 2022).</p>
+        </section>
+
+        <!-- PART VI: worked exercise -->
+        <section class="section">
+            <h2>Worked Exercise: Which Surface Would Each Model Choose?</h2>
+            <p>The schematic dip section below crosses the deposits of one cycle of relative sea-level fall and rise. Five surfaces are numbered. The fills are deliberately neutral: work from geometry and stacking.</p>
+            <figure class="figure-container">
+                <img src="img/m2/m2_fig5_exercise_section.svg" alt="Schematic dip section, land on the left and basin on the right, with five numbered surfaces S1 to S5 bounding several neutral-coloured packages." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 4.</strong> Exercise section (schematic, not to scale; dashed line = conformable surface). Clues: the package resting on S5 contains clinoforms that step down basinward; the small package between S4 and S3 builds out at a nearly constant level; the package between S3 and S1 steps landward; the package above S1 builds out at the present sea level. <em>Basis: drawn for this module.</em></figcaption>
+            </figure>
+            <ol class="plain">
+                <li>Name S1–S5, and say for each <em>when</em> in the relative sea-level cycle it formed.</li>
+                <li>Which surface(s) would each of the five models in the table use as its sequence boundary?</li>
+                <li>Which two models give the same boundary, and how do they still differ?</li>
+                <li>At which surface would you stop applying Walther's Law to a core taken at the far left of the section, and why?</li>
+                <li>A colleague insists that S1 is "the sequence boundary because it is the most obvious surface in the logs". What is right and what is wrong with that statement?</li>
+            </ol>
+            <details class="answer">
+                <summary>Show solution</summary>
+                <figure class="figure-container" style="margin-top:6px;">
+                    <img src="img/m2/m2_fig6_exercise_solution.svg" alt="Solution of the exercise section: FSST red, LST orange, TST green, HST blue; S1 maximum flooding surface, S2 subaerial unconformity, S3 maximum regressive surface, S4 correlative conformity, S5 basal surface of forced regression." loading="lazy">
+                    <figcaption class="figure-caption"><strong>Figure 5.</strong> Solution: systems tracts coloured, surfaces named. <em>Basis: drawn for this module.</em></figcaption>
+                </figure>
+                <p><strong>1.</strong> S5 = basal surface of forced regression: the sea floor at the <em>onset</em> of relative sea-level fall, at the base of the downstepping package (FSST). S2 = subaerial unconformity: forms landward <em>during the whole fall</em> as the land is exposed; it also extends over the top of the forced-regressive deposits. S4 = correlative conformity: the sea floor at the <em>end</em> of fall, the top of the FSST basinward of the SU, conformable. S3 = maximum regressive surface: <em>end of regression</em>, top of the lowstand package. S1 = maximum flooding surface: <em>end of transgression</em>, when the shoreline reached its most landward position.</p>
+                <p><strong>2.</strong> Depositional sequence II: S2 + S5. Depositional sequences III and IV: S2 + S4. Genetic stratigraphic sequence: S1. T–R sequence: S2 + the marine part of S3.</p>
+                <p><strong>3.</strong> III and IV share S2 + S4; they differ only in how they split the sequence into systems tracts (Catuneanu, 2006).</p>
+                <p><strong>4.</strong> At S2. Across the subaerial unconformity time and possibly rock are missing, so the facies above and below may be genetically unrelated.</p>
+                <p><strong>5.</strong> Calling S1 the sequence boundary is a legitimate choice in the genetic stratigraphic model, but "most obvious in the logs" is not the reason. Nor does it make S1 an unconformity: it formed during relative sea-level <em>rise</em>, at the end of transgression, whereas the subaerial unconformity formed during the <em>fall</em>. Keep the two apart: the MFS marks the turnaround from deepening to shallowing; the SU marks exposure.</p>
+            </details>
+        </section>
+
+        <!-- PART VII -->
+        <section class="section">
+            <h2>Part VI: Basic Concepts — A Sequence You Can Drill</h2>
+            <h3>15. The Po Plain–Adriatic as a running example</h3>
+            <p>The review by Amorosi, Maselli &amp; Trincardi (2016) tracks one late Quaternary source-to-sink system from the alluvial plain to the deep Adriatic, over almost 1000 km, using about 250 continuously cored boreholes onshore and seismic profiles offshore, with radiocarbon and pollen chronology. Their Fig. 1 shows two maps: the physiography at the time of maximum regression (lowstand), with the inferred drainage across the exposed northern Adriatic shelf to a lowstand delta in the central Adriatic, and the system at present (highstand), with the modern Po delta. At lowstand the Po almost doubled its present length (their Section 9.2). Lowstand: about 30–18 cal kyr BP; transgression: 18–6 cal kyr BP; highstand: 6 cal kyr BP to present. Sea level at its lowest was about 120 m below present.</p>
+            <p>Their Fig. 7 is a borehole cross-section along the southern margin of the Po channel belt. Panel A shows the late Pleistocene part: closely spaced paleosols in floodplain muds alongside amalgamated fluvial channel-belt sands. The red line, the sequence boundary, is a well-developed paleosol formed at the onset of the Last Glacial Maximum on the interfluves, which passes laterally into the erosional, highly diachronous base of the channel belts. Panel B shows the transgressive deposits stepping landward and the highstand deposits stepping seaward in millennial- to centennial-scale parasequences, with the transgressive surface largely coinciding with the Younger Dryas paleosol at the Pleistocene–Holocene boundary.</p>
+            <p>Why it matters: the sea-level history and the ages are known independently, so systems tracts can be tied to a known curve, and the succession becomes an analogue for ancient fluvial to deep-marine successions where we never have this control. One glacial–interglacial cycle, one sequence.</p>
+
+            <h3>16. Key words in the definitions of sequence stratigraphy</h3>
+            <p>Four definitions are quoted in Catuneanu (2006): Posamentier et al. (1988) and Van Wagoner (1995); Galloway (1989); Posamentier &amp; Allen (1999); Embry (2001). Read them together and four groups of key words keep coming back:</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Key words</th><th>What it means in the rocks</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Repetitive, cyclic, oscillating</strong></td><td>The controls oscillate (ice volume, tectonic pulses, supply), so packages repeat. In the deeper Po Plain boreholes older glacial-cycle sequences are stacked below the last one. If patterns repeat, they can be predicted: that is what makes the method predictive.</td></tr>
+                        <tr><td><strong>Genetically related strata</strong></td><td>Deposited in the same or adjacent settings, linked by the same processes, at the same time; in practice, connected by Walther's Law. A delta front in a well implies a delta plain landward and a prodelta basinward. The concept is not marine-only: in the arid Lower Triassic Buntsandstein of the western German Basin, cycles are recorded by water table and supply (Bourquin et al., 2009).</td></tr>
+                        <tr><td><strong>Surfaces of erosion or nondeposition</strong></td><td>They separate genetically unrelated packages. Erosion where the surface ends up above base level (rivers cut down, waves scour the shoreface); nondeposition where sediment does not arrive (an exposed interfluve that only develops a soil; a sediment-starved shelf during transgression). Basinward the same surface continues as a correlative conformity: what makes it one surface is its <em>timing</em>, not its appearance.</td></tr>
+                        <tr><td><strong>Sediment supply and space available; sedimentation, erosion and oscillating base level</strong></td><td>Accommodation versus sedimentation, the balance of Module 1.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="key-concept">
+                <h4>One sentence</h4>
+                <p>Sequence stratigraphy studies repetitive, genetically related packages of strata, bounded by surfaces of erosion or nondeposition, that record the interplay between accommodation and sedimentation. If you can explain every word of it, you have understood the definition.</p>
+            </div>
+
+            <h3>17. Surfaces: defined by timing, recognised by trend</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Surface</th><th>When it forms</th><th>Where</th></tr></thead>
+                    <tbody>
+                        <tr><td>Basal surface of forced regression (BSFR)</td><td>Onset of relative sea-level fall</td><td>The sea floor at the moment the shoreline starts to be forced seaward</td></tr>
+                        <tr><td>Regressive surface of marine erosion (RSME)</td><td>During the fall</td><td>Lower shoreface, scoured by waves as it is lowered</td></tr>
+                        <tr><td>Subaerial unconformity (SU)</td><td>During the whole fall</td><td>Landward, where the exposed land is eroded or receives no sediment</td></tr>
+                        <tr><td>Correlative conformity (CC)</td><td>End of the fall</td><td>Marine part of the basin, conformable</td></tr>
+                        <tr><td>Maximum regressive surface (MRS)</td><td>End of regression</td><td>Where the shoreline reaches its most seaward position and turns back</td></tr>
+                        <tr><td>Maximum flooding surface (MFS)</td><td>End of transgression</td><td>Where the shoreline reaches its most landward position</td></tr>
+                        <tr><td>Ravinement surfaces</td><td>During transgression</td><td>Cut by waves as the shoreline retreats landward</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.9rem;color:var(--gray-600);">After Lecture 2 (slide 42, from Catuneanu, 2019a) and Catuneanu (2019a, 2006). Note on terms: the MRS is also known as the "transgressive surface" (Posamentier &amp; Vail, 1988, as listed in Catuneanu, 2006); the "transgressive surface" (TS) of Amorosi et al. (2016) occupies the same position, at the boundary between lowstand and transgressive deposits.</p>
+            <div class="warning-box">
+                <h4>MFS versus sequence boundary</h4>
+                <p>The MFS forms at the end of <em>transgression</em>, during relative sea-level rise, when the shoreline is at its most landward position. The subaerial unconformity forms during relative sea-level <em>fall</em>, and the correlative conformity at the end of the fall. They are separated in time by the whole lowstand and transgression. Only in the genetic stratigraphic model is the MFS used as a sequence boundary, and that is a packaging choice, not a change in when the surface formed.</p>
+            </div>
+            <p>These surfaces are defined by changes in stacking pattern, i.e. by changes in depositional trend, not by a change in lithology. Sometimes a surface coincides with a sharp change in grain size; sometimes it lies inside uniform mudstone and is found only from geometry or the trend of the logs.</p>
+
+            <h3>18. Depositional trends and the shoreline-shift diagram</h3>
+            <p>Each type of stratigraphy correlates by a different property: lithology, fossils, magnetic polarity, chemistry, absolute ages, discontinuities, seismic reflections. Sequence stratigraphy correlates by <strong>depositional trends</strong>: aggradation versus erosion, progradation versus retrogradation, controlled by the interplay of sedimentation and base-level shifts (Catuneanu, 2006). A lithostratigraphic boundary follows rock type, which usually crosses time lines; a sequence stratigraphic surface follows a change in trend, which brings us much closer to a time line (Module 4).</p>
+            <figure class="figure-container">
+                <img class="mid" src="img/m2/m2_fig4_rsl_shoreline.svg" alt="Two-by-two diagram of relative sea-level rise or fall against landward or seaward shoreline shift, with transgression, normal regression and forced regression in three quadrants and an empty fourth quadrant." loading="lazy">
+                <figcaption class="figure-caption"><strong>Figure 6.</strong> Relative sea level at the shoreline (rise: positive accommodation; fall: negative accommodation) against the direction of shoreline shift. With rising relative sea level the shoreline steps up; whether it also moves landward or seaward depends on sediment supply. With falling relative sea level the only outcome is forced regression, whatever the supply. <em>Basis: drawn for this module following the scheme discussed in Lecture 2 (slide 45, after Catuneanu, 2019).</em></figcaption>
+            </figure>
+
+            <h3>19. Allogenic and autogenic controls</h3>
+            <p><strong>Allogenic</strong> controls are external to the depositional system: tectonics, eustasy, climate. They act across the whole basin at the same time, which is what allows surfaces to be correlated from well to well over tens or hundreds of kilometres. <strong>Autogenic</strong> controls are internal: river avulsion, delta-lobe abandonment, bar migration. They can produce a local transgression or regression that has nothing to do with relative sea level. In the Po Plain, Amorosi et al. (2016) found allogenic forcing dominant in the transgressive systems tract, and an increasing autogenic control (distributary avulsion, delta-lobe switching and abandonment) in the highstand. Ask every time: is this shift traceable across the basin? If not, it may be autogenic, and you should not build a sequence boundary on it.</p>
+            <p>Catuneanu (2019b, Fig. 1 caption) adds a caution: the timescales of allogenic and autogenic processes overlap by several orders of magnitude, the distinction is often challenging, and it has no bearing on the methodology, because observing the stratigraphic architecture is decoupled from interpreting its controls.</p>
+            <p>No single dataset is enough. In the Po Plain, the key surfaces were defined by combining cores, radiocarbon ages, pollen records and seismic profiles (Amorosi et al., 2016). Seismic sees geometry but not grain size; cores see grain size but only at one point.</p>
+        </section>
+
+        <!-- PART VIII -->
+        <section class="section">
+            <h2>Part VII: Scale and Hierarchy</h2>
+            <h3>20. A matter of scale</h3>
+            <p>Stratigraphic cycles can be observed at different scales, depending on the purpose of the study and the resolution of the data. Catuneanu (2019b) states three principles: there are no temporal or physical standards for the scale of any unit or surface of sequence stratigraphy; the same types of units and surfaces may be observed at different scales (hierarchical levels); and the scale associated with a hierarchical rank may vary between and within basins. A maximum flooding surface is a maximum flooding surface whether it formed over a thousand years or ten million.</p>
+            <p>Where does sedimentology stop? Sedimentological cycles (beds, bedsets: a storm bed, a flood deposit, a migrating bar) do not involve a change of systems tract. Catuneanu (2019b) puts the limit at the lowest-rank systems tracts: the scale of the lowest-rank systems tracts at any location defines the highest stratigraphic resolution that can be achieved, and the limit between sedimentology and stratigraphy sensu stricto. In architectural hierarchies (Miall, 2010, for fluvial deposits; Sprague et al., 2002, for deep-water deposits), depositional systems are the largest units of sedimentology and the building blocks of systems tracts. Similar geometries repeat at different scales, so always put a scale bar on an interpretation.</p>
+
+            <h3>21. Orders or ranks?</h3>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Order</th><th>Duration (My), Vail et al. (1991) as in Catuneanu (2006, Fig. 8.3)</th></tr></thead>
+                    <tbody>
+                        <tr><td>First</td><td>50 +</td></tr>
+                        <tr><td>Second</td><td>3 – 50</td></tr>
+                        <tr><td>Third</td><td>0.5 – 3</td></tr>
+                        <tr><td>Fourth</td><td>0.08 – 0.5</td></tr>
+                        <tr><td>Fifth</td><td>0.03 – 0.08</td></tr>
+                        <tr><td>Sixth</td><td>0.01 – 0.03</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The assumption behind such a table is that each order has a dominant eustatic mechanism, so orders should be global and defined by time. The problems: durations of real sequences are approximate at best, the global cycle charts built on this logic are disputed (Catuneanu, 2006; Miall, 1992, 1997), and even the duration schemes differ between authors. The scheme modified from Vail et al. (1977) and Miall (2000) in Catuneanu (2006, Fig. 3.2) gives 1–10 My for third order, against 0.5–3 My in Vail et al. (1991).</p>
+            <div class="key-concept">
+                <h4>Current view (Catuneanu, 2019b)</h4>
+                <p>Rank is relative and basin-specific. A "third-order" sequence may differ from one basin to another in timing, duration, thickness, geographic extent and underlying controls; the label is meaningful only relative to the lower- and higher-rank cycles of the same basin. When you read "third-order sequence", ask: third-order relative to what, and in which basin?</p>
+            </div>
+            <p>Hierarchy in one section: if the relative sea-level curve has a long, low-frequency cycle with short, high-frequency cycles on top, the small systems tracts stack into the large trend: during the long-term fall they step down and basinward, during the long-term rise they step back landward. Which rank you map depends on data resolution and purpose. For a reservoir or aquifer the small cycles matter, because they control flow between layers; for basin exploration the large trend matters. In the Po Plain–Adriatic, tectonics controlled the geometry of higher-rank ("third-order") depositional sequences, while 100-kyr glacial–interglacial cyclicity drove facies architecture within "fourth-order" sequences (Amorosi et al., 2016).</p>
+        </section>
+
+        <!-- GOING DEEPER -->
+        <section class="section">
+            <h2>Going Deeper (beyond the lecture)</h2>
+
+            <h3>A. Why the same rank means different things in different basins</h3>
+            <p>Catuneanu (2019b) distinguishes classifications based on <em>absolute</em> scales (duration) from those based on <em>relative</em> scales (cycles ranked against each other). He calls the absolute approach impractical and artificial for two reasons: age data are not always available, and cycle durations become harder to measure in older successions; and the scales of cycles are basin-specific because several processes with different natural periodicities interplay. Statistical surveys (Carter et al., 1991; Drummond &amp; Wilkinson, 1996, cited there) show sequences forming a continuum rather than discrete classes, so any fixed limit, such as 1 My between third and fourth order (Vail et al., 1977), is bound to be artificial.</p>
+            <p>His alternative anchor is the <strong>first-order sequence: the fill of a sedimentary basin within one tectonic setting</strong>. Lower ranks are then defined by nesting within each basin, and numerical orders have "no time or thickness connotations". Compare three basins, all with "third-order" sequences:</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Basin</th><th>What "third order" is there</th><th>Control</th></tr></thead>
+                    <tbody>
+                        <tr><td>Northwest Basin, Argentina (Catuneanu, 2019b, Fig. 27)</td><td>Within a 75 My first-order rift sequence about 10³ m thick: 3rd order at ~10⁶ yr and ~10¹ m in the Yacoraite Formation (73.5–64 Ma, c. 250 m); 4th order ~10⁵ yr, c. 10 m; 5th order ~10⁴ yr, 1–3 m</td><td>Tectonics increasingly dominant at 3rd to 1st order; climate evident at 5th to 3rd order</td></tr>
+                        <tr><td>Po Basin (Amorosi et al., 2016)</td><td>Pliocene–Quaternary depositional sequences about 100–1000 m thick, separated at the basin margin by tectonically formed angular unconformities</td><td>Tectonics; the 50–100 m thick fourth-order T–R sequences inside them are glacio-eustatic (~100 kyr)</td></tr>
+                        <tr><td>Karoo Basin, Balfour Formation (Catuneanu &amp; Elango, 2001)</td><td>Six fluvial depositional sequences averaging 0.66 My (six in 4 My), forming one second-order cyclothem</td><td>Orogenic loading and unloading (Section C)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Same word, three different objects. Only the nesting within each basin gives "third order" a meaning.</p>
+
+            <h3>B. Interfluve paleosols versus incised channel belts in the Po Plain</h3>
+            <p>A closer reading of Amorosi et al. (2016, Section 6.1) shows Wheeler's gaps in a real subsurface:</p>
+            <ul class="plain">
+                <li><strong>Many small hiatuses before the big one.</strong> Below the sequence boundary, closely spaced, weakly developed paleosols (Inceptisols with A-Bw-Bk-C profiles) separate aggradationally stacked packages a few metres thick, traceable for tens of km. Each marks subaerial exposure of a few thousand years. Radiocarbon dates place soil development in the long phase of sea-level fall and cooling after the MIS5–MIS4 transition, especially at the MIS3–MIS2 transition (the FSST/LST boundary).</li>
+                <li><strong>The sequence boundary on the interfluve</strong> is a well-developed paleosol formed at the onset of the Last Glacial Maximum: in Wheeler's terms mostly a hiatus, the surface weathered but was not cut down.</li>
+                <li><strong>The same boundary under the channels</strong> is the erosional, highly diachronous base of laterally extensive channel bodies. The Po channel-belt sand body commonly exceeds 20 km in width, and its multi-storey fill may exceed 30 m in composite thickness. Here the gap includes a degradational vacuity: older alluvium was removed. The authors attribute the incision to mixed climatic and eustatic control, and the multi-storey stacking to continuous accommodation from tectonic subsidence.</li>
+                <li><strong>A millennial-scale replica.</strong> The Younger Dryas paleosol records a hiatus of about 2000–3000 years before renewed transgression; it locally coincides with the transgressive surface, and small channels locally re-incised the lowstand channel belt. The authors describe it as mimicking, at the millennial scale, the sequence boundary and its lowstand delta.</li>
+                <li><strong>How to find a paleosol in a borehole.</strong> Besides facies and paleopedology, the authors use geotechnical properties: piezocone penetration tests (cone tip resistance, sleeve friction, pore pressure) and pocket penetrometer values from core descriptions.</li>
+            </ul>
+            <p>Two further points connect to Part III. Because subsidence was high, the Po Plain preserves an exceptionally thick forced-regressive (falling-stage) record: tectonic subsidence locally compensated the relative sea-level fall, and the MIS5e–MIS2 succession may exceed 100 m. A falling stage can thus be recorded as rock on land, not only as a surface. And the authors' sediment budget (their Fig. 14) shows that the LST is the largest systems tract (770–880 km³, of which 650–700 km³ in the lowstand delta), with the highest accumulation rate per unit time (about 69 km³/kyr against about 59 for the HST and 26 for the TST). This is consistent with the lacuna logic of Part III: time missing on the exposed shelf and interfluves is represented by rock basinward.</p>
+
+            <h3>C. Tectonic control on fluvial sequences: the Balfour Formation (Karoo Basin)</h3>
+            <p>Catuneanu &amp; Elango (2001) studied a fully fluvial succession (late Late Permian to earliest Triassic) deposited in the foredeep of the Karoo retroarc foreland during its overfilled phase. With no coeval marine environment in the preserved basin, eustasy can be ruled out; the sedimentological and biostratigraphic record indicates a temperate to humid climate with no recorded fluctuations. That leaves tectonics.</p>
+            <ul class="plain">
+                <li><strong>Sequences:</strong> six third-order fluvial depositional sequences, separated by subaerial unconformities, averaging 0.66 My.</li>
+                <li><strong>What makes the sequence:</strong> orogenic loading (thrusting) in the Cape Fold Belt causes flexural subsidence of the foredeep, base-level rise and fluvial aggradation.</li>
+                <li><strong>What makes the boundary:</strong> orogenic unloading (erosion and/or extension) causes flexural uplift of the proximal foreslope, base-level fall and fluvial incision, while sediment bypasses to the subsiding foresag.</li>
+                <li><strong>Inside each sequence:</strong> an upward change from higher-energy (sand-bed braided) to lower-energy (sand-bed and fine-grained meandering) rivers, as the topographic gradient decreased during loading.</li>
+            </ul>
+            <p>This is Sloss's point returning decades later, with modern methods: unconformity-bounded sequences, with all the stacking-pattern logic of this module, can be generated with no change in sea level at all. It is also a direct answer to the global-cycle-chart question: a sequence boundary alone says nothing about eustasy.</p>
+        </section>
+
+        <section class="section key-points">
+            <h2>Key Points Summary</h2>
+            <ul>
+                <li>The history answers three questions: what bounds a sequence, what drives it, and at what scale we look</li>
+                <li>Walther's Law (Middleton, 1973) works only within relatively conformable successions; across an unconformity facies may be genetically unrelated</li>
+                <li>Sloss defined sequences by interregional unconformities and saw tectonics as a driver; Wheeler showed that unconformities die out basinward</li>
+                <li>In a Wheeler diagram, base-level transits explain everything: deposition between upward and downward transit, degradational vacuity where deposited strata were eroded, hiatus where nothing was deposited; the lacuna is their sum and is a local property</li>
+                <li>The correlative conformity extends the boundary into the basin (Mitchum, 1977); where to put it divided the later models</li>
+                <li>A sequence boundary is not evidence of eustasy; a correlation with error bars wider than the chart spacing cannot fail and proves nothing</li>
+                <li>Accommodation is set by relative sea level (eustasy plus subsidence); forced regression and the FSST describe the record of relative fall</li>
+                <li>The five models share the same surfaces and differ only in which one they call the sequence boundary</li>
+                <li>The model-independent workflow: stacking patterns, then surfaces, then systems tracts and sequences, then the packaging choice</li>
+                <li>Each surface is defined by its timing: BSFR onset of fall, SU during fall, CC end of fall, MRS end of regression, MFS end of transgression</li>
+                <li>Hierarchical rank is relative and basin-specific (Catuneanu, 2019b); fixed-duration orders differ even between authors</li>
+                <li>In the Po Plain one sequence boundary is a paleosol on interfluves and an erosion surface under channel belts: one surface, two kinds of gap</li>
+            </ul>
+        </section>
+
+        <section class="reference-list">
+            <h4>Key References</h4>
+            <p><strong>Foundations and unconformity-bounded sequences:</strong> Barrell, J. (1917) GSA Bulletin 28, 745–904 • Middleton, G.V. (1973) GSA Bulletin 84, 979–988 • Sloss, L.L., Krumbein, W.C. &amp; Dapples, E.C. (1949) GSA Memoir 39, 91–124 • Sloss, L.L. (1963) GSA Bulletin 74, 93–114 • Wheeler, H.E. (1958) AAPG Bulletin 42, 1047–1063</p>
+            <p><strong>Seismic stratigraphy and the Exxon models:</strong> Mitchum, R.M. Jr. (1977) AAPG Memoir 26, 205–212 • Mitchum, R.M. Jr. &amp; Vail, P.R. (1977) AAPG Memoir 26, 135–144 • Vail, P.R., Mitchum, R.M. Jr. &amp; Thompson, S. III (1977) AAPG Memoir 26, 83–97 • Wilgus, C.K. et al. (Eds.) (1988) SEPM Special Publication 42 • Jervey, M.T. (1988) SEPM Sp. Publ. 42, 47–69 • Posamentier, H.W., Jervey, M.T. &amp; Vail, P.R. (1988) SEPM Sp. Publ. 42, 109–124 • Posamentier, H.W. &amp; Vail, P.R. (1988) SEPM Sp. Publ. 42, 125–154 • Van Wagoner, J.C. et al. (1988) SEPM Sp. Publ. 42, 39–45 • Vail, P.R. et al. (1991) In: Einsele, G., Ricken, W. &amp; Seilacher, A. (Eds.) Cycles and Events in Stratigraphy. Springer, 617–659</p>
+            <p><strong>Critique and competing models:</strong> Miall, A.D. (1992) Geology 20, 787–790 • Miall, A.D. (1997) The Geology of Stratigraphic Sequences. Springer • Miall, A.D. (2000) Principles of Sedimentary Basin Analysis, 3rd ed. Springer • Miall, A.D. (2010) The Geology of Stratigraphic Sequences, 2nd ed. Springer • Galloway, W.E. (1989) AAPG Bulletin 73, 125–142 • Embry, A.F. &amp; Johannessen, E.P. (1992) NPF Special Publication 2, 121–146 • Posamentier, H.W. et al. (1992) AAPG Bulletin 76, 1687–1709 • Hunt, D. &amp; Tucker, M.E. (1992) Sedimentary Geology 81, 1–9 • Plint, A.G. &amp; Nummedal, D. (2000) Geological Society, London, Special Publications 172, 1–17</p>
+            <p><strong>Standardisation and scale:</strong> Catuneanu, O. (2002) Journal of African Earth Sciences 35, 1–43 • Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier • Catuneanu, O. et al. (2009) Earth-Science Reviews 92, 1–33 • Catuneanu, O. et al. (2011) Newsletters on Stratigraphy 44, 173–245 • Catuneanu, O. (2019a) Earth-Science Reviews 188, 312–388 • Catuneanu, O. (2019b) Marine and Petroleum Geology 106, 128–159 • Catuneanu, O. (2022) Principles of Sequence Stratigraphy, 2nd ed. Elsevier, 490 pp.</p>
+            <p><strong>Examples:</strong> Amorosi, A., Maselli, V. &amp; Trincardi, F. (2016) Earth-Science Reviews 153, 212–237 • Catuneanu, O. &amp; Elango, H.N. (2001) Sedimentary Geology 140, 291–313 • Bourquin, S., Guillocheau, F. &amp; Péron, S. (2009) Sedimentology 56, 2235–2264</p>
+        </section>
+
+        <section class="section quiz-section">
+            <h2>Self-Assessment Quiz</h2>
+            <p>Twelve questions. Each one asks you to reason from the concepts, not to recall a name or a date.</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz (12 Questions)</button>
+            <div id="quiz-container"></div>
+        </section>
+
+        <div class="module-nav">
+            <a href="module1_shoreline_shifts.html" class="nav-btn">← Previous: Shoreline Shifts</a>
+            <a href="module3_controlling_factors.html" class="nav-btn">Next: Controlling Factors →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>GeoZentrum Nordbayern</h4>
+                <p>Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p>Course Instructor: <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+            </div>
+            <div class="footer-logos">
+                <img src="https://www.gzn.nat.fau.de/files/2024/01/cropped-Geozentrum-logo_nobackground.png" alt="GZN" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Wheeler explainer: same functions as the drawing script (img/m2 figure 2) */
+        (function () {
+            var XP = 7.5, L = 70, R = 790;
+            function tUp1(x) { return 1.0 - 0.1 * x; }
+            function tDown(x) { return 4.0 + (2.0 / XP) * x; }
+            function tEro(x) { return 2.2 + (3.8 / XP) * x; }
+            function tUp2(x) { return 6.0 + (1.6 / XP) * (XP - x); }
+            function px(x) { return L + (R - L) * x / 10; }
+            function f(v) { return 't' + v.toFixed(1); }
+            var slider = document.getElementById('wzX'), out = document.getElementById('wzOut');
+            var btn = document.getElementById('wzShow');
+            var loc = document.getElementById('wz-locator');
+            var l1 = document.getElementById('wz-l1'), l2 = document.getElementById('wz-l2');
+            if (!slider || !out) return;
+            function update() {
+                var x = parseFloat(slider.value);
+                var where = x < XP ? 'landward of x′ (the boundary is an unconformity here)' : 'basinward of x′ (the boundary is conformable here)';
+                var html = '<strong>Location ' + x.toFixed(1) + ' of 10</strong>, ' + where + '.<dl>';
+                html += '<dt>Deposition starts</dt><dd>' + f(tUp1(x)) + ' (upward transit 1)</dd>';
+                if (x < XP) {
+                    var v = Math.round((tDown(x) - tEro(x)) * 10) / 10, h = Math.round((tUp2(x) - tDown(x)) * 10) / 10;
+                    html += '<dt>Deposition stops</dt><dd>' + f(tDown(x)) + ' (downward transit)</dd>';
+                    html += '<dt>Youngest stratum preserved</dt><dd>' + f(tEro(x)) + ' (terminal degradation surface)</dd>';
+                    html += '<dt>Degradational vacuity</dt><dd>' + f(tEro(x)) + ' to ' + f(tDown(x)) + ' = ' + v.toFixed(1) + ' time units deposited, then eroded</dd>';
+                    html += '<dt>Hiatus</dt><dd>' + f(tDown(x)) + ' to ' + f(tUp2(x)) + ' = ' + h.toFixed(1) + ' time units with no deposition</dd>';
+                    html += '<dt>Lacuna</dt><dd>' + (v + h).toFixed(1) + ' time units missing at this location</dd>';
+                    html += '<dt>Deposition resumes</dt><dd>' + f(tUp2(x)) + ' (upward transit 2, sequence B)</dd>';
+                } else {
+                    html += '<dt>Gap</dt><dd>none: deposition continues through t6, recording the time that is missing landward</dd>';
+                }
+                html += '</dl>';
+                out.innerHTML = html;
+                if (l1 && l2) { var X = px(x); l1.setAttribute('x1', X); l1.setAttribute('x2', X); l2.setAttribute('x1', X); l2.setAttribute('x2', X); }
+            }
+            slider.addEventListener('input', function () { update(); if (loc && btn.getAttribute('aria-pressed') !== 'true') { btn.click(); } });
+            btn.addEventListener('click', function () {
+                var on = btn.getAttribute('aria-pressed') !== 'true';
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                btn.textContent = on ? 'Hide vertical line' : 'Show vertical line';
+                if (loc) loc.style.display = on ? '' : 'none';
+            });
+            update();
+        })();
+
+        const quizQuestions = [
+            {
+                question: "A core shows shoreface sandstone overlain, across a sharp contact with a root-penetrated paleosol, by fluvial conglomerate. A student uses Walther's Law to conclude that the river and the shoreface were side by side. What is the main problem with this reasoning?",
+                options: [
+                    "The contact is probably an unconformity, and Walther's Law applies only within a relatively conformable succession",
+                    "Walther's Law applies only to marine facies, so it cannot be used across a fluvial contact",
+                    "Fluvial and shoreface environments can never be adjacent",
+                    "Walther's Law can be applied only where biostratigraphy confirms that the two facies are coeval"
+                ],
+                correct: 0,
+                explanation: "Across an unconformity an unknown amount of time and rock is missing, so the facies above and below may be genetically unrelated (Middleton, 1973; Catuneanu, 2006). The paleosol is evidence of exposure, i.e. a gap. Rivers and shorefaces can be neighbours, but this contact cannot prove it."
+            },
+            {
+                question: "In a Wheeler diagram, at a location near the basin margin, what does the area between the terminal degradation surface and the downward base-level transit represent?",
+                options: [
+                    "Time during which no sediment ever reached this location",
+                    "Time represented by strata that were deposited here and later eroded (degradational vacuity)",
+                    "The holostrome of the next cycle",
+                    "The time recorded basinward by the falling-stage systems tract only"
+                ],
+                correct: 1,
+                explanation: "Below the downward transit the location was receiving sediment; after the transit base level was below the surface and erosion removed part of that record down to the terminal degradation surface. That removed interval is the degradational vacuity. Time never recorded is the hiatus (above the downward transit)."
+            },
+            {
+                question: "Why do the hiatus and the degradational vacuity both shrink to zero at the point x′ where the unconformity dies out?",
+                options: [
+                    "Because erosion is fastest basinward, so the eroded interval is replaced by younger strata",
+                    "Because eustatic sea level never fell at the position of x′ during the cycle",
+                    "Because basinward of x′ base level did not drop below the depositional surface, so deposition continued and recorded the time missing landward",
+                    "Because x′ is an arbitrary cut-off chosen by the geologist to separate A and B from K"
+                ],
+                correct: 2,
+                explanation: "The lacuna is a local property: base level falls below the surface first at the margin and reaches x′ last. Beyond x′ deposition never stopped, so the strata there record the interval missing landward, and the boundary continues as a correlative conformity. Sea level may well have fallen at x′; what matters is base level relative to the surface. The 'arbitrary cut-off' in Wheeler's figure is a naming convention, not the reason for x′."
+            },
+            {
+                question: "Three local sequence boundaries are each dated to ±1 My and are compared with a chart that has an event every 1–1.5 My. All three match a chart event. What does this demonstrate?",
+                options: [
+                    "That the boundaries are eustatic",
+                    "That the chart is correct for this basin",
+                    "That tectonics can be ruled out",
+                    "Nothing about the driver: with that uncertainty a match is almost guaranteed, so the test cannot fail"
+                ],
+                correct: 3,
+                explanation: "If the dating uncertainty exceeds the spacing of events on the chart, any boundary will find an event (Miall, 1992). A test that cannot fail proves nothing. A eustatic driver must be demonstrated with independent evidence and dating in the basin itself."
+            },
+            {
+                question: "Why did Catuneanu et al. (2009) replace Mitchum's (1977) definition of a sequence ('a relatively conformable succession of genetically related strata...')?",
+                options: [
+                    "Because unconformities, e.g. ravinement surfaces or a subaerial unconformity inside some models, can occur within a sequence, so it is not always relatively conformable",
+                    "Because Mitchum's definition required every sequence to contain lowstand, transgressive and highstand systems tracts",
+                    "Because seismic data cannot resolve correlative conformities, so the old definition could not be applied",
+                    "Because sequences must be defined by fixed durations to allow global correlation"
+                ],
+                correct: 0,
+                explanation: "The 2009 definition, 'a succession of strata deposited during a full cycle of change in accommodation or sediment supply', drops the conformity requirement and names neither a boundary nor a scale, so it fits every model. Mitchum's definition says nothing about systems tracts, and the new one rejects fixed durations."
+            },
+            {
+                question: "Two workers interpret the same well. Both pick the subaerial unconformity landward, but basinward one places the sequence boundary at the base of a package of sharp-based, downstepping shoreface sands and the other at its top. What explains the difference?",
+                options: [
+                    "One of them has misidentified the facies of the sharp-based sands, which must be lowstand deposits",
+                    "They use different models: depositional sequence II (onset of fall, BSFR) versus III/IV (end of fall, correlative conformity)",
+                    "One uses the genetic stratigraphic sequence, the other the T–R sequence",
+                    "The base is erosional and the top is not, so only the top can be a boundary"
+                ],
+                correct: 1,
+                explanation: "The downstepping package is the falling-stage systems tract. Its base is the basal surface of forced regression (onset of fall, used by depositional sequence II); its top is the correlative conformity (end of fall, used by III and IV). Same rocks, same surfaces, different packaging. A genetic sequence would use the MFS, a T–R sequence the MRS."
+            },
+            {
+                question: "In the genetic stratigraphic sequence of Galloway (1989) the boundary is the maximum flooding surface. Which statement is correct?",
+                options: [
+                    "The MFS forms during relative sea-level fall, like the subaerial unconformity, so both mark exposure",
+                    "Choosing the MFS as the boundary means that it formed at the end of relative sea-level fall",
+                    "The MFS forms at the end of transgression during relative sea-level rise, so in this model the subaerial unconformity lies inside the sequence",
+                    "The MFS and the correlative conformity form at the same moment, so the two models are equivalent"
+                ],
+                correct: 2,
+                explanation: "The MFS marks the end of transgression, when the shoreline is at its most landward position, during rise. The SU forms during fall and the CC at the end of fall, separated from the MFS by the lowstand and the transgression. Promoting the MFS to boundary is a packaging choice; the SU then lies within the sequence (one reason why sequences are not always 'relatively conformable')."
+            },
+            {
+                question: "At a shoreline, relative sea level is falling while sediment supply is unusually high. How does the shoreline move?",
+                options: [
+                    "Landward and upward, because supply cannot keep up",
+                    "Seaward and upward, because supply exceeds accommodation (normal regression)",
+                    "It stays in place, because the high supply exactly balances the loss of accommodation",
+                    "Seaward and downward (forced regression), whatever the sediment supply"
+                ],
+                correct: 3,
+                explanation: "With relative fall at the shoreline accommodation is negative; the only possible outcome is forced regression with downstepping. Supply affects the rate and the volume of forced-regressive deposits, not the direction. Upstepping requires rising relative sea level."
+            },
+            {
+                question: "A log shows a coarsening-upward, gradationally based shoreface succession whose shoreline stacked seaward and slightly upward through time. Which interpretation fits?",
+                options: [
+                    "Normal regression: relative sea level rising, but sedimentation outpacing the creation of accommodation",
+                    "Forced regression: any seaward shift of the shoreline is forced",
+                    "Transgression, because sea level was rising",
+                    "A falling-stage systems tract, because the succession coarsens upward"
+                ],
+                correct: 0,
+                explanation: "Forestepping plus upstepping means rising relative sea level with sedimentation faster than accommodation: normal regression. Calling every regression 'forced' is a common error; forced regression shows sharp-based shorefaces and downstepping. Transgression is a landward shift of the shoreline, not a rise of sea level."
+            },
+            {
+                question: "In one well a delta-front sand abruptly passes up into prodelta mud, but the shift cannot be traced in neighbouring wells only a few km away, and the regional record shows rising relative sea level. What is the most defensible interpretation?",
+                options: [
+                    "A basin-wide sequence boundary that should be correlated into the neighbouring wells",
+                    "A eustatic fall followed by a rapid rise that flooded the delta front",
+                    "A probably autogenic shift, e.g. delta-lobe abandonment, which should not be used as a sequence boundary",
+                    "A forced regression recorded only in this well because of local subsidence"
+                ],
+                correct: 2,
+                explanation: "Allogenic controls act basin-wide and produce correlatable surfaces; autogenic processes (avulsion, lobe switching) produce local transgressions or regressions unrelated to relative sea level. A local deepening is not a fall, and nothing here indicates forced regression."
+            },
+            {
+                question: "A paper describes a 2 My sequence as 'third-order'. Following Catuneanu (2019b), what is the best way to evaluate that label?",
+                options: [
+                    "Check it against Vail et al. (1991): 2 My is within 0.5–3 My, so the label is correct in any basin",
+                    "Check where the sequence sits in the nested hierarchy of that basin, starting from the first-order basin fill; the label is meaningful only relative to the other cycles there",
+                    "Check it against Miall (2000), whose 1–10 My range is the correct global standard",
+                    "Correlate it with the global cycle chart and accept the label if a matching event exists"
+                ],
+                correct: 1,
+                explanation: "Duration schemes differ between authors (0.5–3 vs 1–10 My for third order), and cycle scales form a continuum. Catuneanu (2019b) anchors ranks in the first-order basin fill and defines lower ranks by nesting; a 'third-order' sequence can differ in timing, duration, thickness, extent and controls between basins."
+            },
+            {
+                question: "In the Po Plain the Last Glacial Maximum sequence boundary is a paleosol on interfluves that passes laterally into the erosional base of channel belts. In Wheeler-diagram terms, what differs between the two places?",
+                options: [
+                    "On the interfluves the gap is mostly a hiatus; under the channel belts it also includes a degradational vacuity",
+                    "On the interfluves the gap is a degradational vacuity; under the channels there is no gap",
+                    "The two are different surfaces formed at different times",
+                    "There is no gap on the interfluves, because soils form while sediment is still accumulating"
+                ],
+                correct: 0,
+                explanation: "Interfluves were exposed and weathered with little erosion: time was not recorded (hiatus). Rivers incised into older alluvium, removing deposited strata (degradational vacuity) as well. It is one surface with one timing, but different gaps from place to place (Amorosi et al., 2016)."
+            }
+        ];
+        // Shuffle answer options once per page load so the correct answer is not always in the same position
+        quizQuestions.forEach(q => {
+            const right = q.options[q.correct];
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+            q.correct = q.options.indexOf(right);
+        });
+
+        let currentQuestion = 0, score = 0, answered = false;
+        function startQuiz() { document.querySelector('.start-quiz-btn').style.display = 'none'; currentQuestion = 0; score = 0; answered = false; loadQuestion(); }
+        function loadQuestion() { const q = quizQuestions[currentQuestion]; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card"><div class="quiz-progress"><div class="progress-text">Question ${currentQuestion + 1} of ${quizQuestions.length}</div><div class="progress-bar"><div class="progress-fill" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div></div></div><div class="question-text">${q.question}</div><div class="options-container">${q.options.map((opt, i) => `<button class="option-btn" onclick="selectAnswer(${i})" id="option-${i}"><span class="option-letter">${String.fromCharCode(65 + i)}</span><span class="option-text">${opt}</span></button>`).join('')}</div><div id="feedback" class="feedback-box"></div><div class="quiz-navigation"><button onclick="previousQuestion()" class="quiz-nav-btn" ${currentQuestion === 0 ? 'disabled' : ''}>← Previous</button><button onclick="nextQuestion()" class="quiz-nav-btn" id="next-btn" disabled>${currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next →'}</button></div></div>`; }
+        function selectAnswer(index) { if (answered) return; answered = true; const q = quizQuestions[currentQuestion], isCorrect = index === q.correct; if (isCorrect) score++; document.getElementById(`option-${index}`).classList.add(isCorrect ? 'correct' : 'incorrect'); if (!isCorrect) document.getElementById(`option-${q.correct}`).classList.add('correct'); document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true); const feedback = document.getElementById('feedback'); feedback.innerHTML = `<div class="${isCorrect ? 'correct-feedback' : 'incorrect-feedback'}"><strong>${isCorrect ? 'Correct' : 'Not quite'}</strong><p>${q.explanation}</p></div>`; feedback.style.display = 'block'; document.getElementById('next-btn').disabled = false; }
+        function nextQuestion() { if (currentQuestion < quizQuestions.length - 1) { currentQuestion++; answered = false; loadQuestion(); } else { showResults(); } }
+        function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; answered = false; loadQuestion(); } }
+        function showResults() { const percentage = Math.round((score / quizQuestions.length) * 100); let message; if (percentage >= 90) { message = 'Outstanding'; } else if (percentage >= 75) { message = 'Great work'; } else if (percentage >= 60) { message = 'Good effort'; } else { message = 'Revisit the module and try again'; } document.getElementById('quiz-container').innerHTML = `<div class="quiz-card results-card"><h3>${message}</h3><div class="score-display"><span class="score-number">${score}</span> / ${quizQuestions.length}</div><div class="percentage">${percentage}%</div><button onclick="startQuiz()" class="start-quiz-btn" style="margin-top: 20px;">Retake Quiz</button></div>`; }
+    </script>
+</body>
+</html>
