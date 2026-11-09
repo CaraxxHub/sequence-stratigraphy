@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="assets/access.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Lithostratigraphy vs Sequence Stratigraphy | Sequence Stratigraphy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/platform.css">
+    <style>
+        /* Module 3 page-specific styles */
+        .logout-btn { background: var(--fau-blue); color: #fff; border: 0; border-radius: 6px; padding: 7px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .logout-btn:hover { background: var(--fau-blue-dark); }
+        .nav-links .logout-btn { margin-left: 8px; flex: 0 0 auto; }
+        .nav-links a { white-space: nowrap; }
+        .figure-container a.zoom { display: block; cursor: zoom-in; }
+        .fig-hint { display: block; text-align: right; font-size: 0.78rem; color: var(--gray-500); margin-top: 6px; }
+        .brand-mark { width: 38px; height: 38px; border-radius: 8px; background: var(--fau-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+        .figure-container img.wide { max-width: 100%; height: auto; }
+        details.answer { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+        details.answer summary { cursor: pointer; font-weight: 600; color: var(--fau-blue); }
+        details.answer[open] summary { margin-bottom: 10px; }
+        .lede { font-size: 1.05rem; color: var(--gray-700); }
+        .formula { font-family: "Merriweather", Georgia, serif; background: var(--gray-100); border-radius: 8px; padding: 10px 14px; margin: 12px 0; text-align: center; overflow-x: auto; }
+        /* calculator */
+        .calc { border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px; background: #fff; margin: 20px 0; }
+        .calc h4 { color: var(--fau-blue); margin-bottom: 10px; }
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+        .calc label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+        .calc input[type=number] { width: 100%; padding: 8px 10px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 1rem; font-family: inherit; }
+        .calc .hint { font-size: 0.78rem; color: var(--gray-500); }
+        .calc-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+        .calc-btns button { border: 1px solid var(--fau-blue); background: #fff; color: var(--fau-blue); border-radius: 6px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
+        .calc-btns button:hover { background: var(--fau-blue); color: #fff; }
+        .calc-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 14px; }
+        .calc-out div { background: var(--gray-50); border-radius: 8px; padding: 10px 12px; }
+        .calc-out .k { font-size: 0.78rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.03em; }
+        .calc-out .v { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); }
+        .calc-verdict { margin-top: 12px; padding: 12px 14px; border-radius: 8px; border-left: 4px solid var(--fau-blue); background: #EEF4FB; }
+        .calc-verdict.fr { border-left-color: #B03A2E; background: #FBEDEB; }
+        .calc-verdict.nr { border-left-color: #1E7B5A; background: #EAF6F0; }
+        .scen-table td, .scen-table th { text-align: center; }
+        @media (max-width: 640px) {
+            .header-top { font-size: 0.7rem; }
+            .header-main { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 12px; }
+            .site-subtitle { display: none; }
+            .nav-links { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-links a { white-space: nowrap; padding: 6px 10px; flex: 0 0 auto; }
+            .data-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.gzn.nat.fau.de">GeoZentrum Nordbayern</a> › <a href="index.html">Sequence Stratigraphy</a> › Module 4
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <a href="index.html" class="site-brand">
+                <div class="brand-mark">SS</div>
+                <div class="brand-divider"></div>
+                <div>
+                    <div class="site-title">Sequence Stratigraphy</div>
+                    <div class="site-subtitle">MSc Course · Seismo- und Sequenzstratigraphie (AS-F1 / GT-F1)</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="module0_course_skeleton.html">Course</a>
+                <a href="module1_shoreline_shifts.html">Shoreline shifts</a>
+                <a href="module2_history_concepts.html">History</a>
+                <a href="module3_controlling_factors.html">Controls</a>
+                <a href="module4_litho_vs_sequence.html" class="active">Correlation</a>
+                <button class="logout-btn" type="button" onclick="SeqAccess.logout()">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Module 4 · Lecture 3 (Block 4) · ~90 minutes</div>
+            <h1>Lithostratigraphy vs Sequence Stratigraphy</h1>
+            <p class="hero-description">A line between two rocks or a line between two moments: facies, Walther’s Law, the time significance of surfaces, and how to correlate</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="objectives">
+            <h2>Learning Objectives</h2>
+            <ul>
+                <li>Explain why the types of stratigraphy differ in the property they analyse, and why sequence stratigraphy depends on interpretation</li>
+                <li>Distinguish lithostratigraphic surfaces (facies contacts) from sequence stratigraphic surfaces, and explain why the two commonly do not coincide</li>
+                <li>Define isochronous and diachronous surfaces, and rank surfaces by their reliability as time markers (event- vs stage-significant)</li>
+                <li>Define allostratigraphy and place it between lithostratigraphy and sequence stratigraphy, including the debate on parasequences</li>
+                <li>Apply Walther’s Law to a vertical succession, and recognise where it does not apply</li>
+                <li>Interpret grain-size and thickness trends and stacking patterns, and explain why a trend alone is not an interpretation</li>
+                <li>Correlate sections by surfaces rather than by rock types, following a stepwise workflow</li>
+                <li>Use the case studies (SE Germanic Basin; coastal Fars, Iran) to explain how facies, composition and biostratigraphy support a correlation</li>
+            </ul>
+        </div>
+
+        <!-- PART I -->
+        <section class="section">
+            <h2>Part I: Two Ways to Subdivide a Basin Fill</h2>
+            <h3>1. Same rocks, different questions</h3>
+            <p class="lede">Every sedimentary succession can be described at many scales, and at every scale three different questions can be asked about it. Lithostratigraphy asks <em>what is the rock?</em> Facies analysis asks <em>where did it form?</em> Sequence stratigraphy asks <em>how did the depositional trends change through time?</em> The first is answered by description, the second needs interpretation, and the third cannot be answered without the second.</p>
+            <p>Heinz &amp; Aigner (2003) organised their observations of Quaternary gravels in the Rhine glacier area (SW Germany) in a hierarchy of nested units, from particles and strata through larger depositional and facies bodies to genetic sequences and the basin fill. Figure 1 is a simplified version used in the lecture (particles, strata, facies units, architectural elements, sequences). Each scale is studied with different data, from samples and cores to outcrops, ground-penetrating radar and seismic.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_heinzaigner2003.jpg" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_heinzaigner2003.jpg" style="max-width:720px" alt="Published spiral diagram: 1 particles, 2 strata, 3 facies units, 4 architectural elements, 5 sequences, with the data used at each scale around the outside." loading="lazy" width="1215" height="915"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 1.</strong> Hierarchy of sedimentary units from particles to sequences, with the data used at each scale. <em>Source: modified after Heinz &amp; Aigner (2003), International Journal of Earth Sciences 92; the original hierarchy has six levels.</em></figcaption>
+            </figure>
+
+            <h3>2. Every stratigraphy analyses one property</h3>
+            <p>Stratigraphy is a family of methods, each defined by the property it analyses (Catuneanu, 2006, Fig. 1.3):</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Stratigraphy</th><th>Property analysed</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Lithostratigraphy</strong></td><td><strong>lithology</strong></td></tr>
+                        <tr><td>Biostratigraphy</td><td>fossils</td></tr>
+                        <tr><td>Magnetostratigraphy</td><td>magnetic polarity</td></tr>
+                        <tr><td>Chemostratigraphy</td><td>chemical properties</td></tr>
+                        <tr><td>Chronostratigraphy</td><td>absolute ages</td></tr>
+                        <tr><td>Allostratigraphy</td><td>discontinuities</td></tr>
+                        <tr><td>Seismic stratigraphy</td><td>seismic data</td></tr>
+                        <tr><td><strong>Sequence stratigraphy</strong></td><td><strong>depositional trends</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Lithology, fossils or polarity can be measured or described. Depositional trends (aggradation vs erosion, progradation vs retrogradation) cannot: they are interpreted from facies and their stacking. Catuneanu (2006) draws the consequence: conventional correlations need little interpretation, whereas a sequence stratigraphic framework depends on the interpretation of the data. That is its strength, because it allows prediction, and its risk, because a wrong facies interpretation gives a wrong framework. The trends themselves are controlled by the interplay of sedimentation and base-level shifts (Modules 1 and 3).</p>
+
+            <h3>3. Two kinds of lines on a cross-section</h3>
+            <p>Figure 2 (Catuneanu, 2006, Fig. 1.12) plots time against distance along dip. Three formations sit side by side: a fluvial system (A), a coastal system (B) and a shallow-marine system (C). The dashed boundaries between them are <strong>lithostratigraphic surfaces</strong>: facies contacts that run across time, so they are highly diachronous. The solid lines are <strong>sequence stratigraphic surfaces</strong>: they mark changes in depositional trends, here set by the turnaround points between transgression and regression, so they are event-significant.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig1-12.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig1-12.png" style="max-width:820px" alt="Published time-distance diagram: three formations (fluvial, coastal, shallow marine) whose boundaries zig-zag diagonally across horizontal sequence stratigraphic surfaces; a sequence and a systems tract are labelled." loading="lazy" width="1600" height="916"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 2.</strong> Conceptual contrast between lithostratigraphy and sequence stratigraphy. <em>Source: Catuneanu (2006), Fig. 1.12, <i>Principles of Sequence Stratigraphy</i>, Elsevier.</em></figcaption>
+            </figure>
+            <div class="key-concept">
+                <h4>Read the figure carefully</h4>
+                <p>The formation boundaries cross the sequence boundaries; each systems tract contains all three formations, and each formation belongs to several systems tracts. In this example there is no break in sedimentation: the cyclicity comes only from the shifting balance between the rate of base-level rise and the sedimentation rate (Catuneanu, 2006, caption of Fig. 1.12). A sequence does not need an unconformity.</p>
+            </div>
+
+            <h3>4. One section, subdivided twice</h3>
+            <p>The contrast is visible even in a single vertical profile (Figure 3; Catuneanu, 2006, Fig. 1.13, modified from Posamentier &amp; Allen, 1999). Lithostratigraphy defines formations and members by lithology, often irrespective of depositional environment; sequence stratigraphy defines units by the event-significance of their bounding surfaces. At the top of the profile the boundary between formations B and C coincides with a subaerial unconformity. Lower down, the two schemes part: formation A contains the highstand deposits of the older sequence and the thin fluvial or estuarine unit above the lower unconformity, so a sequence boundary runs inside formation A; and the member boundary in formation B does not coincide with the maximum flooding surface. The curve is a gamma-ray log; we do not cover well logs in this course, so read it simply as a proxy for grain size.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig1-13.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig1-13.png" style="max-width:820px" alt="Published figure: lithostratigraphic column (formations A to C, members 1 and 2), gamma-ray log, sequence stratigraphic column with subaerial unconformities, wave ravinement surface, maximum flooding surface and systems tracts, and facies column." loading="lazy" width="1545" height="675"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 3.</strong> Lithostratigraphic and sequence stratigraphic interpretations of the same vertical profile. <em>Source: Catuneanu (2006), Fig. 1.13, modified from Posamentier &amp; Allen (1999).</em></figcaption>
+            </figure>
+
+            <h3>5. Time lines and diachronous surfaces</h3>
+            <p>An <strong>isochronous</strong> surface has the same age everywhere: it is a time line. A <strong>diachronous</strong> surface has different ages in different places; in a time–distance plot its slope is the rate of diachroneity (Figure 4). Facies contacts are diachronous by nature, because a facies boundary travels with the environment that produced it. Sequence stratigraphic surfaces are generally of low diachroneity, but they are not perfectly isochronous: geoscientists use them as <em>proxies</em> for time lines. True time markers exist, such as bentonites (altered volcanic ash beds) and magnetic polarity reversals, but they are not always present.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig7-22.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig7-22.png" style="max-width:560px" alt="Published time-distance plot with a horizontal isochronous line at T2 and an inclined diachronous line from T1 at point A to T3 at point B; alpha marks the diachroneity rate." loading="lazy" width="1050" height="487"></a>
+                <figcaption class="figure-caption"><strong>Figure 4.</strong> Isochronous and diachronous (time-transgressive) surfaces; α is the rate of diachroneity. <em>Source: Catuneanu (2006), Fig. 7.22.</em></figcaption>
+            </figure>
+            <p>Why accept a proxy? Discussing the boundaries between systems tracts, Catuneanu (2006, p. 308) quotes Posamentier &amp; Allen (1999): even if these surfaces are diachronous on the scale of the basin, the difference in age is commonly below biostratigraphic resolution. Being below the resolution does not make a surface isochronous: it means the diachroneity cannot be measured with the data at hand. The estimator below makes this concrete. It also shows why the strongly time-transgressive surfaces (Section 6) are still treated with caution.</p>
+
+            <div class="calc" id="diach">
+                <h4>Diachroneity estimator (for a surface that forms while the shoreline moves)</h4>
+                <p class="hint" style="margin-bottom:10px">A stage-significant surface (Section 6) forms progressively as the shoreline moves, so its age changes along dip at the rate of shoreline shift. Enter schematic values; this is arithmetic, not data.</p>
+                <div class="calc-grid">
+                    <div><label for="dD">Distance along dip (km)</label><input type="number" id="dD" value="30" min="0" step="1"></div>
+                    <div><label for="dR">Rate of shoreline shift (km/kyr)</label><input type="number" id="dR" value="1" min="0" step="0.1"><span class="hint">1 km/kyr = 1 m/yr</span></div>
+                    <div><label for="dB">Best available time resolution (kyr)</label><input type="number" id="dB" value="400" min="0" step="10"><span class="hint">e.g. the span of the finest biozone</span></div>
+                </div>
+                <div class="calc-out">
+                    <div><div class="k">Age difference along the surface</div><div class="v" id="dT">–</div></div>
+                    <div><div class="k">Detectable at this resolution? (rule of thumb)</div><div class="v" id="dV">–</div></div>
+                </div>
+            </div>
+
+            <h3>6. Not every surface is an equally good time marker</h3>
+            <p>Catuneanu (2006, Fig. 7.31; Figure 5) divides the surfaces of sequence stratigraphy into two families:</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Family</th><th>Surfaces</th><th>How they form</th><th>Diachroneity along dip</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Event-significant</strong></td><td>correlative conformities, maximum regressive surface, maximum flooding surface</td><td>at a change in the direction or type of shoreline shift</td><td>limited by the rate of sediment transport: quasi-time lines</td></tr>
+                        <tr><td><strong>Stage-significant</strong></td><td>subaerial unconformity, transgressive ravinement surfaces, regressive surface of marine erosion</td><td>during a stage of shoreline shift</td><td>set by the rate of shoreline shift: clearly diachronous</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Along strike, all surfaces become more diachronous where subsidence and sedimentation rates vary along the coast. The practical rule: build a time framework on the event-significant surfaces whenever you can, and remember that a ravinement surface or a subaerial unconformity is a surface, not a moment. These surfaces are treated one by one in the next module.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig7-31.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig7-31.png" style="max-width:780px" alt="Published table listing sequence stratigraphic surfaces (event-significant and stage-significant) and within-trend facies contacts, with the controls on their diachroneity along dip and along strike." loading="lazy" width="1600" height="1106"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 5.</strong> Controls on the rates of diachroneity of the surfaces of sequence stratigraphy and of within-trend facies contacts. (1) low, generally below biostratigraphic or radiometric resolution; (2) low to high; (3) high, potentially within that resolution. <em>Source: Catuneanu (2006), Fig. 7.31.</em></figcaption>
+            </figure>
+
+            <h3>7. Allostratigraphy</h3>
+            <p>Allostratigraphic units were introduced in the 1983 North American Stratigraphic Code (NACSN, 1983). As currently amended (NACSN, 2005, Art. 58, quoted in Catuneanu, 2006, p. 13), an allostratigraphic unit is “a mappable body of rock that is defined and identified on the basis of its bounding discontinuities”. Units, in decreasing rank: allogroup, alloformation (the fundamental unit) and allomember. Any mappable lithological contact may qualify as a boundary, with or without a hiatus: any of the contacts in Figure 6. Catuneanu (2006) places allostratigraphy between lithostratigraphy and sequence stratigraphy: it takes lithostratigraphy to a higher level of genetic interpretation. Unlike sequence stratigraphy, it does not require the bounding contacts to be interpreted in terms of base-level change and shoreline shift.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig1-16.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig1-16.png" style="max-width:640px" alt="Published list of stratigraphic contacts with sketches: unconformity types (disconformity, paraconformity, angular unconformity, nonconformity), diastem and conformity." loading="lazy" width="1600" height="1540"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 6.</strong> Types of stratigraphic contacts. <em>Source: Catuneanu (2006), Fig. 1.16; definitions from Bates &amp; Jackson (1987).</em></figcaption>
+            </figure>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead><tr><th></th><th>Lithostratigraphy</th><th>Allostratigraphy</th><th>Sequence stratigraphy</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Units bounded by</strong></td><td>lithological contacts</td><td>mappable discontinuities</td><td>surfaces that mark changes in depositional trends</td></tr>
+                        <tr><td><strong>Interpretation</strong></td><td>little; describes rock types</td><td>contacts mapped; interpretation in terms of base level not required</td><td>facies analysis and shoreline shifts required</td></tr>
+                        <tr><td><strong>Time significance</strong></td><td>boundaries often highly diachronous</td><td>depends on the contact</td><td>low diachroneity; proxies for time lines</td></tr>
+                        <tr><td><strong>Units</strong></td><td>group, formation, member</td><td>allogroup, alloformation, allomember</td><td>sequence, systems tract</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The same physical contact can be all three at once: a lithostratigraphic boundary, an allostratigraphic boundary and a sequence stratigraphic surface. What changes is the question asked about it.</p>
+
+            <div class="case-study">
+                <h4>Case study: parasequences, an allostratigraphic misfit?</h4>
+                <p>The parasequence was defined as a relatively conformable succession of genetically related beds or bedsets bounded by marine-flooding surfaces, typically shallowing upward, and introduced as the building block of seismic-scale systems tracts (Van Wagoner et al., 1990). Figure 7 shows two classic examples: (A) a tidal flat shallowing from subtidal sandstone to supratidal mudstone and coal; (B) a wave-dominated shoreface shallowing from offshore mudstone to foreshore sandstone.</p>
+                <p>Catuneanu &amp; Zecchin (2020) argue that flooding surfaces are allostratigraphic contacts, restricted to coastal and shallow-water settings where an abrupt deepening can be demonstrated. Parasequences therefore have a smaller extent than systems tracts, and systems tracts do not always consist of stacked parasequences. They propose to use sequences and systems tracts at all scales, including high resolution. The concept is still in use: Colombera &amp; Mountney (2020) studied 1163 parasequences in a database to examine their geological significance. This course follows the model-independent approach, but you will meet parasequences throughout the literature.</p>
+                <figure class="figure-container" style="margin-bottom:0">
+                    <a class="zoom" href="img/m4/pub_catuneanuzecchin2020.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanuzecchin2020.png" style="max-width:600px" alt="Published figure: cross-section with locations A and B, and two vertical logs: a tidal-flat parasequence (A) and a wave-dominated shoreface parasequence (B), each bounded by flooding surfaces." loading="lazy" width="941" height="779"></a>
+                    <figcaption class="figure-caption"><strong>Figure 7.</strong> Parasequences in a tidal-flat (A) and a wave-dominated shoreface (B) setting. <em>Source: Catuneanu &amp; Zecchin (2020), Earth-Science Reviews 208.</em></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- PART II -->
+        <section class="section">
+            <h2>Part II: From Facies to Depositional Trends</h2>
+            <h3>8. Two observations decide every surface</h3>
+            <p>“The interpretation of sequence stratigraphic surfaces is based on two fundamental observations: the type of stratigraphic contact, conformable or unconformable; and the nature of facies (depositional systems) which are in contact across each particular surface” (Catuneanu, 2006, p. 12). Neither observation is lithology alone. The reconstruction of paleodepositional environments is therefore a prerequisite for sequence stratigraphy, whereas a lithostratigraphic cross-section requires only the mapping of lithological contacts.</p>
+            <ul style="margin: 0 0 16px 24px;">
+                <li><strong>Type of contact:</strong> conformable or unconformable; scoured or sharp; evidence of a hiatus (soils, roots, lags, hardgrounds).</li>
+                <li><strong>Facies across the contact:</strong> which depositional systems meet, and whether they are genetically related or juxtaposed.</li>
+            </ul>
+
+            <h3>9. Walther’s Law</h3>
+            <p>Walther’s Law links vertical and lateral changes of facies. In Middleton’s (1973) wording: “in a conformable succession, the only facies that can occur together in vertical succession are those that can occur side by side in nature.” Catuneanu (2006, Fig. 2.6) adds: a vertical change of facies implies a corresponding lateral shift of facies within a relatively conformable succession of genetically related strata. The principle applies at the scale of a depositional system and at the scale of systems tracts, whose internal architecture consists of progradational or retrogradational shifts of facies.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/m4_walther.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/m4_walther.png" alt="Schematic: (A) a prograding delta with delta plain, delta front and prodelta side by side on time lines t1 to t4; (B) the vertical column at a well shows the same facies stacked from prodelta at the base to delta plain at the top; (C) braided fluvial deposits directly on prodelta mud across a subaerial unconformity." loading="lazy" width="1600" height="689"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 8.</strong> (A) Lateral: facies belts side by side on each time line of a prograding delta. (B) Vertical: a well records the same order, bottom to top. (C) Across a subaerial unconformity (SU), facies that were never neighbours are stacked, and Walther’s Law does not apply. <em>Own schematic; concept after Walther (1894), as discussed in Catuneanu (2006).</em></figcaption>
+            </figure>
+
+            <h3>10. Where Walther’s Law stops working</h3>
+            <p>Vertical changes across a sequence-bounding unconformity may juxtapose genetically unrelated successions, and must not be used to reconstruct the paleogeography of one time slice (Catuneanu, 2006, p. 21). Figure 9 shows the contact between the Burgersdorp Formation and the overlying Molteno Formation (Triassic, Karoo Basin): meandering fluvial deposits with lateral accretion below, amalgamated braided systems above, an abrupt increase in energy, and a stratigraphic hiatus of about 7 Myr (Catuneanu et al., 1998a, in Catuneanu, 2006).</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig2-7.jpg" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig2-7.jpg" style="max-width:760px" alt="Published outcrop photograph with arrows marking the contact between the Burgersdorp and Molteno formations in the Karoo Basin." loading="lazy" width="1530" height="832"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 9.</strong> Subaerial unconformity (arrows) between the Burgersdorp and Molteno formations, Triassic, Karoo Basin. <em>Source: Catuneanu (2006), Fig. 2.7.</em></figcaption>
+            </figure>
+            <div class="warning-box">
+                <h4>Cryptic unconformities</h4>
+                <p>In proximal successions of coarse braided-fluvial deposits, a subaerial unconformity can be difficult to distinguish from any other channel scour (Miall, 1999, in Catuneanu, 2006). Where facies and paleocurrents do not change across it, petrographic studies of framework grains and cements may provide the only solid criteria. Catuneanu (2006, p. 22) cites the Lower Castlegate Sandstone (Book Cliffs, Utah), where a nonmarine sequence boundary was traced into a continuous braided succession only by subtle changes in detrital composition, and notes that secondary glauconite formed under subaerial conditions can help recognise sequence-bounding unconformities, while the distribution of early diagenetic clay minerals may indicate changes in accommodation and the position of sequence stratigraphic surfaces.</p>
+            </div>
+
+            <h3>11. Vertical trends: what you can measure</h3>
+            <p>In outcrop or core you can measure grain size and bed thickness (Figure 10). Coarsening upward occurs, for example, in a prograding shoreface or delta front; fining upward in a channel fill or a transgressive succession; thickening and thinning upward commonly reflect increasingly proximal or distal positions. But a trend is not an interpretation. A coarsening-upward package can be a prograding shoreface, or a crevasse splay building into a floodplain far from any shoreline. Only trend + facies + the nature of the contacts gives an interpretation of shoreline shift.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/m4_trends.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/m4_trends.png" alt="Schematic columns: coarsening upward, fining upward, thickening upward and thinning upward." loading="lazy" width="1600" height="588"></a>
+                <figcaption class="figure-caption"><strong>Figure 10.</strong> Grain-size and bed-thickness trends. <em>Own schematic.</em></figcaption>
+            </figure>
+
+            <h3>12. Stacking patterns</h3>
+            <p>How successive upward-shallowing units are stacked records the balance between sedimentation and accommodation (concept after Van Wagoner et al., 1990): <strong>progradational</strong> when sedimentation outpaces accommodation, <strong>aggradational</strong> when the two keep pace, <strong>retrogradational</strong> when accommodation outpaces sedimentation (Figure 11). This is the same balance that controls shoreline trajectories (Module 1), written in the rock, and it is the observational basis for systems tracts later in the course. Stacking patterns can also be recognised from grain-size trends and facies alone, where no flooding surface is visible.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/m4_stacking.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/m4_stacking.png" alt="Schematic: progradational, aggradational and retrogradational stacking of four sand-to-mud units, with shoreline positions marked." loading="lazy" width="1600" height="541"></a>
+                <figcaption class="figure-caption"><strong>Figure 11.</strong> Progradational, aggradational and retrogradational stacking. Blue lines: flooding surfaces bounding upward-shallowing units; red triangles: shoreline position at the end of each unit. <em>Own schematic; concept after Van Wagoner et al. (1990).</em></figcaption>
+            </figure>
+
+            <div class="case-study">
+                <h4>Case study: Permian–Triassic of the SE Germanic Basin (NE Bavaria)</h4>
+                <p>Ravidà et al. (2022) studied the cored wells Obernsees-1 and Lindau-1, from the Middle Permian into the Triassic Buntsandstein (Figure 12). The depth columns carry the lithostratigraphic units (Rotliegend, Zechstein, Lower, Middle and Upper Buntsandstein). Next to them are the sedimentological logs, deepening- and shallowing-upward trends derived from vertical changes in grain size and facies associations, and detrital modes from sandstone petrography. The Permian–Triassic boundary is drawn in both wells; the onset of braided fluvial sequences marks it.</p>
+                <figure class="figure-container">
+                    <a class="zoom" href="img/m4/pub_ravida2022_wells.jpg" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_ravida2022_wells.jpg" alt="Published figure: sedimentological logs, lithostratigraphy, detrital-mode curves and deepening- and shallowing-upward trend triangles for wells Obernsees-1 and Lindau-1, with the Permian-Triassic boundary correlated between them." loading="lazy" width="1600" height="1073"></a>
+                    <span class="fig-hint">Click to open full resolution</span>
+                    <figcaption class="figure-caption"><strong>Figure 12.</strong> Wells Obernsees-1 and Lindau-1: lithostratigraphy, facies, vertical trends and detrital composition. <em>Source: Ravidà et al. (2022), Sedimentology 69.</em></figcaption>
+                </figure>
+                <p>Figure 13 translates the Obernsees-1 core into paleoenvironments: alluvial fans passing into fan deltas in the Upper Rotliegend; sabkha and meandering rivers in the Zechstein; braided rivers at the base of the Buntsandstein; then changes in fluvial style and aeolian deposition higher up. The formation names come from lithology; the landscapes come from facies analysis, that is, from Walther’s Law applied to the core. Most of the succession is continental, without clinoforms or marine flooding surfaces. The detrital composition shows that the two wells recorded distinct drainage evolutions, which the authors attribute to upstream climatic and tectonic controls.</p>
+                <figure class="figure-container" style="margin-bottom:0">
+                    <a class="zoom" href="img/m4/pub_ravida2022_environments.jpg" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_ravida2022_environments.jpg" style="max-width:480px" alt="Published series of block diagrams for Obernsees-1 from the Upper Rotliegend to the Upper Buntsandstein." loading="lazy" width="662" height="824"></a>
+                    <figcaption class="figure-caption"><strong>Figure 13.</strong> Environmental evolution reconstructed from the Obernsees-1 core. <em>Source: Ravidà et al. (2022).</em></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- PART III -->
+        <section class="section">
+            <h2>Part III: Correlation</h2>
+            <h3>13. Correlate surfaces, not rock types</h3>
+            <p>A sandstone in one section and a sandstone in the next are not necessarily the same age, because facies belts shift through time. The surfaces that record those shifts are the closest we get to time lines. A stepwise workflow, following the logic of Catuneanu (2006, caption of Fig. 1.15):</p>
+            <ol style="margin: 0 0 16px 24px;">
+                <li><strong>Facies analysis</strong> in every section: interpret depositional environments.</li>
+                <li><strong>Trends and contacts:</strong> grain size, thickness and stacking; conformable or not.</li>
+                <li><strong>Key surfaces:</strong> identify them in each section from steps 1–2.</li>
+                <li><strong>Correlate the surfaces</strong>, starting with the best time markers.</li>
+                <li><strong>Add the facies contacts</strong> within each package last.</li>
+            </ol>
+
+            <h3>14. The same data in two frameworks</h3>
+            <p>Figure 14 (Catuneanu, 2006, Fig. 1.15) shows the workflow. Panel 1: vertical profiles with interpreted paleoenvironments (meandering and braided fluvial, estuary mouth and central estuary, delta plain, delta front). Panel 2: the sequence stratigraphic framework: subaerial unconformities, a wave-ravinement surface, a maximum flooding surface, a maximum regressive surface and higher-frequency maximum regressive surfaces (deltaic clinoforms, close to time lines). Catuneanu notes that all are good chronostratigraphic markers except the wave-ravinement surface, which is highly diachronous; recall from Section 6 that the subaerial unconformity is also stage-significant.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig1-15a.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig1-15a.png" alt="Published panels 1 and 2: vertical profiles with paleoenvironments, and the sequence stratigraphic framework of correlated surfaces." loading="lazy" width="1600" height="847"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 14.</strong> Data (1) and sequence stratigraphic framework (2). <em>Source: Catuneanu (2006), Fig. 1.15, panels 1–2.</em></figcaption>
+            </figure>
+            <p>Panel 3 places the facies inside the framework (A meandering, B braided, C estuary mouth, D central estuary, E delta plain, F upper delta front, G lower delta front–prodelta). Panel 4 is the lithostratigraphic section of the same data: formation A is sandstone-dominated, B and C are mudstone-dominated with silty and sandy interbeds, and B and C are separated by A. Formation A combines sandstones of different environments and ages. As Catuneanu puts it, lithostratigraphic units give only descriptive information on lithological distribution, which may give little insight into paleogeography and so be of little use for predicting lithologies away from the data points.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/pub_catuneanu2006_fig1-15b.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_catuneanu2006_fig1-15b.png" alt="Published panels 3 and 4: sequence stratigraphic cross-section with facies A to G, and lithostratigraphic cross-section with formations A, B and C." loading="lazy" width="1600" height="759"></a>
+                <span class="fig-hint">Click to open full resolution</span>
+                <figcaption class="figure-caption"><strong>Figure 15.</strong> Sequence stratigraphic (3) and lithostratigraphic (4) cross-sections of the same data. <em>Source: Catuneanu (2006), Fig. 1.15, panels 3–4.</em></figcaption>
+            </figure>
+
+            <h3>15. Try it: correlate three sections</h3>
+            <p>Three sections, 5 km apart (Figure 16). Before opening the solution, answer: where are the most proximal and most distal environments? Which horizons could be time lines? Which contacts are facies boundaries that shift through time? Legend: Kohle = coal; Siltstein mit Pflanzenhäckseln = siltstone with plant debris; Mittel-/Grobsandstein = medium/coarse sandstone; Fein-/Mittelsandstein = fine/medium sandstone; karbonatzementierter Horizont = carbonate-cemented horizon; sandiger Siltstein = sandy siltstone; mariner Tonstein = marine mudstone.</p>
+            <figure class="figure-container">
+                <a class="zoom" href="img/m4/course_exercise_logs.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/course_exercise_logs.png" style="max-width:760px" alt="Three lithological logs 5 km apart with coal, sandstones, carbonate-cemented horizons and marine mudstone." loading="lazy" width="1164" height="801"></a>
+                <figcaption class="figure-caption"><strong>Figure 16.</strong> Correlation exercise. <em>Course exercise (Übung 2.1a).</em></figcaption>
+            </figure>
+            <details class="answer">
+                <summary>Show one possible solution</summary>
+                <figure class="figure-container">
+                    <img class="wide" src="img/m4/course_exercise_solution.png" style="max-width:700px" alt="Solution: green dashed isochronous time lines (flooding surfaces) and blue dotted diachronous facies boundaries between the three logs." loading="lazy" width="893" height="625">
+                    <figcaption class="figure-caption"><strong>Figure 17.</strong> Green dashed: isochronous time lines, here flooding surfaces. Blue dotted: diachronous facies boundaries. <em>Course exercise (Übung 2.1a).</em></figcaption>
+                </figure>
+                <p>Proximal environments (coal, coarser sand) are on the left; distal ones (marine mudstone) on the right. The time lines, interpreted as flooding surfaces, follow the carbonate-cemented horizons and the bases of the coal beds in the proximal sections and continue into the marine mudstone. The facies boundaries climb across the section: between two time lines, each sand body steps basinward. A layer-cake correlation of sand to sand would cross the time lines.</p>
+            </details>
+
+            <div class="case-study">
+                <h4>Case study: Albian–Turonian carbonate platforms, coastal Fars (SW Iran)</h4>
+                <p>Vincent et al. (2015) studied a 300 km transect with five outcrop sections (Kazhdumi and Sarvak formations). In the Albian the system was a muddy carbonate ramp rich in orbitolinid foraminifers; in the Cenomanian–Turonian, rudist-rimmed platforms around intra-shelf basins. Combining facies, texture and new biostratigraphic data, they recognised three Albian, three Cenomanian and one Turonian third-order sequence, as stated in the abstract (Figure 18). Several sequence boundaries record long subaerial exposure, with local soils and continental deposits; the expression of exposure varies laterally, and where macroscopic evidence was lacking, petrography and carbon and oxygen stable isotopes revealed it.</p>
+                <figure class="figure-container">
+                    <a class="zoom" href="img/m4/pub_vincent2015_section.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_vincent2015_section.png" style="max-width:480px" alt="Published log of one section with bedding, lithology, texture, numbered sequence boundaries, sequences shown as triangles and depositional environments." loading="lazy" width="599" height="701"></a>
+                    <span class="fig-hint">Click to open full resolution</span>
+                    <figcaption class="figure-caption"><strong>Figure 18.</strong> One section with sequence boundaries (1–5), sequences and depositional environments. <em>Source: Vincent et al. (2015), Marine and Petroleum Geology 63.</em></figcaption>
+                </figure>
+                <p>The regional correlation (Figure 19) was constrained by ammonite biostratigraphy and sedimentological data. The sequences change facies and thickness between sections; the Cenomanian–Turonian interval varies from 0 to 300 m, controlled by the Qatar–Fars high and by salt domes. The correlation is by sequences, tested by biostratigraphy, not by matching similar limestones.</p>
+                <figure class="figure-container" style="margin-bottom:0">
+                    <a class="zoom" href="img/m4/pub_vincent2015_correlation.png" target="_blank" rel="noopener"><img class="wide" src="img/m4/pub_vincent2015_correlation.png" alt="Published correlation panel of sequences between the Khormuj, Khartang, Namak, Asaluyeh and Gach sections." loading="lazy" width="1117" height="491"></a>
+                    <span class="fig-hint">Click to open full resolution</span>
+                    <figcaption class="figure-caption"><strong>Figure 19.</strong> Correlation of sequences across coastal Fars. <em>Source: Vincent et al. (2015).</em></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- GOING FURTHER -->
+        <section class="section">
+            <h2>Going Further</h2>
+            <div class="research-box">
+                <h4>“Relatively conformable” depends on scale</h4>
+                <p>Walther’s Law applies within relatively conformable successions. Catuneanu (2019a, Fig. 82 and accompanying text) points out that relative conformity is scale-dependent: a relatively conformable succession may contain internal unconformities of equal or lower hierarchical rank, as long as the strata below and above remain genetically related in a paleogeographic context at the selected scale. An unconformable maximum flooding surface formed by sediment starvation, underlain and overlain by marine condensed sections, preserves that continuity. Conversely, a genetic sequence may include a subaerial unconformity of equal rank that breaks paleogeographic continuity where it is developed. Before applying Walther’s Law, decide at which scale you are working.</p>
+            </div>
+            <div class="research-box">
+                <h4>Biostratigraphy tests the framework</h4>
+                <p>In coastal Fars, ammonite biostratigraphy constrained the correlation of sequences, and petrography and stable isotopes revealed exposure surfaces where field evidence was lacking. In the Germanic Basin, sandstone composition distinguished drainage systems that facies alone would not separate. Biostratigraphy is not a rival to sequence stratigraphy: it is an independent check that the surfaces used behave as time lines at the available resolution.</p>
+            </div>
+        </section>
+
+        <section class="section key-points">
+            <h2>Key Points Summary</h2>
+            <ul>
+                <li>Each stratigraphy analyses one property; sequence stratigraphy analyses depositional trends, which must be interpreted</li>
+                <li>Lithostratigraphic boundaries are drawn where the rock changes, sequence stratigraphic surfaces where the trend changes; they commonly do not coincide</li>
+                <li>Facies contacts are diachronous; sequence stratigraphic surfaces are proxies for time lines, accepted where diachroneity is below the available resolution</li>
+                <li>Event-significant surfaces (correlative conformities, MRS, MFS) are quasi-time lines along dip; stage-significant surfaces (SU, ravinement surfaces, RSME) are diachronous at the rate of shoreline shift</li>
+                <li>Allostratigraphy uses discontinuities without interpreting them in terms of base level; flooding surfaces, and hence parasequences, belong here (Catuneanu &amp; Zecchin, 2020)</li>
+                <li>Facies analysis comes first; surfaces are interpreted from the type of contact and the facies across it</li>
+                <li>Walther’s Law links vertical and lateral facies changes only within relatively conformable, genetically related successions; across unconformities it fails, and that failure is a clue</li>
+                <li>A trend is not an interpretation: trend + facies + contacts give the shoreline shift; stacking patterns record the balance of sedimentation and accommodation</li>
+                <li>Correlate surfaces, not rock types: build the framework first, then place the facies inside it</li>
+                <li>Independent data support the physical framework: biostratigraphy constrains correlations; petrography and isotopes reveal exposure surfaces and changes in sediment source</li>
+            </ul>
+        </section>
+
+        <section class="reference-list">
+            <h4>Key References</h4>
+            <p><strong>Core reading:</strong> Catuneanu, O. (2006) Principles of Sequence Stratigraphy. Elsevier, Amsterdam (pp. 2 and 10–15; pp. 21–22; pp. 308 and 321, Figs 7.22 and 7.31) • Catuneanu, O. (2019a) Model-independent sequence stratigraphy. Earth-Science Reviews 188, 312–388</p>
+            <p><strong>Parasequences:</strong> Catuneanu, O., Zecchin, M. (2020) Parasequences: allostratigraphic misfits in sequence stratigraphy. Earth-Science Reviews 208, 103289 • Colombera, L., Mountney, N.P. (2020) On the geological significance of clastic parasequences. Earth-Science Reviews 201, 103062 • Van Wagoner, J.C., Mitchum, R.M., Campion, K.M., Rahmanian, V.D. (1990) Siliciclastic Sequence Stratigraphy in Well Logs, Cores, and Outcrops. AAPG Methods in Exploration Series 7</p>
+            <p><strong>Principles and definitions:</strong> Bates, R.L., Jackson, J.A. (1987) Glossary of Geology, 3rd ed. American Geological Institute • Middleton, G.V. (1973) Johannes Walther’s Law of the correlation of facies. GSA Bulletin 84, 979–988 • NACSN (1983) North American Stratigraphic Code. AAPG Bulletin 67, 841–875 • NACSN (2005) North American Stratigraphic Code. AAPG Bulletin 89, 1547–1591 • Posamentier, H.W., Allen, G.P. (1999) Siliciclastic Sequence Stratigraphy: Concepts and Applications. SEPM Concepts in Sedimentology and Paleontology 7</p>
+            <p><strong>Cited as in Catuneanu (2006):</strong> Walther (1894); Miall (1999), on cryptic unconformities; Catuneanu et al. (1998a), on the Burgersdorp–Molteno hiatus</p>
+            <p><strong>Case studies:</strong> Heinz, J., Aigner, T. (2003) Hierarchical dynamic stratigraphy in various Quaternary gravel deposits, Rhine glacier area (SW Germany): implications for hydrostratigraphy. International Journal of Earth Sciences 92, 923–938 • Ravidà, D.C.G., Caracciolo, L., Henares, S., Janßen, M., Stollhofen, H. (2022) Drainage and environmental evolution across the Permo–Triassic boundary in the south-east Germanic Basin (north-east Bavaria). Sedimentology 69, 501–536 (doi:10.1111/sed.12913) • Vincent, B., van Buchem, F.S.P., Bulot, L.G., Jalali, M., Swennen, R., Hosseini, A.S., Baghbani, D. (2015) Depositional sequences, diagenesis and structural control of the Albian to Turonian carbonate platform systems in coastal Fars (SW Iran). Marine and Petroleum Geology 63, 46–67</p>
+        </section>
+
+        <section class="section quiz-section">
+            <h2>Self-Assessment Quiz</h2>
+            <p>Each question asks you to reason, not to recall. Options are shuffled every time the page loads.</p>
+            <button onclick="startQuiz()" class="start-quiz-btn">Start Quiz (15 Questions)</button>
+            <div id="quiz-container"></div>
+        </section>
+
+        <div class="module-nav">
+            <a href="module3_controlling_factors.html" class="nav-btn">← Previous: Controlling Factors</a>
+            <a href="index.html" class="nav-btn">Back to Home →</a>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>GeoZentrum Nordbayern</h4>
+                <p>Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                <p>Course Instructor: <a href="mailto:luca.caracciolo@fau.de">PD Dr. Luca Caracciolo</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const $ = id => document.getElementById(id);
+            function upd() {
+                const D = parseFloat($('dD').value), R = parseFloat($('dR').value), B = parseFloat($('dB').value);
+                if (!(D >= 0) || !(R > 0)) { $('dT').textContent = '–'; $('dV').textContent = 'enter a rate above 0'; return; }
+                const T = D / R;
+                $('dT').textContent = (Math.round(T * 10) / 10) + ' kyr';
+                $('dV').textContent = (B > 0) ? (T < B ? 'No: the diachroneity is below this resolution and cannot be measured, but the surface is still time-transgressive' : 'Yes: the surface is measurably diachronous') : '–';
+            }
+            ['dD', 'dR', 'dB'].forEach(id => $(id).addEventListener('input', upd)); upd();
+        })();
+        const quizQuestions = [
+            {
+                "question": "Why does a sequence stratigraphic framework depend on interpretation more than a lithostratigraphic one?",
+                "options": ["Because sequence stratigraphy analyses depositional trends, which must be inferred from facies and their stacking, whereas lithology can be described directly", "Because sequence stratigraphy uses seismic data, which always need processing", "Because lithostratigraphic units are defined by absolute ages", "Because sequence stratigraphy ignores facies and uses only unconformities"],
+                "correct": 0,
+                "explanation": "Each stratigraphy is defined by the property it analyses (Catuneanu, 2006, Fig. 1.3). Aggradation vs erosion and progradation vs retrogradation are interpretations; a rock type is a description."
+            },
+            {
+                "question": "In Catuneanu (2006, Fig. 1.12), how do the formation boundaries relate to the sequence boundaries?",
+                "options": ["They cross them: each systems tract contains all three formations, and each formation spans several systems tracts", "They coincide exactly, because both are drawn at lithological changes", "Formation boundaries are always younger than sequence boundaries", "They are parallel but offset by a constant time interval"],
+                "correct": 0,
+                "explanation": "The facies contacts are highly diachronous and cut across the event-significant sequence stratigraphic surfaces."
+            },
+            {
+                "question": "The example in Catuneanu (2006, Fig. 1.12) contains no break in sedimentation. What generates its sequences?",
+                "options": ["The shifting balance between the rate of base-level rise and the sedimentation rate", "Repeated subaerial unconformities", "Changes in lithology alone", "Autocyclic avulsion of the coastal system"],
+                "correct": 0,
+                "explanation": "With continuous aggradation, the cyclicity comes from changes in the balance of base-level rise and sedimentation, which make the shoreline alternate between transgression and regression. A sequence does not require an unconformity."
+            },
+            {
+                "question": "A transgressive wave-ravinement surface forms as the shoreline retreats 20 km landward at 0.5 km/kyr. What is the age difference between its ends, and can a 500-kyr biozone resolve it?",
+                "options": ["40 kyr; no, the diachroneity is below that resolution and cannot be measured, although the surface remains time-transgressive", "10 kyr; yes, because biozones always resolve ravinement surfaces", "40 kyr; yes, 40 kyr exceeds the biozone", "No age difference: ravinement surfaces are isochronous"],
+                "correct": 0,
+                "explanation": "Time = distance / rate = 20 / 0.5 = 40 kyr, far below 500 kyr, so a biozone cannot measure it. Below the resolution is not the same as isochronous: ravinement surfaces are stage-significant and highly diachronous (Catuneanu, 2006, p. 308 and Fig. 1.15)."
+            },
+            {
+                "question": "Which group contains only event-significant surfaces in the sense of Catuneanu (2006, Fig. 7.31)?",
+                "options": ["Correlative conformities, maximum regressive surface, maximum flooding surface", "Subaerial unconformity, maximum flooding surface, ravinement surfaces", "Regressive surface of marine erosion, maximum regressive surface", "All surfaces of sequence stratigraphy are event-significant"],
+                "correct": 0,
+                "explanation": "Event-significant surfaces mark a change in the direction or type of shoreline shift. The subaerial unconformity, ravinement surfaces and regressive surface of marine erosion form during a stage of shoreline shift (stage-significant)."
+            },
+            {
+                "question": "Why is a subaerial unconformity diachronous along dip?",
+                "options": ["It extends basinward for as long as forced regression lasts, so its age changes at the rate of shoreline shift", "Because it is a facies contact and not a sequence stratigraphic surface", "Because it is always overlain by marine deposits of different ages", "It is not: subaerial unconformities are perfectly isochronous"],
+                "correct": 0,
+                "explanation": "It is stage-significant: it forms during forced regression and reaches its maximum extent at the end of it (Catuneanu, 2006, pp. 112, 308)."
+            },
+            {
+                "question": "What defines an allostratigraphic unit?",
+                "options": ["A mappable body of rock defined and identified on the basis of its bounding discontinuities (North American Stratigraphic Code, Art. 58)", "A body of rock defined by its fossil content", "A unit bounded only by surfaces that formed at turnarounds of shoreline shift", "A unit defined by absolute ages"],
+                "correct": 0,
+                "explanation": "Any mappable lithological contact, with or without a hiatus, can bound an allostratigraphic unit. Unlike sequence stratigraphy, allostratigraphy does not require these contacts to be interpreted in terms of base-level change."
+            },
+            {
+                "question": "Why do Catuneanu & Zecchin (2020) call parasequences “allostratigraphic misfits” in sequence stratigraphy?",
+                "options": ["Flooding surfaces can only be demonstrated in coastal and shallow-water settings, so parasequences are smaller in extent than systems tracts and are not universal building blocks", "Because parasequences are bounded by subaerial unconformities", "Because parasequences only occur in carbonate systems", "Because parasequences are always deepening-upward"],
+                "correct": 0,
+                "explanation": "A flooding surface is an allostratigraphic contact defined by abrupt deepening. Upstream and in deep water it cannot be recognised, so systems tracts do not always consist of parasequences."
+            },
+            {
+                "question": "A core shows offshore mudstone grading up into shoreface sandstone and then rooted coastal-plain mudstone. What does Walther’s Law let you infer?",
+                "options": ["That offshore, shoreface and coastal plain once lay side by side, and the shoreline prograded across the site", "That sea level fell", "That the three units have the same age", "Nothing, because Walther’s Law applies only across unconformities"],
+                "correct": 0,
+                "explanation": "Within a conformable, genetically related succession, a vertical change of facies implies a corresponding lateral shift. Note that progradation alone does not tell you whether relative sea level rose or fell."
+            },
+            {
+                "question": "Braided-fluvial conglomerate lies on offshore mudstone across a sharp, erosional contact. Why should you not apply Walther’s Law across it?",
+                "options": ["The facies were never neighbours: the shoreface and coastal environments between them are missing, so the contact may be an unconformity separating genetically unrelated strata", "Because conglomerates never follow mudstones in nature", "Because Walther’s Law applies only to carbonates", "Because the contact is a maximum flooding surface"],
+                "correct": 0,
+                "explanation": "Vertical changes across sequence-bounding unconformities may juxtapose unrelated successions and must not be used to reconstruct one time slice (Catuneanu, 2006, p. 21)."
+            },
+            {
+                "question": "In a thick, uniform braided-fluvial sandstone, how might a cryptic subaerial unconformity be identified?",
+                "options": ["By petrographic changes in framework-grain composition (provenance) or in diagenetic minerals across a surface", "It cannot be identified by any means", "By counting channel scours: the deepest scour is the unconformity", "By assuming one unconformity every 10 m"],
+                "correct": 0,
+                "explanation": "Where facies and paleocurrents do not change, petrography may provide the only solid criteria (Miall, 1999, in Catuneanu, 2006, p. 22; e.g. the Lower Castlegate Sandstone)."
+            },
+            {
+                "question": "A 2-m coarsening-upward sandstone occurs within rooted floodplain mudstone of a meandering-river succession. The most likely interpretation is:",
+                "options": ["A crevasse splay building into the floodplain, not a record of shoreline progradation", "A prograding shoreface, because all coarsening-upward units record progradation of a shoreline", "A transgressive lag", "A maximum flooding surface"],
+                "correct": 0,
+                "explanation": "A trend alone is not an interpretation. Trend + facies + the nature of the contacts are needed; here the facies context is entirely fluvial."
+            },
+            {
+                "question": "Successive upward-shallowing units each step landward. Which balance does this record?",
+                "options": ["Accommodation outpacing sedimentation: retrogradational stacking", "Sedimentation outpacing accommodation: progradational stacking", "Sedimentation equal to accommodation: aggradational stacking", "A relative sea-level fall"],
+                "correct": 0,
+                "explanation": "Retrogradational stacking records a landward shift of successive units, as during transgression."
+            },
+            {
+                "question": "In Catuneanu (2006, Fig. 1.15), formation A of the lithostratigraphic section groups braided, estuary-mouth and upper delta-front sandstones. What is the main consequence?",
+                "options": ["Formation A mixes environments and ages, so its map says where sand is but gives little insight into paleogeography or into where sand will be away from the data", "Formation A is a systems tract", "Formation A is bounded by time lines", "Formation A must be a single depositional system"],
+                "correct": 0,
+                "explanation": "Lithostratigraphic units provide descriptive information on lithological distribution and may be of little use for prediction away from known data points (Catuneanu, 2006, p. 12)."
+            },
+            {
+                "question": "In the correlation workflow, when are within-trend facies contacts placed?",
+                "options": ["Last, after the framework of key surfaces has been correlated", "First, because they are the easiest to see", "Never: facies contacts are ignored in sequence stratigraphy", "Only where they coincide with formation boundaries"],
+                "correct": 0,
+                "explanation": "The framework is built by correlating key surfaces; facies contacts are added afterwards (Catuneanu, 2006, caption of Fig. 1.15)."
+            }
+        ];
+
+        quizQuestions.forEach(q => {
+            const right = q.options[q.correct];
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+            q.correct = q.options.indexOf(right);
+        });
+
+        let currentQuestion = 0, score = 0, answered = false;
+        function startQuiz() { document.querySelector('.start-quiz-btn').style.display = 'none'; currentQuestion = 0; score = 0; answered = false; loadQuestion(); }
+        function loadQuestion() { const q = quizQuestions[currentQuestion]; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card"><div class="quiz-progress"><div class="progress-text">Question ${currentQuestion + 1} of ${quizQuestions.length}</div><div class="progress-bar"><div class="progress-fill" style="width: ${((currentQuestion + 1) / quizQuestions.length) * 100}%"></div></div></div><div class="question-text">${q.question}</div><div class="options-container">${q.options.map((opt, i) => `<button class="option-btn" onclick="selectAnswer(${i})" id="option-${i}"><span class="option-letter">${String.fromCharCode(65 + i)}</span><span class="option-text">${opt}</span></button>`).join('')}</div><div id="feedback" class="feedback-box"></div><div class="quiz-navigation"><button onclick="previousQuestion()" class="quiz-nav-btn" ${currentQuestion === 0 ? 'disabled' : ''}>← Previous</button><button onclick="nextQuestion()" class="quiz-nav-btn" id="next-btn" disabled>${currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next →'}</button></div></div>`; }
+        function selectAnswer(index) { if (answered) return; answered = true; const q = quizQuestions[currentQuestion], isCorrect = index === q.correct; if (isCorrect) score++; document.getElementById(`option-${index}`).classList.add(isCorrect ? 'correct' : 'incorrect'); if (!isCorrect) document.getElementById(`option-${q.correct}`).classList.add('correct'); document.querySelectorAll('.option-btn').forEach(b => b.disabled = true); const fb = document.getElementById('feedback'); fb.className = 'feedback-box ' + (isCorrect ? 'correct-feedback' : 'incorrect-feedback'); fb.innerHTML = `<strong>${isCorrect ? 'Correct.' : 'Not quite.'}</strong> ${q.explanation}`; fb.style.display = 'block'; document.getElementById('next-btn').disabled = false; }
+        function nextQuestion() { if (currentQuestion < quizQuestions.length - 1) { currentQuestion++; answered = false; loadQuestion(); } else { showResults(); } }
+        function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; answered = false; loadQuestion(); } }
+        function showResults() { const percentage = Math.round((score / quizQuestions.length) * 100); let message; if (percentage >= 90) message = 'Outstanding.'; else if (percentage >= 75) message = 'Great work.'; else if (percentage >= 60) message = 'Good effort.'; else message = 'Revisit the sections behind the questions you missed (surfaces and time: Part I; facies, Walther’s Law and trends: Part II; correlation: Part III) and try again.'; document.getElementById('quiz-container').innerHTML = `<div class="quiz-card results-card"><h3>${message}</h3><div class="score-display"><span class="score-number">${score}</span> / ${quizQuestions.length}</div><div class="percentage">${percentage}%</div><button onclick="startQuiz()" class="start-quiz-btn" style="margin-top: 20px; display:inline-block;">Retake Quiz</button></div>`; }
+    </script>
+</body>
+</html>
